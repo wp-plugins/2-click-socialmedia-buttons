@@ -23,7 +23,7 @@
 /* Switch end */
 
 /* Tooltips begin */
-.social_share_privacy_area li.help_info {position:relative;}
+.social_share_privacy_area li.help_info {position:relative; padding:0 !important;}
 .social_share_privacy_area li.help_info .info, .social_share_privacy_area li .help_info.icon .info {display:none; position:absolute; bottom:40px; left:-10px; width:290px; padding:10px 15px; font-size:12px; line-height:16px; font-weight:bold; border:1px solid #ccc; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; -moz-box-shadow:0 3px 4px #999; -webkit-box-shadow:0 3px 4px #999; box-shadow:0 3px 4px #999; background-color:#fdfbec; color:#000; z-index:500;}
 .social_share_privacy_area li .help_info.icon .info {left:-150px; width:350px;}
 .social_share_privacy_area li.help_info.display .info, .social_share_privacy_area li .help_info.icon.display .info {display:block;}
