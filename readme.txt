@@ -4,7 +4,7 @@ Donate link:
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
 Tested up to: 3.2
-Stable tag: 0.3
+Stable tag: 0.4
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -41,6 +41,13 @@ Nutze dafür einfach dein Dashboard
 
 
 == Changelog ==
+= 0.4 =
+* (06. 09. 2011)
+* Neu: Einstellungsseite (Zu finden unter "Einstellungen" -> "2-Klick-Buttons").
+* Fix: jQuery wird nun geladen (hoffe ich).
+* Fix: Benötigte Option für Facebook App-ID ins das JavaScript eingebunden
+* jQuery angepasst.
+
 = 0.3 =
 * (05. 09. 2011)
 * Fix: CSS angepasst um ungewolltes Padding zu verhindern.
