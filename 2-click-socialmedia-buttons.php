@@ -3,52 +3,76 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-socialmedia-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.3
+ * Version: 0.4
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.3');
-//if(!defined('PPFEUFER_FLATTRSCRIPT')) {
-//	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
-//}
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.4');
+if(!defined('PPFEUFER_FLATTRSCRIPT')) {
+	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
+}
+
+/**
+ * Optionen auslesen.
+ * @param string $parameter
+ * @since 0.4
+ */
+function twoclick_buttons_get_option($parameter = '') {
+	/**
+	 * Prüfen ob das Formular abgesendet wurde.
+	 * Wenn nicht, importiere $twoclick_buttons_options,
+	 * ansonsten lade sie neu.
+	 */
+	if(!isset($_POST)) {
+		global $twoclick_buttons_options;
+	} else {
+		$twoclick_buttons_options = get_option('twoclick_buttons_settings');
+	}
+
+	if ($parameter == '') {
+		return $twoclick_buttons_options;
+	} else {
+		return $twoclick_buttons_options[$parameter];
+	}
+}
 
 /**
  * Button Menü zum Dashboard hinzufügen.
  *
- * @since coming soon
+ * @since 0.4
  */
-//function twoclick_buttons_options() {
+function twoclick_buttons_options() {
 //	add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/icon.png') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
-//	add_options_page('2-Klick-Buttons', '2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
-//}
+	add_options_page('2-Klick-Buttons', '2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
+}
 
 /**
  * Optionsseite generieren.
- * @since coming soon
+ * @since 0.4
  */
-//function twoclick_buttons_options_page() {
-//	/**
-//	 * JavaScript für Flattr einfügen
-//	 */
-//	if(!defined('PPFEUFER_FLATTRSCRIPT_IS_LOADED')) {
-//		echo '<script type="text/javascript" src="' . PPFEUFER_FLATTRSCRIPT . '"></script>';
-//		define('PPFEUFER_FLATTRSCRIPT_IS_LOADED', true);
-//	}
-//
-//	/**
-//	 * Status von $_POST abfangen.
-//	 */
-//	if(!empty($_POST)) {
-//		/**
-//		 * Validate the nonce.
-//		 */
-//		check_admin_referer('twoclick-buttons-options');
-//
-//		if($_POST['twoclick_buttons_settings']['twoclick_buttons_maintenance_reset']) {
-//			/**
-//			 * Resetting options to defaults.
-//			 */
+function twoclick_buttons_options_page() {
+	/**
+	 * JavaScript für Flattr einfügen
+	 */
+	if(!defined('PPFEUFER_FLATTRSCRIPT_IS_LOADED')) {
+		echo '<script type="text/javascript" src="' . PPFEUFER_FLATTRSCRIPT . '"></script>';
+		define('PPFEUFER_FLATTRSCRIPT_IS_LOADED', true);
+	}
+
+	/**
+	 * Status von $_POST abfangen.
+	 */
+	if(!empty($_POST)) {
+		/**
+		 * Validate the nonce.
+		 */
+		check_admin_referer('twoclick-buttons-options');
+
+		if($_POST['twoclick_buttons_settings']['twoclick_buttons_maintenance_reset']) {
+			/**
+			 * Resetting options to defaults.
+			 */
 //			twoclick_buttons_reset_options();
 //
 //			echo '<div id="message" class="updated fade">';
@@ -56,10 +80,10 @@ define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.3');
 //			_e('Settings resetted.', 'twoclick-buttons');
 //			echo '</strong></p>';
 //			echo '</div>';
-//		} elseif($_POST['twoclick_buttons_settings']['twoclick_buttons_maintenance_clear']) {
-//			/**
-//			 * Deleting all options from database.
-//			 */
+		} elseif($_POST['twoclick_buttons_settings']['twoclick_buttons_maintenance_clear']) {
+			/**
+			 * Deleting all options from database.
+			 */
 //			twoclick_buttons_delete_options();
 //
 //			echo '<div id="message" class="updated fade">';
@@ -67,30 +91,73 @@ define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.3');
 //			_e('Settings deleted.', 'twoclick-buttons');
 //			echo '</strong></p>';
 //			echo '</div>';
-//		} else {
-//			/**
-//			 * Writing new options to database.
-//			 * @var array
-//			 */
-//			$array_Options = array(
-//				'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
+		} else {
+			/**
+			 * Writing new options to database.
+			 * @var array
+			 */
+			$array_Options = array(
+				'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
 //				'twoclick_buttons_where' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_where']),
+				'twoclick_buttons_facebook_appID' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_appID']),
+				'twoclick_buttons_twitter_reply' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_twitter_reply']),
 //				'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
 //				'twoclick_buttons_display_front' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_front'])),
 //				'twoclick_buttons_display_archive' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_archive'])),
 //				'twoclick_buttons_display_category' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_category'])),
-//			);
-//
-//			twoclick_buttons_update_options($array_Options);
-//
-//			echo '<div id="message" class="updated fade">';
-//			echo '<p><strong>';
-//			_e('Settings saved.', 'twoclick-buttons');
-//			echo '</strong></p>';
-//			echo '</div>';
-//		}
-//	}
-//}
+			);
+
+			twoclick_buttons_update_options($array_Options);
+
+			echo '<div id="message" class="updated fade">';
+			echo '<p><strong>Einstellungen gespeichert</strong></p>';
+			echo '</div>';
+		}
+	}
+	?>
+	<div class="wrap">
+		<div class="icon32" id="icon-options-general"><br /></div>
+		<h2>Einstellungen für 2-Click Social Media Buttons</h2>
+		<form method="post" action="" id="twoclick-buttons-options">
+			<?php wp_nonce_field('twoclick-buttons-options'); ?>
+			<div style="float:right; text-align:center; width:120px;">
+				Spendier mir nen Kaffee, wenn Dir das Plugin gefällt :-)<br />
+				<a class="FlattrButton" style="display:none;" href="http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/"></a>
+			</div>
+			<table class="form-table" style="clear:none;">
+				<tr>
+					<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_facebook_appID]">Facebook APP-ID</label></th>
+					<td>
+						<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_facebook_appID'); ?>" name="twoclick_buttons_settings[twoclick_buttons_facebook_appID]" id="twoclick_buttons_settings[twoclick_buttons_facebook_appID]" class="required" minlength="2" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_twitter_reply]">Twittername</label></th>
+					<td>
+						RT @<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_twitter_reply'); ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" id="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" class="required" minlength="2" />
+						<span class="description">Bitte benutze das Format 'deinname', <strong>nicht</strong> 'RT @deinname'.</span>
+					</td>
+				</tr>
+			</table>
+			<p>Hinweis zur Facebook App-ID<br />
+				<br />
+				Für den "Empfehlen"-Button von Facebook benötigt man eine Facebook App-ID. Diese kann man sich mit seinem verifizierten Facebook-Konto auf den Developer-Seiten erzeugen.<br />
+				<br />
+				Einloggen bei Facebook<br />
+				Konto verifizieren mittels Handy-Nummer (oder Kreditkartendaten)<br />
+				<a href="https://www.facebook.com/settings?tab=mobile">https://www.facebook.com/settings?tab=mobile</a> Option Handy-Nr.:<br />
+				Handy-Nr. eintragen und anschließend per SMS empfangenen Bestätigungscode in das Feld auf der rechten Seite eintragen.<br />
+				Entwickler-Seite aufrufen<br />
+				<a href="http://developers.facebook.com/docs/reference/plugins/like/">http://developers.facebook.com/docs/reference/plugins/like/</a><br />
+				Dort in der Box unter "Step 1" auf "Get Code" klicken und die App-ID aus dem angezeigten Code-Teil entnehmen.<br />
+			</p>
+			<p class="submit">
+				<input type="submit" name="Submit" value="<?php _e('Save Changes', 'wp-twitter-button'); ?>" />
+			</p>
+		</form>
+	</div>
+	<?php
+}
 
 /**
  * Buttons in WordPress einbauen..
@@ -146,6 +213,22 @@ function twoclick_buttons_footer() {
 		$var_sJavaScript = plugins_url(basename(dirname(__FILE__)) . '/js/social_bookmarks.js');
 		wp_enqueue_script('jquery');
 		echo '<!-- 2-Click Social Media Buttons by H.-Peter Pfeufer -->' . "\n" . '<script type="text/javascript" src="' . $var_sJavaScript . '"></script>';
+		echo '<script type="text/javascript">
+		jQuery(document).ready(function($){
+			if($(\'.twoclick_social_bookmarks\')){
+				$(\'.twoclick_social_bookmarks\').socialSharePrivacy({
+					services : {
+						facebook : {
+							\'app_id\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_appID') . '\'
+						},
+						twitter : {
+							\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\'
+						}
+					}
+				});
+			}
+		});
+		</script>';
 	}
 }
 
@@ -216,19 +299,57 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 } // END if(!function_exists('twoclick_buttons_update_notice'))
 
 /**
+ * Variablen registrieren.
+ * @since 0.4
+ */
+function twoclick_buttons_init() {
+	if(function_exists('register_setting')) {
+		register_setting('twoclick_buttons-options', 'twoclick_buttons_settings');
+	}
+
+	/**
+	 * Sprachdatei wählen
+	 */
+//	if(function_exists('load_plugin_textdomain')) {
+//		load_plugin_textdomain('wp-twitter-button', false, dirname(plugin_basename( __FILE__ )) . '/languages/');
+//	}
+}
+
+/**
+ * Optionen updaten ...
+ *
+ * @param array $array_Data
+ * @since 0.4
+ */
+function twoclick_buttons_update_options($array_Data) {
+	$array_Options = array_merge((array) get_option('twoclick_buttons_settings'), $array_Data);
+
+	update_option('twoclick_buttons_settings', $array_Options);
+	wp_cache_set('twoclick_buttons_settings', $array_Options);
+
+	return;
+}
+
+/**
  * Actions abfeuern.
  *
  * @since 0.1
  */
-//if(!is_admin()) {
-//	wp_enqueue_script('jquery');
-//}
-add_action('wp_head', 'twoclick_buttons_head');
-add_action('wp_footer', 'twoclick_buttons_footer');
+if(!is_admin()) {
+	/**
+	 * jQuery einbinden.
+	 * @since 0.4
+	 */
+	wp_enqueue_script('jquery');
+
+	// Aktionen
+	add_action('wp_head', 'twoclick_buttons_head');
+	add_action('wp_footer', 'twoclick_buttons_footer');
+}
 /* Nur wenn User auch der Admin ist, sind die Adminoptionen zu sehen */
 if(is_admin()) {
-//	add_action('admin_menu', 'twoclick_buttons_options');
-//	add_action('admin_init', 'twoclick_buttons_init');
+	add_action('admin_menu', 'twoclick_buttons_options');
+	add_action('admin_init', 'twoclick_buttons_init');
 
 	// Updatemeldung
 	if(ini_get('allow_url_fopen') || function_exists('curl_init')) {
