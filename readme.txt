@@ -4,7 +4,7 @@ Donate link:
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
 Tested up to: 3.2
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -41,7 +41,11 @@ Nutze dafür einfach dein Dashboard
 
 
 == Changelog ==
-= 0.4 =
+= 0.5.1 =
+* (07. 09. 2011)
+* Fix: readme.txt
+
+= 0.5 =
 * (07. 09. 2011)
 * Fix: Rahmen für Bilder im CSS entfernt.
 * Fix: Optionsname für Google+ im Javascript richtig gestellt.
