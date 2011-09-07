@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-socialmedia-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.4
+ * Version: 0.5
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.4');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.5');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -98,10 +98,10 @@ function twoclick_buttons_options_page() {
 			 */
 			$array_Options = array(
 				'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
-//				'twoclick_buttons_where' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_where']),
+				'twoclick_buttons_where' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_where']),
 				'twoclick_buttons_facebook_appID' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_appID']),
 				'twoclick_buttons_twitter_reply' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_twitter_reply']),
-//				'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
+				'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
 //				'twoclick_buttons_display_front' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_front'])),
 //				'twoclick_buttons_display_archive' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_archive'])),
 //				'twoclick_buttons_display_category' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_category'])),
@@ -125,6 +125,32 @@ function twoclick_buttons_options_page() {
 				<a class="FlattrButton" style="display:none;" href="http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/"></a>
 			</div>
 			<table class="form-table" style="clear:none;">
+				<tr>
+					<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_where]">Anzeige</label></th>
+					<td>
+						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_page') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_page]" id="twoclick_buttons_settings[twoclick_buttons_display_page]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_page]">Auch auf CMS-Seiten anzeigen</label>
+						</div>
+						<div>
+							In den Einzelartikeln wird das Plugin per default eingebunden. Dies bedarf keiner Option.
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_where]">Position</label></th>
+					<td>
+						<select name="twoclick_buttons_settings[twoclick_buttons_where]">
+							<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'before') echo 'selected="selected"'; ?> value="before">Vor dem Artikel</option>
+							<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'after') echo 'selected="selected"'; ?> value="after">Nach dem Artikel</option>
+							<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'shortcode') echo 'selected="selected"'; ?> value="shortcode">Manuell (Shortcode)</option>
+						</select>
+						<div>
+							Ist die Option "Manuell" gewählt, so können die Buttons mittels des Shortcodes <strong>[twoclick_buttons]</strong> in den Artikel eingebunden werden.<br />
+						</div>
+						<div style="background-color:#ffebe8; border:1px solid #c00;">Bitte beachte unbedingt, dies nicht zu tun, wenn die Buttons dadurch auf der Startseite auftauchen könnten, da es auf Grund der Struktur des Scriptes noch Probleme mit der Einbindung auf der Startseite gibt.</div>
+					</td>
+				</tr>
 				<tr>
 					<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_facebook_appID]">Facebook APP-ID</label></th>
 					<td>
@@ -172,10 +198,110 @@ function twoclick_buttons($content) {
 	/**
 	 * Nach dem Beitrag (Einzelseite) einfügen.
 	 */
-	if(is_singular()) {
-		return $content . $var_sHtml;
-	} else {
+//	if(is_singular()) {
+//		if(twoclick_buttons_get_option('twoclick_buttons_where') == 'manual') {
+//			return $content;
+//		}
+//		if(twoclick_buttons_get_option('twoclick_buttons__display_page') == null && is_page()) {
+//			return $content;
+//		}
+//
+//		if(twoclick_buttons_get_option('twoclick_buttons_where') == 'before') {
+//			return $var_sHtml . $content;
+//		} elseif(twoclick_buttons_get_option('twoclick_buttons_where') == 'after') {
+//			return $content . $var_sHtml;
+//		}
+//	} else {
+//		return $content;
+//	}
+
+/**
+	 * Manual Option
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_where') == 'manual') {
 		return $content;
+	}
+
+	/**
+	 * Sind wir auf einer CMS-Seite?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_page') == null && is_page()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir auf der Startseite?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_front') == null && is_home()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir in der Achiveanzeige?
+	 * @since 1.4.0
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_archive') == null && is_archive()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir in der Kategorieanzeige?
+	 * @since 1.4.0
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_category') == null && is_category()) {
+		return $content;
+	}
+
+	/**
+	 * Ist es ein Feed
+	 */
+//	if(is_feed()) {
+//		$button = twoclick_buttons_generate_html();
+//		$where = 'twoclick_buttons_rss_where';
+//	} else {
+		$button = twoclick_buttons_generate_html();
+		$where = 'twoclick_buttons_where';
+//	}
+
+	/**
+	 * Soll der Button im Feed ausgeblendet werden?
+	 */
+	if(is_feed() && twoclick_buttons_get_option('twoclick_buttons_display_feed') == null) {
+		return $content;
+	}
+
+	/**
+	 * Wurde der Shortcode genutzt
+	 */
+	if(twoclick_buttons_get_option($where) == 'shortcode') {
+		return str_replace('[twoclick_buttons]', $button, $content);
+	} else {
+		/**
+		 * Wenn wir den Button abgeschalten haben
+		 */
+		if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
+			if(twoclick_buttons_get_option($where) == 'beforeandafter') {
+				/**
+				 * Vor und nach dem Beitrag einfügen
+				 */
+				return $button . $content . $button;
+			} else if(twoclick_buttons_get_option($where) == 'before') {
+				/**
+				 * Vor dem Beitrag einfügen
+				 */
+				return $button . $content;
+			} else {
+				/**
+				 * Nach dem Beitrag einfügen
+				 */
+				return $content . $button;
+			}
+		} else {
+			/**
+			 * Keinen Button einfügen
+			 */
+			return $content;
+		}
 	}
 }
 
@@ -211,6 +337,12 @@ function twoclick_buttons_head() {
 function twoclick_buttons_footer() {
 	if(!is_admin()) {
 		$var_sJavaScript = plugins_url(basename(dirname(__FILE__)) . '/js/social_bookmarks.js');
+		$var_sCss = plugins_url(basename(dirname(__FILE__)) . '/css/socialshareprivacy.css');
+		$array_DummyIMages = array(
+			'facebook-dummy-image' => plugins_url(basename(dirname(__FILE__)) . '/images/empfehlen.png'),
+			'twitter-dummy-image' => plugins_url(basename(dirname(__FILE__)) . '/images/tweet.png'),
+			'googleplus-dummy-image' => plugins_url(basename(dirname(__FILE__)) . '/images/gplusone.png')
+		);
 		wp_enqueue_script('jquery');
 		echo '<!-- 2-Click Social Media Buttons by H.-Peter Pfeufer -->' . "\n" . '<script type="text/javascript" src="' . $var_sJavaScript . '"></script>';
 		echo '<script type="text/javascript">
@@ -219,11 +351,17 @@ function twoclick_buttons_footer() {
 				$(\'.twoclick_social_bookmarks\').socialSharePrivacy({
 					services : {
 						facebook : {
-							\'app_id\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_appID') . '\'
+							\'app_id\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_appID') . '\',
+							\'dummy_img\'	: \'' . $array_DummyIMages['facebook-dummy-image'] . '\'
 						},
 						twitter : {
-							\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\'
-						}
+							\'reply_to\'	: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
+							\'dummy_img\'	: \'' . $array_DummyIMages['twitter-dummy-image'] . '\'
+						},
+						gplus : {
+							\'dummy_img\'	: \'' . $array_DummyIMages['googleplus-dummy-image'] . '\'
+						},
+						\'css_path\'		: \'' . $var_sCss . '\'
 					}
 				});
 			}
