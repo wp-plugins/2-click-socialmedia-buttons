@@ -1,5 +1,6 @@
-.twoclick_social_bookmarks {clear:both; margin:0 auto; width:505px;}
-.social_share_privacy_area {clear:both; margin:20px 0; list-style-type:none; padding:0; height:25px;}
+/*.twoclick_social_bookmarks {clear:both; margin:0 auto; width:510px;}*/
+.twoclick_social_bookmarks {clear:both; margin-left:auto; margin-right:auto;}
+.social_share_privacy_area {clear:both; margin:20px 0; list-style-type:none !important; padding:0; height:25px;}
 .social_share_privacy_area li {margin:0; padding:0; height:20px; float:left;}
 .social_share_privacy_area li .dummy_btn {float:left; margin-left:10px; cursor:pointer;}
 
@@ -49,3 +50,6 @@
 
 /* Settings/Info end */
 #mitte #mitte_links, #mitte #mitte_news {overflow:visible !important; color:#151515;}
+
+/* Remove Imageborders */
+img.tweet_this_dummy, img.fb_like_privacy_dummy, img.gplus_one_dummy {border:none;}

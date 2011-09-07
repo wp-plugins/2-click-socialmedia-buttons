@@ -5,7 +5,8 @@
 				'facebook' : {
 					'status'			: 'on',
 					'app_id'			: '',
-					'dummy_img'			: 'empfehlen.png',
+//					'dummy_img'			: 'empfehlen.png',
+					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_fb_off'		: 'nicht mit Facebook verbunden',
 					'txt_fb_on'			: 'mit Facebook verbunden',
@@ -15,7 +16,8 @@
 				},
 				'twitter' : {
 					'status'			: 'on',
-					'dummy_img'			: 'tweet.png',
+//					'dummy_img'			: 'tweet.png',
+					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_twitter_off'	: 'nicht mit Twitter verbunden',
 					'txt_twitter_on'	: 'mit Twitter verbunden',
@@ -27,7 +29,8 @@
 				},
 				'gplus' : {
 					'status'			: 'on',
-					'dummy_img'			: 'gplusone.png',
+//					'dummy_img'			: 'gplusone.png',
+					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Google+ verbunden',
 					'txt_plus_on'		: 'mit Google+ verbunden',
@@ -41,25 +44,27 @@
 			'settings_perma'	: 'Dauerhaft aktivieren und Daten&uuml;ber&shy;tragung zustimmen:',
 			'cookie_path'		: '/',
 			'cookie_domain'		: document.location.host,
-			'cookie_expires'	: '365'
+			'cookie_expires'	: '365',
+			'css_path'			: ''
 		};
 
 		var options = $.extend(true, defaults, options);
 
-		var script = document.getElementsByTagName('script'), path;
-		for (var i = 0, iMax = script.length; i < iMax; i++) {
-			var regexp = /click-socialmedia-buttons\/js\/social_bookmarks\.js$/g,
-			src = script[i].src;
-			if(regexp.test(src)) {
-				path = src.split('/');
-				path.pop();
-				path.pop();
-				path = path.join('/') + '/';
-			}
-		}
+//		var script = document.getElementsByTagName('script'), path;
+//		for (var i = 0, iMax = script.length; i < iMax; i++) {
+//			var regexp = /click-socialmedia-buttons\/js\/social_bookmarks\.js$/g,
+//			src = script[i].src;
+//			if(regexp.test(src)) {
+//				path = src.split('/');
+//				path.pop();
+//				path.pop();
+//				path = path.join('/') + '/';
+//			}
+//		}
 
-		if(options.services.facebook.status == 'on' || options.services.twitter.status == 'on' || options.services.gplusone.status == 'on'){
-			$('head').append('<link rel="stylesheet" type="text/css" href="' + path + 'css/socialshareprivacy.css" />');
+		if(options.services.facebook.status == 'on' || options.services.twitter.status == 'on' || options.services.gplus.status == 'on'){
+//			$('head').append('<link rel="stylesheet" type="text/css" href="' + path + 'css/socialshareprivacy.css" />');
+			$('head').append('<link rel="stylesheet" type="text/css" href="' + options.css_path + '" />');
 			$(this).prepend('<ul class="social_share_privacy_area"></ul>');
 			var context = $('.social_share_privacy_area', this);
 			var uri = document.location.href;
@@ -112,7 +117,7 @@
 				if(options.services.facebook.app_id != '__FB_APP-ID__'){
 					var fb_enc_uri = encodeURIComponent(uri+options.services.facebook.referrer_track);
 					var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=de_DE&amp;app_id='+options.services.facebook.app_id+'&amp;href='+fb_enc_uri+'&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
-					var fb_dummy_btn = '<img src="' + path + 'images/'+options.services.facebook.dummy_img+'" alt="Facebook &quot;Empfehlen&quot;-Dummy" class="fb_like_privacy_dummy" />';
+					var fb_dummy_btn = '<img src="'+options.services.facebook.dummy_img+'" alt="Facebook &quot;Empfehlen&quot;-Dummy" class="fb_like_privacy_dummy" />';
 	
 					context.append('<li class="facebook help_info"><span class="info">'+options.services.facebook.txt_info+'</span><span class="switch off">'+options.services.facebook.txt_fb_off+'</span><div class="fb_like dummy_btn">'+fb_dummy_btn+'</div></li>');
 
@@ -149,7 +154,7 @@
 				var twitter_enc_uri = encodeURIComponent(uri+options.services.twitter.referrer_track);
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url='+twitter_enc_uri+'&amp;counturl='+twitter_count_url+'&amp;text='+text+'&amp;via='+options.services.twitter.reply_to+'&amp;count=horizontal"></iframe>';
-				var twitter_dummy_btn = '<img src="' + path + 'images/'+options.services.twitter.dummy_img+'" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy" />';
+				var twitter_dummy_btn = '<img src="'+options.services.twitter.dummy_img+'" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy" />';
 
 				context.append('<li class="twitter help_info"><span class="info">'+options.services.twitter.txt_info+'</span><span class="switch off">'+options.services.twitter.txt_twitter_off+'</span><div class="tweet dummy_btn">'+twitter_dummy_btn+'</div></li>');
 
@@ -173,7 +178,7 @@
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
 				var gplus_uri = uri+options.services.gplus.referrer_track;
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="'+gplus_uri+'"></div><script type="text/javascript">window.___gcfg = {lang: "'+options.services.gplus.language+'"}; (function(){ var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-				var gplus_dummy_btn = '<img src="' + path + 'images/'+options.services.gplus.dummy_img+'" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
+				var gplus_dummy_btn = '<img src="'+options.services.gplus.dummy_img+'" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
 
 				context.append('<li class="gplus help_info"><span class="info">'+options.services.gplus.txt_info+'</span><span class="switch off">'+options.services.gplus.txt_gplus_off+'</span><div class="gplusone dummy_btn">'+gplus_dummy_btn+'</div></li>');
 
