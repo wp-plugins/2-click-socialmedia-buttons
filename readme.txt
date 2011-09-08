@@ -3,8 +3,8 @@ Contributors: ppfeufer
 Donate link:
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
-Tested up to: 3.2
-Stable tag: 0.5.2
+Tested up to: 3.3-aortic-dissection
+Stable tag: 0.6
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -41,9 +41,13 @@ Nutze dafür einfach dein Dashboard
 
 
 == Changelog ==
-= 0.5.2 =
-* (07. 09. 2011)
-* Fix: Plugindaten in der PHP-Datei.
+= 0.6 =
+* (08. 09. 2011)
+* Neu: Anzeige auch für die Artikelübersicht.
+* Neu: Auswahl welche Buttons angezeigt werden sollen.
+* Neu: Auswahl welcher Button permanent aktiviert werden darf.
+
+<strong>Wichtig:</strong> Bitte werft nach dem Update einen Blick in die Einstellungen, da die Buttons per default ausgeblendet sind.
 
 = 0.5.1 =
 * (07. 09. 2011)

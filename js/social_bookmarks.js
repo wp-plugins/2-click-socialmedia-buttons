@@ -5,18 +5,17 @@
 				'facebook' : {
 					'status'			: 'on',
 					'app_id'			: '',
-//					'dummy_img'			: 'empfehlen.png',
 					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_fb_off'		: 'nicht mit Facebook verbunden',
 					'txt_fb_on'			: 'mit Facebook verbunden',
 					'perma_option'		: 'on',
 					'display_name'		: 'Facebook',
-					'referrer_track'	: ''
+					'referrer_track'	: '',
+					'the_permalink'		: document.location.host
 				},
 				'twitter' : {
 					'status'			: 'on',
-//					'dummy_img'			: 'tweet.png',
 					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_twitter_off'	: 'nicht mit Twitter verbunden',
@@ -24,19 +23,20 @@
 					'perma_option'		: 'on',
 					'display_name'		: 'Twitter',
 					'reply_to'			: '', 
-					'tweet_text'		: getTweetText,
-					'referrer_track'	: ''
+					'tweet_text'		: '',
+					'referrer_track'	: '',
+					'the_permalink'		: document.location.host
 				},
 				'gplus' : {
 					'status'			: 'on',
-//					'dummy_img'			: 'gplusone.png',
 					'dummy_img'			: '',
 					'txt_info'			: '2 Klicks f&uuml;r mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k&ouml;nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte &uuml;bertragen &ndash; siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Google+ verbunden',
 					'txt_plus_on'		: 'mit Google+ verbunden',
 					'perma_option'		: 'on',
 					'display_name'		: 'Google+',
-					'referrer_track'	: ''
+					'referrer_track'	: '',
+					'the_permalink'		: document.location.host
 				}
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
@@ -50,31 +50,10 @@
 
 		var options = $.extend(true, defaults, options);
 
-//		var script = document.getElementsByTagName('script'), path;
-//		for (var i = 0, iMax = script.length; i < iMax; i++) {
-//			var regexp = /click-socialmedia-buttons\/js\/social_bookmarks\.js$/g,
-//			src = script[i].src;
-//			if(regexp.test(src)) {
-//				path = src.split('/');
-//				path.pop();
-//				path.pop();
-//				path = path.join('/') + '/';
-//			}
-//		}
-
 		if(options.services.facebook.status == 'on' || options.services.twitter.status == 'on' || options.services.gplus.status == 'on'){
-//			$('head').append('<link rel="stylesheet" type="text/css" href="' + path + 'css/socialshareprivacy.css" />');
 			$('head').append('<link rel="stylesheet" type="text/css" href="' + options.css_path + '" />');
 			$(this).prepend('<ul class="social_share_privacy_area"></ul>');
 			var context = $('.social_share_privacy_area', this);
-			var uri = document.location.href;
-			var canonical = $("link[rel=canonical]").attr("href");
-			if(canonical) {
-//				if(canonical.indexOf("http") <= 0) {
-//					canonical = document.location.protocol + "//" + document.location.host + document.location.port + canonical;
-//				}
-				uri = canonical;
-			}
 		}
 
 		// Text kuerzen und am Ende mit … versehen, sofern er abgekuerzt werden musste
@@ -96,30 +75,18 @@
 			return metaContent ? metaContent : '';
 		}
 
-		function getTweetText(){
-			// Titel aus <meta name="DC.title"> und <meta name="DC.creator"> wenn vorhanden, sonst <title>
-			var title = getMeta('DC.title');
-			var creator = getMeta('DC.creator');
-			if(title.length > 0){
-				if(creator.length > 0){
-					title = title+' - '+creator;
-				}
-			} else {
-				title = $('title').text();
-			}
-			return encodeURIComponent(title);
-		}
-
 		return this.each(function(){
 			// Facebook
 			if(options.services.facebook.status == 'on'){
 				// Kontrolle ob Facebook App-ID hinterlegt ist, da diese noetig fuer den Empfehlen-Button ist
 				if(options.services.facebook.app_id != '__FB_APP-ID__'){
-					var fb_enc_uri = encodeURIComponent(uri+options.services.facebook.referrer_track);
+					var fb_enc_uri = encodeURIComponent(options.services.facebook.the_permalink+options.services.facebook.referrer_track);
 					var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=de_DE&amp;app_id='+options.services.facebook.app_id+'&amp;href='+fb_enc_uri+'&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
 					var fb_dummy_btn = '<img src="'+options.services.facebook.dummy_img+'" alt="Facebook &quot;Empfehlen&quot;-Dummy" class="fb_like_privacy_dummy" />';
 	
-					context.append('<li class="facebook help_info"><span class="info">'+options.services.facebook.txt_info+'</span><span class="switch off">'+options.services.facebook.txt_fb_off+'</span><div class="fb_like dummy_btn">'+fb_dummy_btn+'</div></li>');
+					if(context) {
+						context.append('<li class="facebook help_info"><span class="info">'+options.services.facebook.txt_info+'</span><span class="switch off">'+options.services.facebook.txt_fb_off+'</span><div class="fb_like dummy_btn">'+fb_dummy_btn+'</div></li>');
+					}
 
 					var $container_fb = $('li.facebook', context);
 
@@ -151,12 +118,14 @@
 				}
 				text = abbreviateText(text,'120');
 
-				var twitter_enc_uri = encodeURIComponent(uri+options.services.twitter.referrer_track);
-				var twitter_count_url = encodeURIComponent(uri);
+				var twitter_enc_uri = encodeURIComponent(options.services.twitter.the_permalink+options.services.twitter.referrer_track);
+				var twitter_count_url = encodeURIComponent(options.services.twitter.the_permalink);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url='+twitter_enc_uri+'&amp;counturl='+twitter_count_url+'&amp;text='+text+'&amp;via='+options.services.twitter.reply_to+'&amp;count=horizontal"></iframe>';
 				var twitter_dummy_btn = '<img src="'+options.services.twitter.dummy_img+'" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy" />';
 
-				context.append('<li class="twitter help_info"><span class="info">'+options.services.twitter.txt_info+'</span><span class="switch off">'+options.services.twitter.txt_twitter_off+'</span><div class="tweet dummy_btn">'+twitter_dummy_btn+'</div></li>');
+				if(context) {
+					context.append('<li class="twitter help_info"><span class="info">'+options.services.twitter.txt_info+'</span><span class="switch off">'+options.services.twitter.txt_twitter_off+'</span><div class="tweet dummy_btn">'+twitter_dummy_btn+'</div></li>');
+				}
 
 				var $container_tw = $('li.twitter', context);
 
@@ -176,11 +145,13 @@
 			// Google+
 			if(options.services.gplus.status == 'on'){
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
-				var gplus_uri = uri+options.services.gplus.referrer_track;
+				var gplus_uri = options.services.gplus.the_permalink+options.services.gplus.referrer_track;
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="'+gplus_uri+'"></div><script type="text/javascript">window.___gcfg = {lang: "'+options.services.gplus.language+'"}; (function(){ var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
 				var gplus_dummy_btn = '<img src="'+options.services.gplus.dummy_img+'" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
 
-				context.append('<li class="gplus help_info"><span class="info">'+options.services.gplus.txt_info+'</span><span class="switch off">'+options.services.gplus.txt_gplus_off+'</span><div class="gplusone dummy_btn">'+gplus_dummy_btn+'</div></li>');
+				if(context) {
+					context.append('<li class="gplus help_info"><span class="info">'+options.services.gplus.txt_info+'</span><span class="switch off">'+options.services.gplus.txt_gplus_off+'</span><div class="gplusone dummy_btn">'+gplus_dummy_btn+'</div></li>');
+				}
 
 				var $container_gplus = $('li.gplus', context);
 
@@ -198,7 +169,9 @@
 			}
 
 			// Der Info/Settings-Bereich wird eingebunden
-			context.append('<li class="settings_info"><div class="settings_info_menu off perma_option_off"><a href="'+options.info_link+'"><span class="help_info icon"><span class="info">'+options.txt_help+'</span></span></a></div></li>');
+			if(context) {
+				context.append('<li class="settings_info"><div class="settings_info_menu off perma_option_off"><a href="'+options.info_link+'"><span class="help_info icon"><span class="info">'+options.txt_help+'</span></span></a></div></li>');
+			}
 
 			// Info-Overlays mit leichter Verzoegerung einblenden
 			$('.help_info:not(.info_off)', context).live('mouseenter', function(){
@@ -263,7 +236,7 @@
 					cookies.socialSharePrivacy_twitter == 'perma_on' ? perma_status_twitter = ' checked="checked"' : perma_status_twitter = '';
 					$container_settings_info.find('form fieldset').append('<input type="checkbox" name="perma_status_twitter" id="perma_status_twitter"'+perma_status_twitter+' /><label for="perma_status_twitter">'+options.services.twitter.display_name+'</label>');
 				}
-				if(options.services.gplus.status == 'on' && options.services.twitter.perma_option == 'on'){
+				if(options.services.gplus.status == 'on' && options.services.gplus.perma_option == 'on'){
 					var perma_status_gplus = '';
 					cookies.socialSharePrivacy_gplus == 'perma_on' ? perma_status_gplus = ' checked="checked"' : perma_status_gplus = '';
 					$container_settings_info.find('form fieldset').append('<input type="checkbox" name="perma_status_gplus" id="perma_status_gplus"'+perma_status_gplus+' /><label for="perma_status_gplus">'+options.services.gplus.display_name+'</label>');
