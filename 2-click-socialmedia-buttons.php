@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.7
+ * Version: 0.7.1
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.7');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.7.1');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -382,13 +382,23 @@ if(!function_exists('twoclick_facebook_opengraph_tags')) {
 			return;
 		}
 
+		$array_Image = '';
+
 		/* Source */
-		$array_Image = wp_get_attachment_image_src(get_post_thumbnail_id($GLOBALS['post']->ID));
+		/**
+		 * Abfrage ob das Theme Post Thumbnails unterstützt.
+		 * Einige Themes tun das einfach nicht.
+		 *
+		 * @since 0.7.1
+		 */
+		if(function_exists('get_post_thumbnail_id')) {
+			$array_Image = wp_get_attachment_image_src(get_post_thumbnail_id($GLOBALS['post']->ID));
+		}
 
 		if(is_array($array_Image)) {
 			$var_sFaceBookThumbnail = $array_Image['0'];
 		} else {
-			$var_sDefaultThumbnail = get_template_directory_uri() . '/images/ppfeufer-logo.jpg';
+			$var_sDefaultThumbnail = '';
 			$var_sOutput = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $GLOBALS['post']->post_content, $array_Matches);
 
 			if($var_sOutput > 0) {
