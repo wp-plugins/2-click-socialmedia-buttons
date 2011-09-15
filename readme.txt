@@ -4,7 +4,7 @@ Donate link:
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
 Tested up to: 3.3-aortic-dissection
-Stable tag: 0.6.1
+Stable tag: 0.7.1
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -39,8 +39,20 @@ Nutze dafür einfach dein Dashboard
 2. Hinweis bei Mouseover.
 3. Einstellungsmenü der Buttons.
 
-
 == Changelog ==
+= 0.7.1 =
+* (15. 09. 2011)
+* Fix: Funktion twoclick_facebook_opengraph_tags() - Abfrage ob das Theme Post Thumbnails unterstützt. Einige Themes tun das einfach nicht.
+
+= 0.7 =
+* (15. 09. 2011)
+* Fix: CSS - Aufzählungszeichen entfernt. Einige Themes wollen diese da reinfummeln. Sieht doof aus :-)
+* Fix: Hintergrund für die Buttons unterdrückt. Einige Themes wollen da was einbinden, sieht auch doof aus :-)
+* Fix: CSS - Checkboxen in den Cookie-Einstellungen repariert.
+* Neu: Facebook Admin-ID in den Einstellungen (Wird benötigt, um einige Probleme mit dem Like zu umgehen).
+* Neu: Artikelbild oder das erste im Artikel eingebundene Bild wird nun für Facebook hergenommen.
+* Neu: Opengraph-Tags werden nun eingebunden.
+
 = 0.6.1 =
 * (08. 09. 2011)
 * Fix: Plugin URI in den Kopfdaten.
