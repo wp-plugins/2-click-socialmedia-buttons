@@ -1,23 +1,30 @@
 === 2 Click Social Media Buttons ===
 Contributors: ppfeufer
-Donate link:
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
 Tested up to: 3.3-aortic-dissection
-Stable tag: 0.7.1
+Stable tag: 0.7.2
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
 == Description ==
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
-Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Das Plugin ist eine WordPress-Adaption der Lösung von heise.de wie in ihrem Artikel <a href="http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html">2 Klicks für mehr Datenschutz</a> beschrieben.
+Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Das Plugin ist eine WordPress-Adaption der Lösung von heise.de wie in ihrem Artikel [2 Klicks für mehr Datenschutz](http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html "2 Klicks für mehr Datenschutz auf heise online") beschrieben.
 Bisher werden die Buttons einfach in den Einzelartikeln und -seiten unter dem Artikel eingebunden. Einige Einstellungsmöglichkeiten sind noch in Planung.
 
 **Features**
 
 * Einfache Installation.
 * Einstellungen speicherbar.
+* Dein Twittername als @-reply im Tweettext.
+* Position der Buttons wählbar (vor oder nach dem Artikel).
+* Wählbar welcher Button angezeigt werden soll.
+* Wählbar ob es dem Besucher möglich sein soll, die Buttons permanent anzeigen zu lassen.
+* Anzeige auf den Artikelseiten (default, nicht änderbar).
+* Optionale Anzeige aif CMS-Seiten.
+* Optionale Anzeige in der Artikelübersicht (noch beta).
 
 == Installation ==
 
@@ -40,6 +47,12 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+= 0.7.2 =
+* (16. 09. 2011)
+* Fix: Liststyle erneut angepasst, wurde noch von einigen Themes überschrieben.
+* Fix: Z-Index angepasst damit die Buttons nicht mehr über der Lightbox liegen.
+* Fix: Verschiebung der Buttonleiste in einigen Themes behoben.
+
 = 0.7.1 =
 * (15. 09. 2011)
 * Fix: Funktion twoclick_facebook_opengraph_tags() - Abfrage ob das Theme Post Thumbnails unterstützt. Einige Themes tun das einfach nicht.
@@ -100,6 +113,8 @@ Nutze dafür einfach dein Dashboard
 == Frequently Asked Questions ==
 
 Bisher keine.
+
+Falls Du jedoch eine Frage hast, dann stell diese unter [http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/](http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
 
 == Upgrade Notice ==
 

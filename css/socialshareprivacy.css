@@ -1,6 +1,6 @@
 .social_share_privacy {clear:both; margin:0 auto; width:510px;}
-.social_share_privacy_area {clear:both; margin:20px 0; padding:0; height:25px;}
-.social_share_privacy_area li {margin:0; padding:0; height:20px; float:left; list-style-type:none; background:none !important;}
+.social_share_privacy_area {clear:both; margin:20px 0 !important; padding:0; height:25px;}
+.social_share_privacy_area li {margin:0; padding:0; height:20px; float:left; list-style-type:none !important; list-style:none !important; background:none !important;}
 .social_share_privacy_area li .dummy_btn {float:left; margin-left:10px; cursor:pointer;}
 
 /* Facebook begin */
@@ -36,7 +36,7 @@
 /* Settings/Info begin */
 .social_share_privacy_area li.settings_info {position:relative; top:-2px;}
 .social_share_privacy_area li.settings_info a {text-decoration:none; margin:0 !important;}
-.social_share_privacy_area li.settings_info .settings_info_menu {background-color:#f3f4f5; border:2px solid #e7e3e3; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; -moz-box-shadow:2px 2px 3px #c1c1c1; -webkit-box-shadow:2px 2px 3px #c1c1c1; box-shadow:3px 3px 3px #c1c1c1; left:0; position:absolute; top:0; width:135px; z-index:1000;}
+.social_share_privacy_area li.settings_info .settings_info_menu {background-color:#f3f4f5; border:2px solid #e7e3e3; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; -moz-box-shadow:2px 2px 3px #c1c1c1; -webkit-box-shadow:2px 2px 3px #c1c1c1; box-shadow:3px 3px 3px #c1c1c1; left:0; position:absolute; top:0; width:135px; z-index:10;}
 .social_share_privacy_area li.settings_info .settings_info_menu.off {border-width:0; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none; background-color:transparent; }
 .social_share_privacy_area li.settings_info .settings_info_menu.off form {display:none;}
 .social_share_privacy_area li.settings_info .settings_info_menu .settings {text-indent:-9999em; display:inline-block; background: #fff url(../images/settings.png) no-repeat center center scroll; width:25px; height:20px; border:2px solid #e7e3e3; -moz-border-radius:0 5px 5px 0; -webkit-border-radius:0 5px 5px 0; border-radius:0 5px 5px 0; border-left:1px solid #ddd;}
