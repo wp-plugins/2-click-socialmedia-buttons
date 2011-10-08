@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.7.2
+ * Version: 0.8.1
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.7.2');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.8.1');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -105,8 +105,8 @@ if(!function_exists('twoclick_buttons_options_page')) {
 				$array_Options = array(
 					'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
 					'twoclick_buttons_where' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_where']),
-					'twoclick_buttons_facebook_appID' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_appID']),
-					'twoclick_buttons_facebook_admin' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_admin']),
+//					'twoclick_buttons_facebook_appID' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_appID']),
+//					'twoclick_buttons_facebook_admin' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_admin']),
 					'twoclick_buttons_twitter_reply' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_twitter_reply']),
 					'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
 					'twoclick_buttons_display_front' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_front'])),
@@ -190,18 +190,6 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					</tr>
 
 					<tr>
-						<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_facebook_appID]">Facebook APP-ID</label></th>
-						<td>
-							<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_facebook_appID'); ?>" name="twoclick_buttons_settings[twoclick_buttons_facebook_appID]" id="twoclick_buttons_settings[twoclick_buttons_facebook_appID]" class="required" minlength="2" />
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_facebook_admin]">Facebook Admin(s)</label></th>
-						<td>
-							<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_facebook_admin'); ?>" name="twoclick_buttons_settings[twoclick_buttons_facebook_admin]" id="twoclick_buttons_settings[twoclick_buttons_facebook_admin]" class="required" minlength="2" />
-						</td>
-					</tr>
-					<tr>
 						<th scope="row" valign="top"><label for="twoclick_buttons_settings[twoclick_buttons_twitter_reply]">Twittername</label></th>
 						<td>
 							RT @<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_twitter_reply'); ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" id="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" class="required" minlength="2" />
@@ -209,19 +197,19 @@ if(!function_exists('twoclick_buttons_options_page')) {
 						</td>
 					</tr>
 				</table>
-				<p><strong>Hinweis zu Facebook App-ID und Adminnummer</strong><br />
-					<br />
-					Für den "Empfehlen"-Button von Facebook benötigt man eine Facebook App-ID. Diese kann man sich mit seinem verifizierten Facebook-Konto auf den Developer-Seiten erzeugen.<br />
-					<br />
-					Einloggen bei Facebook<br />
-					Konto verifizieren mittels Handy-Nummer (oder Kreditkartendaten)<br />
-					<a href="https://www.facebook.com/settings?tab=mobile">https://www.facebook.com/settings?tab=mobile</a> Option Handy-Nr.:<br />
-					Handy-Nr. eintragen und anschließend per SMS empfangenen Bestätigungscode in das Feld auf der rechten Seite eintragen.<br />
-					Entwickler-Seite aufrufen<br />
-					<a href="http://developers.facebook.com/docs/reference/plugins/like/">http://developers.facebook.com/docs/reference/plugins/like/</a><br />
-					Dort in der Box unter "Step 1" auf "Get Code" klicken und die App-ID aus dem angezeigten Code-Teil entnehmen.<br />
-					Unter "Step 2" findet ihr eure Adminnummer.
-				</p>
+<!--				<p><strong>Hinweis zu Facebook App-ID und Adminnummer</strong><br />-->
+<!--					<br />-->
+<!--					Für den "Empfehlen"-Button von Facebook benötigt man eine Facebook App-ID. Diese kann man sich mit seinem verifizierten Facebook-Konto auf den Developer-Seiten erzeugen.<br />-->
+<!--					<br />-->
+<!--					Einloggen bei Facebook<br />-->
+<!--					Konto verifizieren mittels Handy-Nummer (oder Kreditkartendaten)<br />-->
+<!--					<a href="https://www.facebook.com/settings?tab=mobile">https://www.facebook.com/settings?tab=mobile</a> Option Handy-Nr.:<br />-->
+<!--					Handy-Nr. eintragen und anschließend per SMS empfangenen Bestätigungscode in das Feld auf der rechten Seite eintragen.<br />-->
+<!--					Entwickler-Seite aufrufen<br />-->
+<!--					<a href="http://developers.facebook.com/docs/reference/plugins/like/">http://developers.facebook.com/docs/reference/plugins/like/</a><br />-->
+<!--					Dort in der Box unter "Step 1" auf "Get Code" klicken und die App-ID aus dem angezeigten Code-Teil entnehmen.<br />-->
+<!--					Unter "Step 2" findet ihr eure Adminnummer.-->
+<!--				</p>-->
 				<p class="submit">
 					<input type="submit" name="Submit" value="<?php _e('Save Changes', 'wp-twitter-button'); ?>" />
 				</p>
