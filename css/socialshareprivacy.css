@@ -51,4 +51,4 @@
 #mitte #mitte_links, #mitte #mitte_news {overflow:visible !important; color:#151515;}
 
 /* Remove Imageborders */
-img.tweet_this_dummy, img.fb_like_privacy_dummy, img.gplus_one_dummy {border:none;}
+img.tweet_this_dummy, img.fb_like_privacy_dummy, img.gplus_one_dummy {border:none; margin:0;}
