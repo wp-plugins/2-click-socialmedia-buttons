@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button
 Requires at least: 3.0.1
 Tested up to: WordPress 3.3-beta2
-Stable tag: 0.9
+Stable tag: 0.10
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -47,6 +47,10 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+= 0.10 =
+* (22. 10. 2011)
+* Fix: Falls es kein Excerpt gibt, wird nun explizit einer generiert, damit es auch etwas Text bei Google+ und Faebook anzuzeigen gibt.
+
 = 0.9 =
 * (21. 10. 2011)
 * Fix: Sonderzeichen in der Überschrift führen nicht mehr dazu, dass die Buttons nicht geladen werden.

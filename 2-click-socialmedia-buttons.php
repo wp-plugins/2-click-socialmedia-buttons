@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.9
+ * Version: 0.10
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.9');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.10');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -31,7 +31,7 @@ if(!function_exists('twoclick_buttons_get_option')) {
 			$twoclick_buttons_options = get_option('twoclick_buttons_settings');
 		}
 
-		if ($parameter == '') {
+		if($parameter == '') {
 			return $twoclick_buttons_options;
 		} else {
 			return $twoclick_buttons_options[$parameter];
@@ -46,7 +46,7 @@ if(!function_exists('twoclick_buttons_get_option')) {
  */
 if(!function_exists('twoclick_buttons_options')) {
 	function twoclick_buttons_options() {
-//		add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/icon.png') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
+		//		add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/icon.png') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
 		add_options_page('2-Klick-Buttons', '2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
 	}
 }
@@ -90,7 +90,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 				/**
 				 * Deleting all options from database.
 				 */
-	//				twoclick_buttons_delete_options();
+//				twoclick_buttons_delete_options();
 
 //				echo '<div id="message" class="updated fade">';
 //				echo '<p><strong>';
@@ -184,7 +184,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 								</select>
 							</div>
 							<div>
-								Ist die Option "Manuell (Shortcode)" gewählt, so können die Buttons mittels des Shortcodes <strong>[twoclick_buttons]</strong> in den Artikel eingebunden werden.<br />
+								Ist die Option "Manuell (Shortcode)" gewählt, so kännen die Buttons mittels des Shortcodes <strong>[twoclick_buttons]</strong> in den Artikel eingebunden werden.<br />
 							</div>
 						</td>
 					</tr>
@@ -197,19 +197,6 @@ if(!function_exists('twoclick_buttons_options_page')) {
 						</td>
 					</tr>
 				</table>
-<!--				<p><strong>Hinweis zu Facebook App-ID und Adminnummer</strong><br />-->
-<!--					<br />-->
-<!--					Für den "Empfehlen"-Button von Facebook benötigt man eine Facebook App-ID. Diese kann man sich mit seinem verifizierten Facebook-Konto auf den Developer-Seiten erzeugen.<br />-->
-<!--					<br />-->
-<!--					Einloggen bei Facebook<br />-->
-<!--					Konto verifizieren mittels Handy-Nummer (oder Kreditkartendaten)<br />-->
-<!--					<a href="https://www.facebook.com/settings?tab=mobile">https://www.facebook.com/settings?tab=mobile</a> Option Handy-Nr.:<br />-->
-<!--					Handy-Nr. eintragen und anschließend per SMS empfangenen Bestätigungscode in das Feld auf der rechten Seite eintragen.<br />-->
-<!--					Entwickler-Seite aufrufen<br />-->
-<!--					<a href="http://developers.facebook.com/docs/reference/plugins/like/">http://developers.facebook.com/docs/reference/plugins/like/</a><br />-->
-<!--					Dort in der Box unter "Step 1" auf "Get Code" klicken und die App-ID aus dem angezeigten Code-Teil entnehmen.<br />-->
-<!--					Unter "Step 2" findet ihr eure Adminnummer.-->
-<!--				</p>-->
 				<p class="submit">
 					<input type="submit" name="Submit" value="<?php _e('Save Changes', 'wp-twitter-button'); ?>" />
 				</p>
@@ -325,7 +312,62 @@ if(!function_exists('twoclick_buttons')) {
 			}
 		}
 	}
-}
+} // END if(!function_exists('twoclick_buttons'))
+
+/**
+ * Post Excerpt generieren, wenn noch keiner da ist ...
+ *
+ * @since 0.10
+ */
+if(!function_exists('twoclick_buttons_generate_post_excerpt')) {
+	function twoclick_buttons_generate_post_excerpt($excerpt, $maxlength) {
+		if(function_exists('strip_shortcodes')) {
+			$excerpt = strip_shortcodes($excerpt);
+		}
+
+		$excerpt = trim($excerpt);
+
+		// Now lets strip any tags which dont have balanced ends
+		// Need to put NGgallery tags in there - there are a lot of them and they are all different.
+		$open_tags = "[simage,[[CP,[gallery,[imagebrowser,[slideshow,[tags,[albumtags,[singlepic,[album";
+		$close_tags = "],]],],],],],],],]";
+		$open_tag = explode(",", $open_tags);
+		$close_tag = explode(",", $close_tags);
+
+		foreach(array_keys($open_tag) as $key) {
+			if(preg_match_all('/' . preg_quote($open_tag[$key]) . '(.*?)' . preg_quote($close_tag[$key]) . '/i', $excerpt, $matches)) {
+				$excerpt = str_replace($matches[0], "", $excerpt);
+			}
+		} // END foreach(array_keys($open_tag) as $key)
+
+		$excerpt = preg_replace('#(<wpg.*?>).*?(</wpg2>)#', '$1$2', $excerpt);
+
+		// Support for qTrans
+		if(function_exists('qtrans_use')) {
+			global $q_config;
+			$excerpt = qtrans_use($q_config['default_language'], $excerpt);
+		} // END if(function_exists('qtrans_use'))
+		$excerpt = strip_tags($excerpt);
+
+		// Now lets strip off the youtube stuff.
+		preg_match_all('#http://(www.youtube|youtube|[A-Za-z]{2}.youtube)\.com/(watch\?v=|w/\?v=|\?v=)([\w-]+)(.*?)player_embedded#i', $excerpt, $matches);
+		$excerpt = str_replace($matches[0], "", $excerpt);
+
+		preg_match_all('#http://(www.youtube|youtube|[A-Za-z]{2}.youtube)\.com/(watch\?v=|w/\?v=|\?v=|embed/)([\w-]+)(.*?)#i', $excerpt, $matches);
+		$excerpt = str_replace($matches[0], "", $excerpt);
+
+		if(strlen($excerpt) > $maxlength) {
+			# If we've got multibyte support then we need to make sure we get the right length - Thanks to Kensuke Akai for the fix
+			if(function_exists('mb_strimwidth')) {
+				$excerpt = mb_strimwidth($excerpt, 0, $maxlength, " ...");
+			} else {
+				$excerpt = current(explode("SJA26666AJS", wordwrap($excerpt, $maxlength, "SJA26666AJS"))) . " ...";
+			} // END if(function_exists('mb_strimwidth'))
+		} // END if(strlen($excerpt) > $maxlength)
+
+		return $excerpt;
+	} // END function twoclick_buttons_generate_post_excerpt($excerpt, $maxlength)
+} // END if(!function_exists('twoclick_buttons_generate_post_excerpt'))
 
 /**
  * HTML generieren.
@@ -365,6 +407,8 @@ if(!function_exists('twoclick_buttons_head')) {
  */
 if(!function_exists('twoclick_facebook_opengraph_tags')) {
 	function twoclick_facebook_opengraph_tags() {
+		global $post;
+
 		/* Nur Frontend */
 		if(is_feed() || is_trackback() || !is_singular()) {
 			return;
@@ -399,14 +443,27 @@ if(!function_exists('twoclick_facebook_opengraph_tags')) {
 		/* Ausgabe */
 		echo "\n" . '<!-- Facebook Like Thumbnail -->' . "\n";
 		if($var_sFaceBookThumbnail) {
-			echo sprintf('<link href="%s" rel="image_src" />%s',
-					esc_attr($var_sFaceBookThumbnail),
-					"\n"
-				);
+			echo sprintf('<link href="%s" rel="image_src" />%s', esc_attr($var_sFaceBookThumbnail), "\n");
+		}
+
+		/**
+		 * Post Excerpt suchen und eventuell setzen, da sonst bei Facebook und G+ nichts steht.
+		 * Sollte der Post keinen eigenen Excerpt haben, wird einer aus dem Artikel extrahiert.
+		 * Dieser wird dann, ganz Twitterstyle, auf 140 Zeichen begrenzt.
+		 *
+		 * @since 0.10
+		 */
+		$var_sExcerpt = '';
+		if(has_excerpt()) {
+			$var_sExcerpt = $post->post_excerpt;
+		} else {
+			$var_sExcerpt = twoclick_buttons_generate_post_excerpt($post->post_content, 140);
 		}
 
 		/**
 		 * Open:Graph-Tags fuer FB-Like
+		 *
+		 * @since 0.7
 		 */
 		echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '"/>' . "\n";
 		echo '<meta property="og:type" content="article"/>' . "\n";
@@ -415,7 +472,7 @@ if(!function_exists('twoclick_facebook_opengraph_tags')) {
 		if($var_sFaceBookThumbnail) {
 			echo '<meta property="og:image" content="' . esc_attr($var_sFaceBookThumbnail) . '"/>' . "\n";
 		}
-		echo '<meta property="og:description" content="' . esc_attr(get_the_excerpt()) . '"/>' . "\n";
+		echo '<meta property="og:description" content="' . esc_attr($var_sExcerpt) . '"/>' . "\n";
 		echo '<meta property="fb:app_id" content = "' . twoclick_buttons_get_option('twoclick_buttons_facebook_appID') . '" />' . "\n";
 		echo '<meta property="fb:admins" content="' . twoclick_buttons_get_option('twoclick_buttons_facebook_admin') . '"/>' . "\n";
 		echo '<!-- Facebook Like Thumbnail -->' . "\n";
@@ -474,7 +531,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 								\'dummy_img\'		: \'' . $array_DummyIMages['facebook-dummy-image'] . '\',
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'status\'			: \'' . $var_sShowFacebook . '\',
-								\'perma_option\'	: \'' . $var_sShowFacebookPerm .  '\'
+								\'perma_option\'	: \'' . $var_sShowFacebookPerm . '\'
 							},
 							twitter : {
 								\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
@@ -526,8 +583,8 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 		} else {
 			if(function_exists('curl_init')) {
 				$ch = curl_init();
-				curl_setopt($ch,CURLOPT_URL,$url);
-				curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$data = curl_exec($ch);
 				curl_close($ch);
 			} // END if(function_exists('curl_init'))
@@ -546,12 +603,13 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 				$version = 99;
 
 				foreach($changelog as $index => $line) {
-					if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,">")) {
+					if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION, ">")) {
 						if(preg_match('~^\s*\*\s*~', $line)) {
 							if(!$ul) {
 								echo '<ul style="list-style: disc; margin-left: 20px;">';
 								$ul = true;
 							} // END if(!$ul)
+
 
 							$line = preg_replace('~^\s*\*\s*~', '', $line);
 							echo '<li>' . $line . '</li>';
@@ -561,21 +619,25 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 								$ul = false;
 							} // END if($ul)
 
+
 							$version = trim($line, " =");
 							echo '<p style="margin: 5px 0;">' . htmlspecialchars($line) . '</p>';
 						} // END if(preg_match('~^\s*\*\s*~', $line))
 					} // END if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,">"))
 				} // END foreach($changelog as $index => $line)
 
+
 				if($ul) {
 					echo '</ul><div style="clear: left;"></div>';
 				} // END if($ul)
+
 
 				echo '</div>';
 			} // END if(preg_match($regexp, $data, $matches))
 		} // END if($data)
 	} // END function twoclick_buttons_update_notice()
 } // END if(!function_exists('twoclick_buttons_update_notice'))
+
 
 /**
  * Variablen registrieren.
@@ -588,12 +650,12 @@ if(!function_exists('twoclick_buttons_init')) {
 			register_setting('twoclick_buttons-options', 'twoclick_buttons_settings');
 		}
 
-		/**
-		 * Sprachdatei wählen
-		 */
-//		if(function_exists('load_plugin_textdomain')) {
-//			load_plugin_textdomain('twoclick-buttons', false, dirname(plugin_basename( __FILE__ )) . '/l10n/');
-//		}
+	/**
+	 * Sprachdatei wählen
+	 */
+	//		if(function_exists('load_plugin_textdomain')) {
+	//			load_plugin_textdomain('twoclick-buttons', false, dirname(plugin_basename( __FILE__ )) . '/l10n/');
+	//		}
 	}
 }
 
