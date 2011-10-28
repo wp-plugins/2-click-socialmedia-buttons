@@ -63,7 +63,7 @@ msgstr "Manuell (Shortcode)"
 #: 2-click-socialmedia-buttons.php:203
 #@ twoclick-socialmedia
 msgid "If you choose \"Manuall (Shortcode)\", you can use the shortcode <strong>[twoclick_buttons]</strong> inside your articles."
-msgstr "Ist die Option \"Manuell (Shortcode)\" gewählt, so kännen die Buttons mittels des Shortcodes <strong>[twoclick_buttons]</strong> in den Artikel eingebunden werden."
+msgstr "Ist die Option \"Manuell (Shortcode)\" gewählt, so können die Buttons mittels des Shortcodes <strong>[twoclick_buttons]</strong> in den Artikel eingebunden werden."
 
 #: 2-click-socialmedia-buttons-widget.php:48
 #@ twoclick-socialmedia

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr
 Requires at least: 3.0.1
 Tested up to: WordPress 3.3-beta2
-Stable tag: 0.12
+Stable tag: 0.13
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -47,6 +47,13 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+= 0.13 =
+* (28. 10. 2011)
+* Fix: Funktion zum Einbinden der Buttons überarbeitet. (schlanker, kürzer und schneller)
+* Fix: Schreibfehler auf der Einstellungsseite berichtigt.
+* Workaround für Themes, welche auf dem Weg vom Content zum Footer die Post-ID verlieren eingebaut.
+* Code ein wenig aufgeräumt.
+
 = 0.12 =
 * (27. 10. 2011)
 * Neu: Sprachunterstützung hinzugefügt (Englisch und Deutsch).
