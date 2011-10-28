@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.12
+ * Version: 0.13
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.12');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.13');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -16,7 +16,7 @@ if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 /**
  * Sidebarwidget einbinden.
  *
- * @since
+ * @since work in progress
  */
 //include_once('2-click-socialmedia-buttons-widget.php');
 
@@ -53,8 +53,7 @@ if(!function_exists('twoclick_buttons_get_option')) {
  */
 if(!function_exists('twoclick_buttons_options')) {
 	function twoclick_buttons_options() {
-				add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/twoclick.jpg') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" width="16" height="16" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
-//		add_options_page('2-Klick-Buttons', '2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
+		add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/twoclick.jpg') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" width="16" height="16" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
 	}
 }
 
@@ -271,7 +270,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 }
 
 /**
- * Buttons in WordPress einbauen..
+ * Buttons in WordPress einbauen.
  *
  * @since 0.1
  */
@@ -279,102 +278,84 @@ if(!function_exists('twoclick_buttons')) {
 	function twoclick_buttons($content) {
 		global $post;
 
+		/**
+		 * Post-ID in Konstante speichern, da diese bei einigen Themes
+		 * auf dem Weg vom Content zum Footer verloren geht, wieso auch immer.
+		 */
+		define('TWOCLICK_POST_ID', $post->ID);
+
 		$var_sHtml = twoclick_buttons_generate_html();
 		$var_sWhere = 'twoclick_buttons_where';
 
 		/**
-		 * Manual Option
+		 * Prüfen ob wir auf einer Einzelseite sind.
+		 * Artikel oder CMS-Seite.
 		 *
-		 * @since 0.5
+		 * @since 0.13 (Überarbeitung der Logik)
 		 */
-		if(twoclick_buttons_get_option('twoclick_buttons_where') == 'manual') {
-			return $content;
-		}
-
-		/**
-		 * Sind wir auf einer CMS-Seite?
-		 *
-		 * @since 0.5
-		 */
-		if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
-			return $content;
-		}
-
-		/**
-		 * Sind wir auf der Startseite?
-		 *
-		 * @since 0.5
-		 */
-		if(is_home()) {
-			return $content;
-		}
-
-		/**
-		 * Sind wir in der Achiveanzeige?
-		 *
-		 * @since 0.5
-		 */
-		if(is_archive()) {
-			return $content;
-		}
-
-		/**
-		 * Sind wir in der Kategorieanzeige?
-		 *
-		 * @since 0.5
-		 */
-		if(is_category()) {
-			return $content;
-		}
-
-		/**
-		 * Sind wir in der Suche?
-		 *
-		 * @since 0.6
-		 */
-		if(is_search()) {
-			return $content;
-		}
-
-		/**
-		 * Soll der Button im Feed ausgeblendet werden?
-		 *
-		 * @since 0.5
-		 */
-		if(is_feed()) {
-			return $content;
-		}
-
-		/**
-		 * Wurde der Shortcode genutzt
-		 *
-		 * @since 0.5
-		 */
-		if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
-			return str_replace('[twoclick_buttons]', $var_sHtml, $content);
-		} else {
+		if(is_singular()) {
 			/**
-			 * Wenn wir den Button abgeschalten haben
+			 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
 			 */
-			if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
-				if(twoclick_buttons_get_option($var_sWhere) == 'before') {
-					/**
-					 * Vor dem Beitrag einfügen
-					 */
-					return $var_sHtml . '<p class="claer-after-twoclick"></p>' . $content;
-				} else {
-					/**
-					 * Nach dem Beitrag einfügen
-					 */
-					return $content . $var_sHtml;
-				}
-			} else {
-				/**
-				 * Keinen Button einfügen
-				 */
+			if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
 				return $content;
 			}
-		}
+
+			/**
+			 * Auch auf "Anhangsseiten" wird nichts angezeigt.
+			 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
+			 */
+			if(is_attachment()) {
+				return $content;
+			}
+
+			if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
+				/**
+				 * Manuelles Einfügen via Shortcode [twoclick_buttons].
+				 *
+				 * @since 0.5
+				 */
+				return str_replace('[twoclick_buttons]', $var_sHtml, $content);
+			} else {
+				/**
+				 * Einfügen der Buttons nach den Einstellungen.
+				 */
+				if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
+					/**
+					 * Da hier nicht via Shortcode eingebunden wird, muss dieser aus dem Text entfernt werden.
+					 *
+					 * @since 0.13
+					 */
+					$content = str_replace('[twoclick_buttons]', '', $content);
+
+					/**
+					 * Buttons einbinden.
+					 */
+					if(twoclick_buttons_get_option($var_sWhere) == 'before') {
+						/**
+						 * Vor dem Beitrag einfügen.
+						 */
+						return $var_sHtml . '<p class="claer-after-twoclick"></p>' . $content;
+					} else {
+						/**
+						 * Nach dem Beitrag einfügen.
+						 */
+						return $content . $var_sHtml;
+					} // END if(twoclick_buttons_get_option($var_sWhere) == 'before')
+				} else {
+					/**
+					 * Keinen Button einfügen.
+					 */
+					return $content;
+				} // END if(get_post_meta($post->ID, 'twoclick_buttons') == null)
+			} // END if(twoclick_buttons_get_option($var_sWhere) == 'shortcode')
+		} else {
+			/**
+			 * Übersichtsseite.
+			 * Keine Buttons einfügen und den Shortcode auf dem Text entfernen.
+			 */
+			return str_replace('[twoclick_buttons]', '', $content);
+		} // END if(is_singular())
 	}
 } // END if(!function_exists('twoclick_buttons'))
 
@@ -440,10 +421,10 @@ if(!function_exists('twoclick_buttons_generate_post_excerpt')) {
  */
 if(!function_exists('twoclick_buttons_generate_html')) {
 	function twoclick_buttons_generate_html() {
-		if(!is_singular()) {
-			return '<div class="twoclick_social_bookmarks_post_' . get_the_ID() . ' social_share_privacy"></div>' . twoclick_buttons_get_js();
+		if(is_singular()) {
+			return '<div class="twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . ' social_share_privacy"></div>';
 		} else {
-			return '<div class="twoclick_social_bookmarks_post_' . get_the_ID() . ' social_share_privacy"></div>';
+			return;
 		}
 	}
 }
@@ -465,7 +446,7 @@ if(!function_exists('twoclick_buttons_head')) {
 }
 
 /**
- * Schreibe OpenGraph-Tags und Artikelbild in den <head>
+ * Schreibe OpenGraph-Tags und Artikelbild in den <head>-Bereich.
  *
  * @since 0.7
  */
@@ -517,11 +498,13 @@ if(!function_exists('twoclick_facebook_opengraph_tags')) {
 		 *
 		 * @since 0.10
 		 */
-		$var_sExcerpt = '';
+//		$var_sExcerpt = '';
 		if(has_excerpt()) {
-			$var_sExcerpt = $post->post_excerpt;
+//			$var_sExcerpt = $post->post_excerpt;
+			define('TWOCLICK_POST_EXCERPT', $post->post_excerpt);
 		} else {
-			$var_sExcerpt = twoclick_buttons_generate_post_excerpt($post->post_content, 140);
+//			$var_sExcerpt = twoclick_buttons_generate_post_excerpt($post->post_content, 140);
+			define('TWOCLICK_POST_EXCERPT', twoclick_buttons_generate_post_excerpt($post->post_content, 250));
 		}
 
 		/**
@@ -536,7 +519,8 @@ if(!function_exists('twoclick_facebook_opengraph_tags')) {
 		if($var_sFaceBookThumbnail) {
 			echo '<meta property="og:image" content="' . esc_attr($var_sFaceBookThumbnail) . '"/>' . "\n";
 		}
-		echo '<meta property="og:description" content="' . esc_attr($var_sExcerpt) . '"/>' . "\n";
+//		echo '<meta property="og:description" content="' . esc_attr($var_sExcerpt) . '"/>' . "\n";
+		echo '<meta property="og:description" content="' . esc_attr(TWOCLICK_POST_EXCERPT) . '"/>' . "\n";
 		echo '<!-- Facebook Like Thumbnail -->' . "\n";
 	}
 }
@@ -566,12 +550,9 @@ if(!function_exists('twoclick_buttons_footer')) {
  */
 if(!function_exists('twoclick_buttons_get_js')) {
 	function twoclick_buttons_get_js() {
-		global $post;
-
 		if(!is_admin()) {
-			$var_sPostId = get_the_ID();
-			$var_sPermalink = get_permalink($var_sPostId);
-			$var_sTitle = rawurlencode(get_the_title($var_sPostId));
+			$var_sPermalink = get_permalink(TWOCLICK_POST_ID);
+			$var_sTitle = rawurlencode(get_the_title(TWOCLICK_POST_ID));
 			$var_sShowFacebook = (twoclick_buttons_get_option('twoclick_buttons_display_facebook')) ? 'on' : 'off';
 			$var_sShowFacebookPerm = (twoclick_buttons_get_option('twoclick_buttons_display_facebook_perm')) ? 'on' : 'off';
 			$var_sShowTwitter = (twoclick_buttons_get_option('twoclick_buttons_display_twitter')) ? 'on' : 'off';
@@ -587,13 +568,6 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				'googleplus-dummy-image' => plugins_url(basename(dirname(__FILE__)) . '/images/gplusone.png'),
 				'flattr-dummy-image' => plugins_url(basename(dirname(__FILE__)) . '/images/flattr.png')
 			);
-
-			$var_sExcerpt = '';
-			if(has_excerpt()) {
-				$var_sExcerpt = rawurlencode($post->post_excerpt);
-			} else {
-				$var_sExcerpt = rawurlencode(twoclick_buttons_generate_post_excerpt($post->post_content, 250));
-			}
 
 			$var_sInfotextFacebook = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') != '') {
@@ -632,8 +606,8 @@ if(!function_exists('twoclick_buttons_get_js')) {
 
 			$var_sJavaScript = '<script type="text/javascript">
 			jQuery(document).ready(function($){
-				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostId . '\')){
-					$(\'.twoclick_social_bookmarks_post_' . $var_sPostId . '\').socialSharePrivacy({
+				if($(\'.twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . '\')){
+					$(\'.twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . '\').socialSharePrivacy({
 						services : {
 							facebook : {
 								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image'] . '\',
@@ -664,7 +638,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 								\'status\'			: \'' . $var_sShowFlattr . '\',
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'the_title\'		: \'' . $var_sTitle . '\',
-								\'the_excerpt\'		: \'' . $var_sExcerpt . '\',
+								\'the_excerpt\'		: \'' . rawurlencode(TWOCLICK_POST_EXCERPT) . '\',
 								' . $var_sInfotextFlattr . '
 								\'perma_option\'	: \'' . $var_sShowFlattrPerm . '\'
 							},
