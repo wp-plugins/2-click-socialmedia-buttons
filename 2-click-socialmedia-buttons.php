@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.15
+ * Version: 0.16
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.15');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.16');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -53,7 +53,13 @@ if(!function_exists('twoclick_buttons_get_option')) {
  */
 if(!function_exists('twoclick_buttons_options')) {
 	function twoclick_buttons_options() {
-		add_options_page('2-Klick-Buttons', '<img src="' . plugins_url('2-click-socialmedia-buttons/images/twoclick.jpg') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" width="16" height="16" /> 2-Klick-Buttons', 'manage_options', 'twoclick-buttons-options', 'twoclick_buttons_options_page');
+		add_options_page(
+			'2-Klick-Buttons',
+			'<img src="' . plugins_url(basename(dirname(__FILE__)) . '/images/twoclick.jpg') . '" id="2-click-icon" alt="2 Click Social Media Buttons Icon" width="16" height="16" /> 2-Klick-Buttons',
+			'manage_options',
+			'twoclick-buttons-options',
+			'twoclick_buttons_options_page'
+		);
 	}
 }
 
@@ -713,7 +719,6 @@ if(!function_exists('twoclick_buttons_footer')) {
 if(!function_exists('twoclick_buttons_get_js')) {
 	function twoclick_buttons_get_js() {
 		if(!is_admin()) {
-			$var_sPermalink = get_permalink(TWOCLICK_POST_ID);
 			$var_sTitle = rawurlencode(get_the_title(TWOCLICK_POST_ID));
 			$var_sTweettext = rawurlencode(twoclick_buttons_get_tweettext());
 			$var_sShowFacebook = (twoclick_buttons_get_option('twoclick_buttons_display_facebook')) ? 'on' : 'off';
@@ -725,6 +730,18 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			$var_sShowGoogleplusPerm = (twoclick_buttons_get_option('twoclick_buttons_display_googleplus_perm')) ? 'on' : 'off';
 			$var_sShowFlattrPerm = (twoclick_buttons_get_option('twoclick_buttons_display_flattr_perm')) ? 'on' : 'off';
 			$var_sCss = plugins_url(basename(dirname(__FILE__)) . '/css/socialshareprivacy.css');
+			$var_sPlusoneLib = plugins_url(basename(dirname(__FILE__)) . '/libs/plusone.php');
+
+			/**
+			 * Link zusammenbauen, auch wenn Optionen übergeben werden.
+			 *
+			 * @since 0.16
+			 */
+			if(isset($_GET) && count($_GET) != '0') {
+				$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			} else {
+				$var_sPermalink = get_permalink(TWOCLICK_POST_ID);
+			}
 
 			// Infotexte
 			$var_sInfotextFacebook = '';
@@ -792,7 +809,8 @@ if(!function_exists('twoclick_buttons_get_js')) {
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'status\'			: \'' . $var_sShowGoogleplus . '\',
 								' . $var_sInfotextGoogleplus . '
-								\'perma_option\'	: \'' . $var_sShowGoogleplusPerm . '\'
+								\'perma_option\'	: \'' . $var_sShowGoogleplusPerm . '\',
+								\'plusone_lib\'		: \'' . $var_sPlusoneLib . '\'
 							},
 							flattr : {
 								\'uid\'				: \'' . twoclick_buttons_get_option('twoclick_buttons_flattr_uid') . '\',
@@ -820,9 +838,15 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			 * since 0.6
 			 */
 			if(is_singular()) {
-				echo $var_sJavaScript;
+				if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
+					return;
+				} elseif(is_attachment()) {
+					return;
+				} else {
+					echo $var_sJavaScript;
+				}
 			} else {
-				return $var_sJavaScript;
+				return;
 			}
 		}
 	}
