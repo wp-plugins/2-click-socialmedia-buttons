@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.16
+ * Version: 0.17
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.16');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.17');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -574,16 +574,18 @@ if(!function_exists('twoclick_buttons_get_dummy_images')) {
 		// Dummybilder
 		$array_DummyImages = array(
 			'default' => array(
-				'facebook-dummy-image' => $var_sPluginsUrl . 'images/recommend.png',
-				'twitter-dummy-image' => $var_sPluginsUrl . 'images/tweet.png',
-				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/gplusone.png',
-				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr.png'
+				'facebook-dummy-image-recommend' => $var_sPluginsUrl . 'images/facebook-dummy-image-recommend.png',
+				'facebook-dummy-image-like' => $var_sPluginsUrl . 'images/facebook-dummy-image-like.png',
+				'twitter-dummy-image' => $var_sPluginsUrl . 'images/twitter-dummy-image-tweet.png',
+				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/googleplus-dummy-image-gplusone.png',
+				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr-dummy-image-flattr.png'
 			),
 			'de_DE' => array(
-				'facebook-dummy-image' => $var_sPluginsUrl . 'images/empfehlen.png',
-				'twitter-dummy-image' => $var_sPluginsUrl . 'images/tweet.png',
-				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/gplusone.png',
-				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr.png'
+				'facebook-dummy-image-recommend' => $var_sPluginsUrl . 'images/facebook-dummy-image-empfehlen.png',
+				'facebook-dummy-image-like' => $var_sPluginsUrl . 'images/facebook-dummy-image-gefaellt-mir.png',
+				'twitter-dummy-image' => $var_sPluginsUrl . 'images/twitter-dummy-image-tweet.png',
+				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/googleplus-dummy-image-gplusone.png',
+				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr-dummy-image-flattr.png'
 			)
 		);
 
@@ -780,6 +782,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			}
 
 			// Dummybilder holen.
+
 			$array_DummyImages = twoclick_buttons_get_dummy_images(get_locale());
 
 			$var_sJavaScript = '<script type="text/javascript">
@@ -788,12 +791,13 @@ if(!function_exists('twoclick_buttons_get_js')) {
 					$(\'.twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . '\').socialSharePrivacy({
 						services : {
 							facebook : {
-								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image'] . '\',
+								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . twoclick_buttons_get_option('twoclick_buttons_facebook_action')] . '\',
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'status\'			: \'' . $var_sShowFacebook . '\',
 								' . $var_sInfotextFacebook . '
 								\'perma_option\'	: \'' . $var_sShowFacebookPerm . '\',
 								\'action\'			: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_action') . '\',
+								\'language\'		: \'' . get_locale() . '\',
 							},
 							twitter : {
 								\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
@@ -921,7 +925,6 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 		} // END if($data)
 	} // END function twoclick_buttons_update_notice()
 } // END if(!function_exists('twoclick_buttons_update_notice'))
-
 
 /**
  * Variablen registrieren.

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.16
+Stable tag: 0.17
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -47,6 +47,10 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.17 =
+* (14. 11. 2011)
+* Dummybilder für Facebook werden nun richtig angezeigt. Je nach Auswahl entweder "Gefällt mir"/"Like" oder "Empfehlen"/"Recommend".
 
 = 0.16 =
 * (10. 11. 2011)
