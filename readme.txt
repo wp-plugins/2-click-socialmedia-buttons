@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.18
+Stable tag: 0.18.1
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -47,9 +47,13 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 0.18.1 =
+* (15. 11. 2011)
+* Update: Übersetzung (Sorry, dass diese extra kommt)
+
 = 0.18 =
 * (15. 11. 2011)
-* Neu: Template-Tag zum direkten Einbau ins Theme. Der Template-Tag berücksichtigt alle Einstellungen, die unter "Anzeige" getätigt wurden. Dafür nutze einfach `<?php if(function_exists('get_twoclick_buttons')) {get_twoclick_buttons(get_the_ID());}?>` innerhalb des Themes. Beachte jedoch, dass dies nur bei Einzelartikeln und/oder -seiten funktioniert, nicht innerhalb des Loops.
+* Neu: Template-Tag zum direkten Einbau ins Theme. Der Template-Tag berücksichtigt alle Einstellungen, die unter "Anzeige" getätigt wurden. Dafür nutze einfach `if(function_exists('get_twoclick_buttons')) {get_twoclick_buttons(get_the_ID());}` innerhalb des Themes. Beachte jedoch, dass dies nur bei Einzelartikeln und/oder -seiten funktioniert, nicht innerhalb des Loops.
 
 = 0.17 =
 * (14. 11. 2011)
