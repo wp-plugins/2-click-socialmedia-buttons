@@ -1,10 +1,10 @@
 ﻿=== 2 Click Social Media Buttons ===
 Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
-Tags: twitter, facebook, googleplus, button, flattr
+Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.17
+Stable tag: 0.18
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -23,8 +23,7 @@ Bisher werden die Buttons einfach in den Einzelartikeln und -seiten unter dem Ar
 * Wählbar welcher Button angezeigt werden soll.
 * Wählbar ob es dem Besucher möglich sein soll, die Buttons permanent anzeigen zu lassen.
 * Anzeige auf den Artikelseiten (default, nicht änderbar).
-* Optionale Anzeige aif CMS-Seiten.
-* Optionale Anzeige in der Artikelübersicht (noch beta).
+* Optionale Anzeige auf CMS-Seiten.
 
 == Installation ==
 
@@ -37,7 +36,7 @@ Nutze dafür einfach dein Dashboard
 
 **Manuelle Installation**
 
-1. Lade das Verzeichnis `2-click-socialmedia-buttons` in Dein `/wp-content/plugins/`-Verzeichnis Deines WordPres.
+1. Lade das Verzeichnis `2-click-socialmedia-buttons` in Dein `/wp-content/plugins/`-Verzeichnis Deines WordPress.
 1. Aktiviere das Plugin.
 
 == Screenshots ==
@@ -48,9 +47,13 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 0.18 =
+* (15. 11. 2011)
+* Neu: Template-Tag zum direkten Einbau ins Theme. Der Template-Tag berücksichtigt alle Einstellungen, die unter "Anzeige" getätigt wurden. Dafür nutze einfach `<?php if(function_exists('get_twoclick_buttons')) {get_twoclick_buttons(get_the_ID());}?>` innerhalb des Themes. Beachte jedoch, dass dies nur bei Einzelartikeln und/oder -seiten funktioniert, nicht innerhalb des Loops.
+
 = 0.17 =
 * (14. 11. 2011)
-* Dummybilder für Facebook werden nun richtig angezeigt. Je nach Auswahl entweder "Gefällt mir"/"Like" oder "Empfehlen"/"Recommend".
+* Dummybilder für Facebook werden nun richtig angezeigt. Je nach Auswahl entweder "Gefällt mir"/"Like" oder "Empfehlen"/"Recommend". Danke an [Kai Köpke](http://kkoepke.de) für die Bearbeitung der Grafiken.
 
 = 0.16 =
 * (10. 11. 2011)

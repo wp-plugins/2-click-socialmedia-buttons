@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.17
+ * Version: 0.18
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.17');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.18');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -124,6 +124,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					'twoclick_buttons_twitter_tweettext_default_as' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_twitter_tweettext_default_as']),
 					'twoclick_buttons_flattr_uid' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_flattr_uid']),
 					'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
+//					'twoclick_buttons_display_index' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_index'])),
 					'twoclick_buttons_display_facebook' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_facebook'])),
 					'twoclick_buttons_display_twitter' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_twitter'])),
 					'twoclick_buttons_display_flattr' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_flattr'])),
@@ -155,14 +156,14 @@ if(!function_exists('twoclick_buttons_options_page')) {
 			<h2><?php _e('Settings for 2-Click Social Media Buttons', 'twoclick-socialmedia'); ?></h2>
 			<form method="post" action="" id="twoclick-buttons-options">
 				<?php wp_nonce_field('twoclick-buttons-options'); ?>
-				<!-- Anzeigeeinstellungen -->
-				<div style="clear:both; padding-top:25px;">
-					<div style="float:left; width:100px"><?php _e('Display', 'twoclick-socialmedia'); ?></div>
-					<div style="float:left;">
-						<div style="float:right; text-align:center; width:120px;">
+					<div style="float:right; text-align:center; width:120px;  padding-top:25px;">
 							<?php _e('Like this Plugin? Buy me a coffee.', 'twoclick-socialmedia'); ?><br />
 							<a class="FlattrButton" style="display:none;" href="http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/"></a>
 						</div>
+				<!-- Anzeigeeinstellungen -->
+				<div style="padding-top:25px;">
+					<div style="float:left; width:100px"><?php _e('Display', 'twoclick-socialmedia'); ?></div>
+					<div style="margin-left:100px;">
 
 						<!-- Welche Buttons sollen angezeigt werden -->
 						<div>
@@ -195,21 +196,36 @@ if(!function_exists('twoclick_buttons_options_page')) {
 							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_page') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_page]" id="twoclick_buttons_settings[twoclick_buttons_display_page]" group="twoclick_buttons_display" />
 							<label for="twoclick_buttons_settings[twoclick_buttons_display_page]"><?php _e('Display on CMS-Pages', 'twoclick-socialmedia'); ?></label>
 						</div>
-						<div>
-							<?php _e('On singleposts the buttons will be shown by default. There is no option needed.', 'twoclick-socialmedia'); ?>
+						<!--<div>
+							<input type="checkbox" value="1" <?php //if(twoclick_buttons_get_option('twoclick_buttons_display_index') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_index]" id="twoclick_buttons_settings[twoclick_buttons_display_index]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_index]"><?php //_e('Display on Index', 'twoclick-socialmedia'); ?></label>
 						</div>
+						-->
+						<div>
+							<p>
+								<?php _e('On singleposts the buttons will be shown by default. There is no option needed.', 'twoclick-socialmedia'); ?>
+							</p>
+						</div>
+					</div>
+				</div>
 
+				<div style="clear:both; padding-top:25px;">
+					<div style="float:left; width:100px"><?php _e('Position', 'twoclick-socialmedia'); ?></div>
+					<div style="margin-left:100px;">
 						<!-- Position innerhalb des Artikels -->
 						<div>
-							<label for="twoclick_buttons_settings[twoclick_buttons_where]"><?php _e('Position', 'twoclick-socialmedia'); ?></label>
 							<select name="twoclick_buttons_settings[twoclick_buttons_where]">
 								<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'before') echo 'selected="selected"'; ?> value="before"><?php _e('Before the Post', 'twoclick-socialmedia'); ?></option>
 								<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'after') echo 'selected="selected"'; ?> value="after"><?php _e('After the Post', 'twoclick-socialmedia'); ?></option>
 								<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'shortcode') echo 'selected="selected"'; ?> value="shortcode"><?php _e('Manuall (Shortcode)', 'twoclick-socialmedia'); ?></option>
+								<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'template') echo 'selected="selected"'; ?> value="template"><?php _e('Manuall (Template)', 'twoclick-socialmedia'); ?></option>
 							</select>
 						</div>
 						<div>
-							<?php _e('If you choose "Manuall (Shortcode)", you can use the shortcode <strong>[twoclick_buttons]</strong> inside your articles.', 'twoclick-socialmedia'); ?><br />
+							<p>
+								<?php _e('If you choose "Manuall (Shortcode)", you can use the shortcode <strong>[twoclick_buttons]</strong> inside your articles.', 'twoclick-socialmedia'); ?><br />
+								<?php _e('If you choose "Manuall (Template)", you can use the code <strong>&lt;?php if(function_exists(\'get_twoclick_buttons\')) {get_twoclick_buttons(get_the_ID());}?&gt;</strong> inside your template. It\'s using all settings for "Display". <em><strong>Note:</strong> It will only work in single post or page templates. Not in any loop.</em>', 'twoclick-socialmedia'); ?>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -342,74 +358,98 @@ if(!function_exists('twoclick_buttons')) {
 		$var_sWhere = 'twoclick_buttons_where';
 
 		/**
-		 * Prüfen ob wir auf einer Einzelseite sind.
-		 * Artikel oder CMS-Seite.
+		 * Prüfen ob der Template-Tag verwendet wurde.
+		 * Wenn ja, $content bereinigt zurückgeben andernfalls die Buttons generieren.
 		 *
-		 * @since 0.13 (Überarbeitung der Logik)
+		 * @since 0.18
 		 */
-		if(is_singular()) {
-			/**
-			 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
-			 */
-			if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
-				return $content;
-			}
-
-			/**
-			 * Auch auf "Anhangsseiten" wird nichts angezeigt.
-			 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
-			 */
-			if(is_attachment()) {
-				return $content;
-			}
-
-			if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
-				/**
-				 * Manuelles Einfügen via Shortcode [twoclick_buttons].
-				 *
-				 * @since 0.5
-				 */
-				return str_replace('[twoclick_buttons]', $var_sHtml, $content);
-			} else {
-				/**
-				 * Einfügen der Buttons nach den Einstellungen.
-				 */
-				if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
-					/**
-					 * Da hier nicht via Shortcode eingebunden wird, muss dieser aus dem Text entfernt werden.
-					 *
-					 * @since 0.13
-					 */
-					$content = str_replace('[twoclick_buttons]', '', $content);
-
-					/**
-					 * Buttons einbinden.
-					 */
-					if(twoclick_buttons_get_option($var_sWhere) == 'before') {
-						/**
-						 * Vor dem Beitrag einfügen.
-						 */
-						return $var_sHtml . '<p class="claer-after-twoclick"></p>' . $content;
-					} else {
-						/**
-						 * Nach dem Beitrag einfügen.
-						 */
-						return $content . $var_sHtml;
-					} // END if(twoclick_buttons_get_option($var_sWhere) == 'before')
-				} else {
-					/**
-					 * Keinen Button einfügen.
-					 */
-					return $content;
-				} // END if(get_post_meta($post->ID, 'twoclick_buttons') == null)
-			} // END if(twoclick_buttons_get_option($var_sWhere) == 'shortcode')
+		if(twoclick_buttons_get_option($var_sWhere) == 'template') {
+			return str_replace('[twoclick_buttons]', '', $content);
 		} else {
 			/**
-			 * Übersichtsseite.
-			 * Keine Buttons einfügen und den Shortcode auf dem Text entfernen.
+			 * Prüfen ob wir auf einer Einzelseite sind.
+			 * Artikel oder CMS-Seite.
+			 *
+			 * @since 0.13 (Überarbeitung der Logik)
 			 */
-			return str_replace('[twoclick_buttons]', '', $content);
-		} // END if(is_singular())
+			if(is_singular()) {
+				/**
+				 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
+				 */
+				if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
+					return $content;
+				}
+
+				/**
+				 * Auch auf "Anhangsseiten" wird nichts angezeigt.
+				 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
+				 */
+				if(is_attachment()) {
+					return $content;
+				}
+
+				if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
+					/**
+					 * Manuelles Einfügen via Shortcode [twoclick_buttons].
+					 *
+					 * @since 0.5
+					 */
+					return str_replace('[twoclick_buttons]', $var_sHtml, $content);
+				} else {
+					/**
+					 * Einfügen der Buttons nach den Einstellungen.
+					 */
+					if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
+						/**
+						 * Da hier nicht via Shortcode eingebunden wird, muss dieser aus dem Text entfernt werden.
+						 *
+						 * @since 0.13
+						 */
+						$content = str_replace('[twoclick_buttons]', '', $content);
+
+						/**
+						 * Buttons einbinden.
+						 */
+						if(twoclick_buttons_get_option($var_sWhere) == 'before') {
+							/**
+							 * Vor dem Beitrag einfügen.
+							 */
+							return $var_sHtml . '<p class="claer-after-twoclick"></p>' . $content;
+						} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
+							/**
+							 * Nach dem Beitrag einfügen.
+							 */
+							return $content . $var_sHtml;
+						} // END if(twoclick_buttons_get_option($var_sWhere) == 'before')
+					} else {
+						/**
+						 * Keinen Button einfügen.
+						 */
+						return $content;
+					} // END if(get_post_meta($post->ID, 'twoclick_buttons') == null)
+				} // END if(twoclick_buttons_get_option($var_sWhere) == 'shortcode')
+			} else {
+//				if(twoclick_buttons_get_option($var_sWhere) == 'before') {
+//					/**
+//					 * Vor dem Beitrag einfügen.
+//					 */
+//					$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
+//					return twoclick_buttons_generate_html(get_the_ID()) . $var_sJavaScript . '<p class="claer-after-twoclick"></p>' . $content;
+//				} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
+//					/**
+//					 * Nach dem Beitrag einfügen.
+//					 */
+//					$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
+//					return $content . twoclick_buttons_generate_html(get_the_ID()) . $var_sJavaScript ;
+//				}
+
+				/**
+				 * Übersichtsseite.
+				 * Keine Buttons einfügen und den Shortcode auf dem Text entfernen.
+				 */
+				return str_replace('[twoclick_buttons]', '', $content);
+			} // END if(is_singular())
+		}
 	}
 } // END if(!function_exists('twoclick_buttons'))
 
@@ -544,11 +584,49 @@ if(!function_exists('twoclick_buttons_get_hashtags')) {
  * @since 0.1
  */
 if(!function_exists('twoclick_buttons_generate_html')) {
-	function twoclick_buttons_generate_html() {
-		if(is_singular()) {
-			return '<div class="twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . ' social_share_privacy"></div>';
-		} else {
+	function twoclick_buttons_generate_html($var_sPostID = '') {
+		if($var_sPostID == '') {
+			$var_sPostID = TWOCLICK_POST_ID;
+		}
+
+		if(!is_singular()) {
+//			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy"></div>';
 			return;
+		} else {
+			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy"></div>';
+		}
+	}
+}
+
+/**
+ * Template-Tag zur Verfügung stellen.
+ * Einbindung:
+ * 		<?php if(function_exists('get_twoclick_buttons')) {get_twoclick_buttons(get_the_ID());}?>
+ *
+ * Restriktionen:
+ * 		Kann nur in Einzelartikeln und/oder -seiten verwendet werden. Wird im Loop nicht angezeigt.
+ *
+ * @since 0.18
+ */
+if(!function_exists('get_twoclick_buttons')) {
+	function get_twoclick_buttons($var_sPostId) {
+		if(is_singular() && twoclick_buttons_get_option('twoclick_buttons_where') == 'template') {
+			/**
+			 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
+			 */
+			if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
+				return;
+			}
+
+			/**
+			 * Auch auf "Anhangsseiten" wird nichts angezeigt.
+			 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
+			 */
+			if(is_attachment()) {
+				return;
+			}
+
+			echo twoclick_buttons_generate_html($var_sPostId) . '<p class="claer-after-twoclick"></p>';
 		}
 	}
 }
@@ -560,7 +638,7 @@ if(!function_exists('twoclick_buttons_generate_html')) {
  * Momentan nur für Deutsch (de_DE) und als Fallback Englisch.
  *
  * @since 0.14
- * @todo Logik zur Erkennung der Bilder einbauen, damit nur die wirklichen Unterschiede bei den Sprachen zun default erwähnt werden ,üssen.
+ * @todo Logik zur Erkennung der Bilder einbauen, damit nur die wirklichen Unterschiede bei den Sprachen zu default erwähnt werden ,üssen.
  */
 if(!function_exists('twoclick_buttons_get_dummy_images')) {
 	function twoclick_buttons_get_dummy_images($var_sLang = '', $var_sNetwork = '') {
@@ -719,9 +797,12 @@ if(!function_exists('twoclick_buttons_footer')) {
  * @since 0.4
  */
 if(!function_exists('twoclick_buttons_get_js')) {
-	function twoclick_buttons_get_js() {
+	function twoclick_buttons_get_js($var_sPostID = '') {
 		if(!is_admin()) {
-			$var_sTitle = rawurlencode(get_the_title(TWOCLICK_POST_ID));
+			if($var_sPostID == '') {
+				$var_sPostID = TWOCLICK_POST_ID;
+			}
+			$var_sTitle = rawurlencode(get_the_title($var_sPostID));
 			$var_sTweettext = rawurlencode(twoclick_buttons_get_tweettext());
 			$var_sShowFacebook = (twoclick_buttons_get_option('twoclick_buttons_display_facebook')) ? 'on' : 'off';
 			$var_sShowFacebookPerm = (twoclick_buttons_get_option('twoclick_buttons_display_facebook_perm')) ? 'on' : 'off';
@@ -733,6 +814,13 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			$var_sShowFlattrPerm = (twoclick_buttons_get_option('twoclick_buttons_display_flattr_perm')) ? 'on' : 'off';
 			$var_sCss = plugins_url(basename(dirname(__FILE__)) . '/css/socialshareprivacy.css');
 			$var_sPlusoneLib = plugins_url(basename(dirname(__FILE__)) . '/libs/plusone.php');
+			$var_sPostExcerpt = rawurlencode(TWOCLICK_POST_EXCERPT);
+
+//			if(is_single()) {
+//				$var_sPostExcerpt = rawurlencode(TWOCLICK_POST_EXCERPT);
+//			} else {
+//				$var_sPostExcerpt = rawurlencode(twoclick_buttons_generate_post_excerpt(get_the_content(), 400));
+//			}
 
 			/**
 			 * Link zusammenbauen, auch wenn Optionen übergeben werden.
@@ -742,7 +830,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			if(isset($_GET) && count($_GET) != '0') {
 				$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 			} else {
-				$var_sPermalink = get_permalink(TWOCLICK_POST_ID);
+				$var_sPermalink = get_permalink($var_sPostID);
 			}
 
 			// Infotexte
@@ -784,14 +872,15 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			// Dummybilder holen.
 
 			$array_DummyImages = twoclick_buttons_get_dummy_images(get_locale());
+			$var_sFacebookAction = (twoclick_buttons_get_option('twoclick_buttons_facebook_action')) ? twoclick_buttons_get_option('twoclick_buttons_facebook_action') : 'resommend';
 
 			$var_sJavaScript = '<script type="text/javascript">
 			jQuery(document).ready(function($){
-				if($(\'.twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . '\')){
-					$(\'.twoclick_social_bookmarks_post_' . TWOCLICK_POST_ID . '\').socialSharePrivacy({
+				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){
+					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy({
 						services : {
 							facebook : {
-								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . twoclick_buttons_get_option('twoclick_buttons_facebook_action')] . '\',
+								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction] . '\',
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'status\'			: \'' . $var_sShowFacebook . '\',
 								' . $var_sInfotextFacebook . '
@@ -822,7 +911,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 								\'status\'			: \'' . $var_sShowFlattr . '\',
 								\'the_permalink\'	: \'' . $var_sPermalink . '\',
 								\'the_title\'		: \'' . $var_sTitle . '\',
-								\'the_excerpt\'		: \'' . rawurlencode(TWOCLICK_POST_EXCERPT) . '\',
+								\'the_excerpt\'		: \'' . $var_sPostExcerpt . '\',
 								' . $var_sInfotextFlattr . '
 								\'perma_option\'	: \'' . $var_sShowFlattrPerm . '\'
 							},
@@ -850,6 +939,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 					echo $var_sJavaScript;
 				}
 			} else {
+//				echo $var_sJavaScript;
 				return;
 			}
 		}
