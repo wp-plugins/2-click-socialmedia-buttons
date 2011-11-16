@@ -224,9 +224,9 @@
 				var plusone_lib = options.services.gplus.plusone_lib;
 
 				// we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
-//				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
+				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
 //				var gplus_code = '<iframe allowtransparency="true" src="' + plusone_lib + '?url=' + gplus_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:90px; height:24px;" align="left"></iframe>';
-				var gplus_code = '<iframe allowtransparency="true" src="https://plusone.google.com/u/0/_/+1/fastbutton?url=' + gplus_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:90px; height:24px;" align="left"></iframe>';
+//				var gplus_code = '<iframe allowtransparency="true" src="https://plusone.google.com/u/0/_/+1/fastbutton?url=' + gplus_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:90px; height:24px;" align="left"></iframe>';
 				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
 
 				context.append('<li class="gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
