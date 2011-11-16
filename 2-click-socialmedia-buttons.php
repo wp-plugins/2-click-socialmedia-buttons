@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.18.1
+ * Version: 0.19
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.18.1');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.19');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -141,6 +141,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					'twoclick_buttons_infotext_permaoption' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_infotext_permaoption']),
 					'twoclick_buttons_infolink' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_infolink']),
 					'twoclick_buttons_facebook_action' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_facebook_action']),
+					'twoclick_buttons_postthumbnail' => (string) (@$_POST['twoclick_buttons_settings']['twoclick_buttons_postthumbnail']),
 				);
 
 				twoclick_buttons_update_options($array_Options);
@@ -209,10 +210,10 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					</div>
 				</div>
 
+				<!-- Position innerhalb des Artikels -->
 				<div style="clear:both; padding-top:25px;">
 					<div style="float:left; width:100px"><?php _e('Position', 'twoclick-socialmedia'); ?></div>
 					<div style="margin-left:100px;">
-						<!-- Position innerhalb des Artikels -->
 						<div>
 							<select name="twoclick_buttons_settings[twoclick_buttons_where]">
 								<option <?php if(twoclick_buttons_get_option('twoclick_buttons_where') == 'before') echo 'selected="selected"'; ?> value="before"><?php _e('Before the Post', 'twoclick-socialmedia'); ?></option>
@@ -230,7 +231,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					</div>
 				</div>
 
-				<!--  Infotexte -->
+				<!-- Infotexte -->
 				<div style="clear:both; padding-top:25px;">
 					<div style="float:left; width:100px"><?php _e('Infotext<br /><em>(optional)</em>', 'twoclick-socialmedia'); ?></div>
 					<div style="float:left;">
@@ -262,6 +263,23 @@ if(!function_exists('twoclick_buttons_options_page')) {
 							<label for="twoclick_buttons_settings[twoclick_buttons_infolink]" style="display:inline-block; width:80px;"><?php _e('Infolink:', 'twoclick-socialmedia'); ?></label>
 							<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_infolink'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infolink]" id="twoclick_buttons_settings[twoclick_buttons_infolink]" minlength="2" />
 							<span class="description"><?php _e('Links starting with http://', 'twoclick-socialmedia'); ?></span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Artikelbild -->
+				<div style="clear:both; padding-top:25px;">
+					<div style="float:left; width:100px"><?php _e('Postthumbnail<br /><em>(optional)</em>', 'twoclick-socialmedia'); ?></div>
+					<div style="margin-left:100px;">
+						<div>
+							<label for="twoclick_buttons_settings[twoclick_buttons_postthumbnail]" style="display:inline-block; width:80px;"><?php _e('Link:', 'twoclick-socialmedia'); ?></label>
+							<input type="text" value="<?php echo twoclick_buttons_get_option('twoclick_buttons_postthumbnail'); ?>" name="twoclick_buttons_settings[twoclick_buttons_postthumbnail]" id="twoclick_buttons_settings[twoclick_buttons_postthumbnail]" minlength="2" />
+							<span class="description"><?php _e('Links starting with http://', 'twoclick-socialmedia'); ?></span>
+						</div>
+						<div>
+							<p>
+								<?php _e('This image is taken for Facebook and/or Google+ if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for.', 'twoclick-socialmedia'); ?>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -729,7 +747,11 @@ if(!function_exists('twoclick_buttons_opengraph_tags')) {
 			if($var_sOutput > 0) {
 				$var_sFaceBookThumbnail = $array_Matches[1][0];
 			} else {
-				$var_sFaceBookThumbnail = false;
+				if(twoclick_buttons_get_option('twoclick_buttons_postthumbnail') != '') {
+					$var_sFaceBookThumbnail = twoclick_buttons_get_option('twoclick_buttons_postthumbnail');
+				} else {
+					$var_sFaceBookThumbnail = false;
+				}
 			}
 		}
 

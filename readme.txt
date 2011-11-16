@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.18.1
+Stable tag: 0.19
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -46,6 +46,11 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.19 =
+* (16. 11. 2011)
+* Neu: Option für ein Standardartikelbild eingefügt. Diese wird wirksam, wenn im Artikel oder der Seite kein Artikelbild (Post Thumbnail) oder sonstiges Bild gefunden wurde, welches für Facebook und/oder Google+ verwendet werden könnte.
+* Fix: Teilen bei Google+ ist nun wieder möglich.
 
 = 0.18.1 =
 * (15. 11. 2011)
