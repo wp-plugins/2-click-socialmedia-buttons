@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.19
+ * Version: 0.19.1
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.19');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.19.1');
 if(!defined('PPFEUFER_FLATTRSCRIPT')) {
 	define('PPFEUFER_FLATTRSCRIPT', 'http://cdn.ppfeufer.de/js/flattr/flattr.js');
 }
@@ -894,7 +894,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			// Dummybilder holen.
 
 			$array_DummyImages = twoclick_buttons_get_dummy_images(get_locale());
-			$var_sFacebookAction = (twoclick_buttons_get_option('twoclick_buttons_facebook_action')) ? twoclick_buttons_get_option('twoclick_buttons_facebook_action') : 'resommend';
+			$var_sFacebookAction = (twoclick_buttons_get_option('twoclick_buttons_facebook_action')) ? twoclick_buttons_get_option('twoclick_buttons_facebook_action') : 'recommend';
 
 			$var_sJavaScript = '<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -1049,9 +1049,9 @@ if(!function_exists('twoclick_buttons_init')) {
 			register_setting('twoclick_buttons-options', 'twoclick_buttons_settings');
 		}
 
-	/**
-	 * Sprachdatei wählen
-	 */
+		/**
+		 * Sprachdatei wählen
+		 */
 		if(function_exists('load_plugin_textdomain')) {
 			load_plugin_textdomain('twoclick-socialmedia', false, dirname(plugin_basename( __FILE__ )) . '/l10n/');
 		}
