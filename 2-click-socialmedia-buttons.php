@@ -3,12 +3,12 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.20
+ * Version: 0.21
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
 
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.20');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.21');
 define('TWOCLICK_DONATE_FLATTR_LINK', 'http://flattr.com/thing/390240/WordPress-Plugin-2-Click-Social-Media-Buttons');
 define('TWOCLICK_DONATE_PAYPAL_LINK', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE');
 
@@ -364,6 +364,15 @@ if(!function_exists('twoclick_buttons')) {
 		global $post;
 
 		/**
+		 * RSS-Feeds und Trackbacks nicht berücksichtigen.
+		 *
+		 * @since 0.21
+		 */
+		if(is_feed() || is_trackback()) {
+			return $content;
+		}
+
+		/**
 		 * Post-ID in Konstante speichern, da diese bei einigen Themes
 		 * auf dem Weg vom Content zum Footer verloren geht, wieso auch immer.
 		 */
@@ -429,7 +438,7 @@ if(!function_exists('twoclick_buttons')) {
 							/**
 							 * Vor dem Beitrag einfügen.
 							 */
-							return $var_sHtml . '<p class="claer-after-twoclick"></p>' . $content;
+							return $var_sHtml . '<p class="clear-after-twoclick"></p>' . $content;
 						} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
 							/**
 							 * Nach dem Beitrag einfügen.
@@ -455,7 +464,7 @@ if(!function_exists('twoclick_buttons')) {
 						 * Vor dem Beitrag einfügen.
 						 */
 						$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
-						return twoclick_buttons_generate_html(get_the_ID()) . $var_sJavaScript . '<p class="claer-after-twoclick"></p>' . $content;
+						return twoclick_buttons_generate_html(get_the_ID()) . $var_sJavaScript . '<p class="clear-after-twoclick"></p>' . $content;
 					} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
 						/**
 						 * Nach dem Beitrag einfügen.
@@ -666,7 +675,7 @@ if(!function_exists('get_twoclick_buttons')) {
 				twoclick_buttons_get_js(get_the_ID());
 			}
 
-			echo twoclick_buttons_generate_html($var_sPostId) . '<p class="claer-after-twoclick"></p>';
+			echo twoclick_buttons_generate_html($var_sPostId) . '<p class="clear-after-twoclick"></p>';
 		}
 	}
 }
