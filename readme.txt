@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.22
+Stable tag: 0.23
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -47,6 +47,11 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 0.23 =
+* (29. Januar 2012)
+* Neu: Xing zu den Buttons hinzugefügt
+* Fix: JavaScript per return holen, nicht per echo. Ich hoffe ds behebt noch ein paar kleinere Sorgen.
+
 = 0.22 =
 * (28. Januar 2012)
 * Fix: CSS für responsitive Layouts angepasst. (Danke an <a href="http://kkoepke.de">Kai Köpke</a>)
@@ -54,7 +59,7 @@ Nutze dafür einfach dein Dashboard
 * Fix: Padding der Dummy-Buttons.
 * Fix: Das Problem, dass die Buttons bei einigen mehrfach unter einem Artikel eingebunden wurden, ist nun hoffentlich behoben.
 * Dummybilder wurden von <a href="http://kkoepke.de">Kai</a> überarbeitet und haben nun keinen weißen Hintergrund mehr und sind somit einhetlicher.
-* Die dauerhaften Einstellungen können nun nur noch im Einzelartikel geändert werden und wirken sich nur noch auf die Anzeige im Einzelartikel aus. Im Loop ist die Permaoption deaktiviert, da sie dort zu feleranfällig ist.
+* Die dauerhaften Einstellungen können nun nur noch im Einzelartikel geändert werden und wirken sich nur noch auf die Anzeige im Einzelartikel aus. Im Loop ist die Permaoption deaktiviert, da sie dort zu fehleranfällig ist.
 * JavaScript "minified"
 
 = 0.21.1 =
