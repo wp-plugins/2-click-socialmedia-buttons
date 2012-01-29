@@ -121,7 +121,19 @@
 					'the_title'			: '',
 					'referrer_track'	: '',
 					'the_excerpt'		: ''
-				}
+				},
+				'xing' : {
+					'status'			: 'on',
+					'dummy_img'			: '',
+					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+					'txt_gplus_off'		: 'nicht mit Xing verbunden',
+					'txt_plus_on'		: 'mit Xing verbunden',
+					'perma_option'		: 'on',
+					'display_name'		: 'Xing',
+					'referrer_track'	: '',
+					'language'			: 'de',
+					'xing_lib'			: ''
+				},
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
 			'txt_help'  		: 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr oder Google ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.',
@@ -132,16 +144,16 @@
 			'css_path'			: '',
 			'uri'				: getURI
 		};
-
 		var options = $.extend(true, defaults, options);
 
 		var facebook_on = (options.services.facebook.status === 'on');
 		var twitter_on  = (options.services.twitter.status  === 'on');
 		var gplus_on	= (options.services.gplus.status	=== 'on');
 		var flattr_on	= (options.services.flattr.status	=== 'on');
+		var xing_on		= (options.services.xing.status	=== 'on');
 
 		// check if at least one service is "on"
-		if(!facebook_on && !twitter_on && !gplus_on && !flattr_on) {
+		if(!facebook_on && !twitter_on && !gplus_on && !flattr_on && !xing_on) {
 			return;
 		}
 
@@ -285,6 +297,33 @@
 			}
 
 			//
+			// Xing
+			//
+			if(xing_on) {
+				var xing_lib = options.services.xing.xing_lib;
+				var xing_uri = uri + options.services.xing.referrer_track;
+
+				var xing_code = '<iframe allowtransparency="true" src="' + xing_lib + '?xing-url=' + xing_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" alt="&quot;Xing1&quot;-Dummy" class="xing_dummy" />';
+
+				context.append('<li class="xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_gplus_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
+
+				var $container_xing = $('li.xing', context);
+
+				$('li.xing div.xingbtn img,li.xing span.switch', context).live('click', function () {
+					if($container_xing.find('span.switch').hasClass('off')) {
+						$container_xing.addClass('info_off');
+						$container_xing.find('span.switch').addClass('on').removeClass('off').html(options.services.xing.txt_xing_on);
+						$container_xing.find('img.xing_dummy').replaceWith(xing_code);
+					} else {
+						$container_xing.removeClass('info_off');
+						$container_xing.find('span.switch').addClass('off').removeClass('on').html(options.services.xing.txt_xing_off);
+						$container_xing.find('.xingbtn').html(xing_dummy_btn);
+					}
+				});
+			}
+
+			//
 			// Der Info/Settings-Bereich wird eingebunden
 			//
 			context.append('<li class="settings_info"><div class="settings_info_menu off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
@@ -308,13 +347,15 @@
 			var twitter_perma	= (options.services.twitter.perma_option	=== 'on');
 			var gplus_perma		= (options.services.gplus.perma_option		=== 'on');
 			var flattr_perma	= (options.services.flattr.perma_option		=== 'on');
+			var xing_perma		= (options.services.xing.perma_option		=== 'on');
 
 			// Menue zum dauerhaften Einblenden der aktiven Dienste via Cookie einbinden
 			// Die IE7 wird hier ausgenommen, da er kein JSON kann und die Cookies hier ueber JSON-Struktur abgebildet werden
 			if(((facebook_on && facebook_perma)
 				|| (twitter_on && twitter_perma)
 				|| (gplus_on && gplus_perma)
-				|| (flattr_on && flattr_perma))
+				|| (flattr_on && flattr_perma)
+				|| (xing_on && xing_perma))
 					&& (!$.browser.msie || ($.browser.msie && ($.browser.version > 7.0)))) {
 
 				// Cookies abrufen
@@ -376,9 +417,18 @@
 				if(flattr_on && flattr_perma) {
 					var perma_status_flattr = cookies.socialSharePrivacy_flattr === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
-						'<input type="checkbox" name="perma_status_flattr" id="perma_status_flattr"'
+							'<input type="checkbox" name="perma_status_flattr" id="perma_status_flattr"'
 							+ perma_status_flattr + ' /><label for="perma_status_flattr">'
 							+ options.services.flattr.display_name + '</label>'
+					);
+				}
+
+				if(xing_on && xing_perma) {
+					var perma_status_xing = cookies.socialSharePrivacy_xing === 'perma_on' ? checked : '';
+					$container_settings_info.find('form fieldset').append(
+						'<input type="checkbox" name="perma_status_xing" id="perma_status_xing"'
+							+ perma_status_xing + ' /><label for="perma_status_xing">'
+							+ options.services.xing.display_name + '</label>'
 					);
 				}
 
@@ -434,6 +484,12 @@
 				if(flattr_on && flattr_perma && cookies.socialSharePrivacy_flattr === 'perma_on') {
 //					$('li.flattr span.switch', context).click();
 					$('li.flattr div.flattrbtn img', context).click();
+				}
+
+				// Xing
+				if(xing_on && xing_perma && cookies.socialSharePrivacy_xing === 'perma_on') {
+//					$('li.flattr span.switch', context).click();
+					$('li.xing div.xingbtn img', context).click();
 				}
 			}
 		});
