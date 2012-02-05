@@ -3,11 +3,11 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.23.1
+ * Version: 0.24.1
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.23.1');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.24.1');
 define('TWOCLICK_DONATE_FLATTR_LINK', 'http://flattr.com/thing/390240/WordPress-Plugin-2-Click-Social-Media-Buttons');
 define('TWOCLICK_DONATE_PAYPAL_LINK', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE');
 
@@ -116,6 +116,9 @@ if(!function_exists('twoclick_buttons_options_page')) {
 
 					'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
 					'twoclick_buttons_display_index' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_index'])),
+					'twoclick_buttons_display_search' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_search'])),
+					'twoclick_buttons_display_tag' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_tag'])),
+					'twoclick_buttons_display_category' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_category'])),
 
 					'twoclick_buttons_display_facebook' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_facebook'])),
 					'twoclick_buttons_display_twitter' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_twitter'])),
@@ -204,13 +207,25 @@ if(!function_exists('twoclick_buttons_options_page')) {
 						</div>
 
 						<!-- Auf welchen Seiten sollen die Buttons angezeigt werden -->
-						<div>
+						<div style="margin-top:10px;">
 							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_page') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_page]" id="twoclick_buttons_settings[twoclick_buttons_display_page]" group="twoclick_buttons_display" />
 							<label for="twoclick_buttons_settings[twoclick_buttons_display_page]"><?php _e('Display on CMS-Pages', 'twoclick-socialmedia'); ?></label>
 						</div>
 						<div>
 							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_index') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_index]" id="twoclick_buttons_settings[twoclick_buttons_display_index]" group="twoclick_buttons_display" />
 							<label for="twoclick_buttons_settings[twoclick_buttons_display_index]"><?php _e('Display on Index', 'twoclick-socialmedia'); ?></label>
+						</div>
+						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_search') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_search]" id="twoclick_buttons_settings[twoclick_buttons_display_search]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_search]"><?php _e('Display on Search-Pages', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
+						</div>
+						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_category') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_category]" id="twoclick_buttons_settings[twoclick_buttons_display_category]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_category]"><?php _e('Display on Category-Archive', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
+						</div>
+						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_tag') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_tag]" id="twoclick_buttons_settings[twoclick_buttons_display_tag]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_tag]"><?php _e('Display on Tag-Archive', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
 						</div>
 						<div>
 							<p>
@@ -374,146 +389,6 @@ if(!function_exists('twoclick_buttons_options_page')) {
 /**
  * Buttons in WordPress einbauen.
  *
- * @since 0.1
- */
-// if(!function_exists('twoclick_buttons')) {
-// 	function twoclick_buttons($content) {
-// 		global $post;
-
-// 		/**
-// 		 * RSS-Feeds und Trackbacks nicht berücksichtigen.
-// 		 *
-// 		 * @since 0.21
-// 		 */
-// 		if(is_feed() || is_trackback()) {
-// 			return $content;
-// 		}
-
-// 		/**
-// 		 * Post-ID in Konstante speichern, da diese bei einigen Themes
-// 		 * auf dem Weg vom Content zum Footer verloren geht, wieso auch immer.
-// 		 */
-// 		define('TWOCLICK_POST_ID', $post->ID);
-
-// 		$var_sHtml = twoclick_buttons_generate_html();
-// 		$var_sWhere = 'twoclick_buttons_where';
-
-// 		/**
-// 		 * Prüfen ob der Template-Tag verwendet wurde.
-// 		 * Wenn ja, $content bereinigt zurückgeben andernfalls die Buttons generieren.
-// 		 *
-// 		 * @since 0.18
-// 		 */
-// 		if(twoclick_buttons_get_option($var_sWhere) == 'template') {
-// 			return str_replace('[twoclick_buttons]', '', $content);
-// 		} else {
-// 			/**
-// 			 * Prüfen ob wir auf einer Einzelseite sind.
-// 			 * Artikel oder CMS-Seite.
-// 			 *
-// 			 * @since 0.13 (Überarbeitung der Logik)
-// 			 */
-// 			if(is_singular()) {
-// 				/**
-// 				 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
-// 				 */
-// 				if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
-// 					return $content;
-// 				}
-
-// 				/**
-// 				 * Auch auf "Anhangsseiten" wird nichts angezeigt.
-// 				 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
-// 				 */
-// 				if(is_attachment()) {
-// 					return $content;
-// 				}
-
-// 				if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
-// 					/**
-// 					 * Manuelles Einfügen via Shortcode [twoclick_buttons].
-// 					 *
-// 					 * @since 0.5
-// 					 */
-// 					return str_replace('[twoclick_buttons]', $var_sHtml, $content);
-// 				} else {
-// 					/**
-// 					 * Einfügen der Buttons nach den Einstellungen.
-// 					 */
-// 					if(get_post_meta($post->ID, 'twoclick_buttons') == null) {
-// 						/**
-// 						 * Da hier nicht via Shortcode eingebunden wird, muss dieser aus dem Text entfernt werden.
-// 						 *
-// 						 * @since 0.13
-// 						 */
-// 						$content = str_replace('[twoclick_buttons]', '', $content);
-
-// 						/**
-// 						 * Buttons einbinden.
-// 						 */
-// 						if(twoclick_buttons_get_option($var_sWhere) == 'before') {
-// 							/**
-// 							 * Vor dem Beitrag einfügen.
-// 							 */
-// 							return $var_sHtml . $content;
-// 						} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
-// 							/**
-// 							 * Nach dem Beitrag einfügen.
-// 							 */
-// 							return $content . $var_sHtml;
-// 						} // END if(twoclick_buttons_get_option($var_sWhere) == 'before')
-// 					} else {
-// 						/**
-// 						 * Keinen Button einfügen.
-// 						 */
-// 						return $content;
-// 					} // END if(get_post_meta($post->ID, 'twoclick_buttons') == null)
-// 				} // END if(twoclick_buttons_get_option($var_sWhere) == 'shortcode')
-// 			} else {
-// 				/**
-// 				 * Buttons im Artikelindex anzeigen.
-// 				 *
-// 				 * @since 0.20
-// 				 */
-// 				if(twoclick_buttons_get_option('twoclick_buttons_display_index')) {
-// 					if(twoclick_buttons_get_option($var_sWhere) == 'before') {
-// 						/**
-// 						 * Vor dem Beitrag einfügen.
-// 						 */
-// 						$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
-// 						return twoclick_buttons_generate_html(get_the_ID()) . $var_sJavaScript . $content;
-// 					} elseif(twoclick_buttons_get_option($var_sWhere) == 'after') {
-// 						/**
-// 						 * Nach dem Beitrag einfügen.
-// 						 */
-// 						$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
-// 						return $content . $var_sJavaScript . twoclick_buttons_generate_html(get_the_ID());
-// 					} // END if(twoclick_buttons_get_option($var_sWhere) == 'before')
-
-// 					if(twoclick_buttons_get_option($var_sWhere) == 'shortcode') {
-// 						/**
-// 						 * Manuelles Einfügen via Shortcode [twoclick_buttons].
-// 						 *
-// 						 * @since 0.5
-// 						 */
-// 						$var_sJavaScript = twoclick_buttons_get_js(get_the_ID());
-// 						return $var_sJavaScript . str_replace('[twoclick_buttons]', $var_sHtml, $content);
-// 					}
-// 				} else {
-// 					/**
-// 					 * Übersichtsseite.
-// 					 * Keine Buttons einfügen und den Shortcode auf dem Text entfernen.
-// 					 */
-// 					return str_replace('[twoclick_buttons]', '', $content);
-// 				} // END if(twoclick_buttons_get_option('twoclick_buttons_display_index'))
-// 			} // END if(is_singular())
-// 		} // END if(twoclick_buttons_get_option($var_sWhere) == 'template')
-// 	} // END function twoclick_buttons($content)
-// } // END if(!function_exists('twoclick_buttons'))
-
-/**
- * Buttons in WordPress einbauen.
- *
  * @since 0.1 (rewritten at 0.22)
  */
 function twoclick_buttons($content) {
@@ -537,6 +412,27 @@ function twoclick_buttons($content) {
 	 * Sind wir auf der Startseite?
 	 */
 	if(twoclick_buttons_get_option('twoclick_buttons_display_index') == null && is_home()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir auf der Suchseite?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_search') == null && is_search()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir auf der Tagseite?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_tag') == null && is_tag()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir auf der Kategorieseite?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_category') == null && is_category()) {
 		return $content;
 	}
 
@@ -722,13 +618,7 @@ if(!function_exists('twoclick_buttons_generate_html')) {
 			$var_sPostID = TWOCLICK_POST_ID;
 		}
 
-// 		return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . twoclick_buttons_get_js($var_sPostID);
 		return twoclick_buttons_get_js($var_sPostID);
-// 		if(!is_singular()) {
-// 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . twoclick_buttons_get_js($var_sPostID);
-// 		} else {
-// 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . twoclick_buttons_get_js($var_sPostID);
-// 		}
 	}
 }
 
@@ -736,9 +626,6 @@ if(!function_exists('twoclick_buttons_generate_html')) {
  * Template-Tag zur Verfügung stellen.
  * Einbindung:
  * 		<?php if(function_exists('get_twoclick_buttons')) {get_twoclick_buttons(get_the_ID());}?>
- *
- * Restriktionen:
- * 		Kann nur in Einzelartikeln und/oder -seiten verwendet werden. Wird im Loop nicht angezeigt.
  *
  * @since 0.18
  */
@@ -748,26 +635,6 @@ if(!function_exists('get_twoclick_buttons')) {
 			/**
 			 * Wenn der Button nicht auf CMS-Seiten angezeigt werden soll.
 			 */
-// 			if(is_page() && twoclick_buttons_get_option('twoclick_buttons_display_page') == null) {
-// 				return;
-// 			}
-
-// 			/**
-// 			 * Auch auf "Anhangsseiten" wird nichts angezeigt.
-// 			 * Zu diesen Seiten zählt alles, was aus der Mediathek heraus verlinkt wird.
-// 			 */
-// 			if(is_attachment()) {
-// 				return;
-// 			}
-
-// 			if(!is_singular()) {
-// 				if(twoclick_buttons_get_option('twoclick_buttons_display_index') == null) {
-// 					return;
-// 				}
-
-// 				twoclick_buttons_get_js(get_the_ID());
-// 			}
-
 			echo twoclick_buttons_generate_html($var_sPostId);
 		}
 	}
@@ -896,10 +763,8 @@ if(!function_exists('twoclick_buttons_opengraph_tags')) {
 		 */
 //		$var_sExcerpt = '';
 		if(has_excerpt()) {
-//			$var_sExcerpt = $post->post_excerpt;
 			define('TWOCLICK_POST_EXCERPT', $post->post_excerpt);
 		} else {
-//			$var_sExcerpt = twoclick_buttons_generate_post_excerpt($post->post_content, 140);
 			define('TWOCLICK_POST_EXCERPT', twoclick_buttons_generate_post_excerpt($post->post_content, 400));
 		}
 
@@ -915,7 +780,6 @@ if(!function_exists('twoclick_buttons_opengraph_tags')) {
 		if($var_sFaceBookThumbnail) {
 			echo '<meta property="og:image" content="' . esc_attr($var_sFaceBookThumbnail) . '"/>' . "\n";
 		}
-//		echo '<meta property="og:description" content="' . esc_attr($var_sExcerpt) . '"/>' . "\n";
 		echo '<meta property="og:description" content="' . esc_attr(TWOCLICK_POST_EXCERPT) . '"/>' . "\n";
 		echo '<!-- Facebook Like Thumbnail -->' . "\n";
 	}
@@ -1241,7 +1105,7 @@ if(!function_exists('twoclick_buttons_update_options')) {
  */
 function twoclick_buttons_settings_link($links, $file) {
  	if($file == '2-click-socialmedia-buttons/2-click-socialmedia-buttons.php' && function_exists('admin_url')) {
-		$settings_link = '<a href="' . admin_url('options-general.php?page=twoclick-buttons-options') . '">' . __('Settings') . '</a>';
+		$settings_link = '<a href="' . admin_url('options-general.php?page=twoclick-buttons-options') . '">' . __('Settings', 'twoclick-socialmedia') . '</a>';
 		array_unshift( $links, $settings_link); // before the other links
 	}
 
