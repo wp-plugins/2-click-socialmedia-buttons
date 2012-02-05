@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.24.1
+Stable tag: 0.25
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -46,6 +46,10 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.25 =
+* (06. Februar 2012)
+* Auf Wunsch eines <a href="http://picomol.de/">Einzelnen</a> via <a href="http://twitter.com/#!/picomol/statuses/166157390272663552">Twitter</a> nun auch mit Einstellungen für die Archivtypen :-)
 
 = 0.24.1 =
 * (05. Februar 2012)
