@@ -3,11 +3,11 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.24.1
+ * Version: 0.25
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.24.1');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.25');
 define('TWOCLICK_DONATE_FLATTR_LINK', 'http://flattr.com/thing/390240/WordPress-Plugin-2-Click-Social-Media-Buttons');
 define('TWOCLICK_DONATE_PAYPAL_LINK', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE');
 
@@ -116,6 +116,9 @@ if(!function_exists('twoclick_buttons_options_page')) {
 
 					'twoclick_buttons_display_page' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_page'])),
 					'twoclick_buttons_display_index' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_index'])),
+					'twoclick_buttons_display_year' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_year'])),
+					'twoclick_buttons_display_month' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_month'])),
+					'twoclick_buttons_display_day' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_day'])),
 					'twoclick_buttons_display_search' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_search'])),
 					'twoclick_buttons_display_tag' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_tag'])),
 					'twoclick_buttons_display_category' => (int) (!empty($_POST['twoclick_buttons_settings']['twoclick_buttons_display_category'])),
@@ -215,7 +218,19 @@ if(!function_exists('twoclick_buttons_options_page')) {
 							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_index') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_index]" id="twoclick_buttons_settings[twoclick_buttons_display_index]" group="twoclick_buttons_display" />
 							<label for="twoclick_buttons_settings[twoclick_buttons_display_index]"><?php _e('Display on Index', 'twoclick-socialmedia'); ?></label>
 						</div>
+						<div style="margin-top:10px;">
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_year') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_year]" id="twoclick_buttons_settings[twoclick_buttons_display_year]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_year]"><?php _e('Display on Yearly Archives', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
+						</div>
 						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_month') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_month]" id="twoclick_buttons_settings[twoclick_buttons_display_month]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_month]"><?php _e('Display on Monthly Archives', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
+						</div>
+						<div>
+							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_day') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_day]" id="twoclick_buttons_settings[twoclick_buttons_display_day]" group="twoclick_buttons_display" />
+							<label for="twoclick_buttons_settings[twoclick_buttons_display_day]"><?php _e('Display on Daily Archives', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
+						</div>
+						<div style="margin-top:10px;">
 							<input type="checkbox" value="1" <?php if(twoclick_buttons_get_option('twoclick_buttons_display_search') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_search]" id="twoclick_buttons_settings[twoclick_buttons_display_search]" group="twoclick_buttons_display" />
 							<label for="twoclick_buttons_settings[twoclick_buttons_display_search]"><?php _e('Display on Search-Pages', 'twoclick-socialmedia'); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  'twoclick-socialmedia'); ?>)</span>
 						</div>
@@ -412,6 +427,27 @@ function twoclick_buttons($content) {
 	 * Sind wir auf der Startseite?
 	 */
 	if(twoclick_buttons_get_option('twoclick_buttons_display_index') == null && is_home()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir im Jahresarchiv?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_year') == null && is_year()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir im Monatsarchiv?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_month') == null && is_month()) {
+		return $content;
+	}
+
+	/**
+	 * Sind wir im Tagesarchiv?
+	 */
+	if(twoclick_buttons_get_option('twoclick_buttons_display_day') == null && is_day()) {
 		return $content;
 	}
 
