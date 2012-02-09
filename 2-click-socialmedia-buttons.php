@@ -3,11 +3,11 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.25
+ * Version: 0.26
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
-define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.25');
+define('TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION', '0.26');
 define('TWOCLICK_DONATE_FLATTR_LINK', 'http://flattr.com/thing/390240/WordPress-Plugin-2-Click-Social-Media-Buttons');
 define('TWOCLICK_DONATE_PAYPAL_LINK', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE');
 
@@ -482,7 +482,6 @@ function twoclick_buttons($content) {
 	$button = twoclick_buttons_generate_html(get_the_ID());
 	$where = 'twoclick_buttons_where';
 
-
 	/**
 	 * Wurde der Shortcode genutzt
 	 */
@@ -870,7 +869,8 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			$var_sCss = plugins_url(basename(dirname(__FILE__)) . '/css/socialshareprivacy.css');
 // 			$var_sPlusoneLib = plugins_url(basename(dirname(__FILE__)) . '/libs/plusone.php');
 			$var_sXingLib = plugins_url(basename(dirname(__FILE__)) . '/libs/xing.php');
-			$var_sPostExcerpt = rawurlencode(TWOCLICK_POST_EXCERPT);
+// 			$var_sPostExcerpt = rawurlencode(TWOCLICK_POST_EXCERPT);
+			$var_sPostExcerpt = '';
 
 			if(is_singular()) {
 				$var_sPostExcerpt = rawurlencode(TWOCLICK_POST_EXCERPT);
@@ -1050,7 +1050,6 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 			} // END if(function_exists('curl_init'))
 		} // END if(ini_get('allow_url_fopen'))
 
-
 		if($data) {
 			$matches = null;
 			$regexp = '~==\s*Changelog\s*==\s*=\s*[0-9.]+\s*=(.*)(=\s*' . preg_quote(TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION) . '\s*=|$)~Uis';
@@ -1070,7 +1069,6 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 								$ul = true;
 							} // END if(!$ul)
 
-
 							$line = preg_replace('~^\s*\*\s*~', '', $line);
 							echo '<li>' . $line . '</li>';
 						} else {
@@ -1079,13 +1077,11 @@ if(!function_exists('twoclick_buttons_update_notice')) {
 								$ul = false;
 							} // END if($ul)
 
-
 							$version = trim($line, " =");
 							echo '<p style="margin: 5px 0;">' . htmlspecialchars($line) . '</p>';
 						} // END if(preg_match('~^\s*\*\s*~', $line))
 					} // END if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,">"))
 				} // END foreach($changelog as $index => $line)
-
 
 				if($ul) {
 					echo '</ul><div style="clear: left;"></div>';
