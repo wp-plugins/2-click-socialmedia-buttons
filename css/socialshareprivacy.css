@@ -66,3 +66,10 @@ img.tweet_this_dummy, img.fb_like_privacy_dummy, img.gplus_one_dummy, img.flattr
 @media (max-width: 800px) {
 	.social_share_privacy_area .settings_info {clear: left;}
 }
+
+/* Clearfix (as it will come in WP 3.4)
+----------------------------------------------- */
+.clearfix:after {content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0;}
+.clearfix {/* display:inline-block; */}
+html[xmlns] .clearfix {display:block;}
+* html .clearfix {height:1%;}

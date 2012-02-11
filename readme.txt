@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.26
+Stable tag: 0.27
 
 Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
@@ -46,6 +46,12 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.27 =
+* (11. Februar 2012)
+* CSS: Clearfix (wie er in WordPress 3.4 verwendet wird) hinzugefügt. Somit wird das Floating nach den Buttons automatisch wieder aufgehoben und nachfolgende Elemente schieben nicht nicht daneben. Danke an <a href="http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/comment-page-6/#comment-28028">jzdm</a> für den Hinweis.
+* Alten auskommentierten Code rausgeworfen.
+* Verwendung von $_REQUEST statt $_POST (ist etwas sicherer).
 
 = 0.26 =
 * (09. Februar 2012)
