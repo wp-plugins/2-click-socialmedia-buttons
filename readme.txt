@@ -1,16 +1,16 @@
 ﻿=== 2 Click Social Media Buttons ===
 Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
-Tags: twitter, facebook, googleplus, button, flattr, social, privacy
+Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing
 Requires at least: 3.0.1
 Tested up to: 3.3
-Stable tag: 0.27.1
+Stable tag: 0.28
 
-Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
+Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 
 == Description ==
 
-Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
+Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
 Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Das Plugin ist eine WordPress-Adaption der Lösung von heise.de wie in ihrem Artikel [2 Klicks für mehr Datenschutz](http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html "2 Klicks für mehr Datenschutz auf heise online") beschrieben.
 Bisher werden die Buttons einfach in den Einzelartikeln und -seiten unter dem Artikel eingebunden. Einige Einstellungsmöglichkeiten sind noch in Planung.
 
@@ -46,6 +46,11 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.28 =
+* (15. Februar 2012)
+* CSS-Patch: Die einzelnen Elemente können nun keinen Rahmen mehr bekommen. Dies war wohl bei der Zusammenarbeit mit einigen andern Plugins der Fall.
+* JS-Patch: Zwei Kommas aus dem JavaScript entfernt, damit auch "ältere" Internetexplorer verstehen was sie tun sollen ... (Ich kanns selbst kaum glauben, dass ich das hier hin schreibe.)
 
 = 0.27.1 =
 * (11. Februar 2012)
