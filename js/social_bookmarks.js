@@ -76,6 +76,8 @@
 				'facebook' : {
 					'status'			: 'on',
 					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_fb_off'		: 'nicht mit Facebook verbunden',
 					'txt_fb_on'			: 'mit Facebook verbunden',
@@ -88,6 +90,8 @@
 				'twitter' : {
 					'status'			: 'on',
 					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_twitter_off'	: 'nicht mit Twitter verbunden',
 					'txt_twitter_on'	: 'mit Twitter verbunden',
@@ -101,6 +105,8 @@
 				'gplus' : {
 					'status'			: 'on',
 					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Google+ verbunden',
 					'txt_plus_on'		: 'mit Google+ verbunden',
@@ -113,6 +119,8 @@
 					'status'			: 'on',
 					'uid'				: '',
 					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_flattr_off'	: 'nicht mit Flattr verbunden',
 					'txt_flattr_on'		: 'mit Flattr verbunden',
@@ -125,6 +133,8 @@
 				'xing' : {
 					'status'			: 'on',
 					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Xing verbunden',
 					'txt_plus_on'		: 'mit Xing verbunden',
@@ -180,7 +190,7 @@
 //				var fb_enc_uri = encodeURIComponent(options.services.facebook.the_permalink+options.services.facebook.referrer_track);
 				var fb_enc_uri = encodeURIComponent(uri+options.services.facebook.referrer_track);
 				var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
-				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_like_privacy_dummy" />';
+				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_like_privacy_dummy" />';
 
 				context.append('<li class="facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
 
@@ -217,7 +227,7 @@
 //				var twitter_count_url = encodeURIComponent(options.services.twitter.the_permalink);
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;via='+options.services.twitter.reply_to+'&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
-				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy" />';
+				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy" />';
 
 				context.append('<li class="twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
@@ -249,7 +259,7 @@
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
 //				var gplus_code = '<iframe allowtransparency="true" src="' + plusone_lib + '?url=' + gplus_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:90px; height:24px;" align="left"></iframe>';
 //				var gplus_code = '<iframe allowtransparency="true" src="https://plusone.google.com/u/0/_/+1/fastbutton?url=' + gplus_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:90px; height:24px;" align="left"></iframe>';
-				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
+				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" width="' + options.services.gplus.dummy_img_width + '" height="' + options.services.gplus.dummy_img_height + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
 
 				context.append('<li class="gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
@@ -277,7 +287,7 @@
 				var flattr_uri = encodeURIComponent(uri);
 				var flattr_excerpt = options.services.flattr.the_excerpt;
 				var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
-				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
+				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" width="' + options.services.flattr.dummy_img_width + '" height="' + options.services.flattr.dummy_img_height + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
 
 				context.append('<li class="flattr help_info"><span class="info">' + options.services.flattr.txt_info + '</span><span class="switch off">' + options.services.flattr.txt_flattr_off + '</span><div class="flattrbtn dummy_btn">' + flattr_dummy_btn + '</div></li>');
 
@@ -304,7 +314,7 @@
 				var xing_uri = uri + options.services.xing.referrer_track;
 
 				var xing_code = '<iframe allowtransparency="true" src="' + xing_lib + '?xing-url=' + xing_uri + '&amp;size=medium&amp;count=true&amp;lang=de" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
-				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" alt="&quot;Xing1&quot;-Dummy" class="xing_dummy" />';
+				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing1&quot;-Dummy" class="xing_dummy" />';
 
 				context.append('<li class="xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_gplus_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
 
