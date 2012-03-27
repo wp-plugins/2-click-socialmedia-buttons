@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.31.1
+ * Version: 0.31.2
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -657,7 +657,7 @@ if(!function_exists('twoclick_buttons_get_hashtags')) {
 if(!function_exists('twoclick_buttons_generate_html')) {
 	function twoclick_buttons_generate_html($var_sPostID = '') {
 		if($var_sPostID == '') {
-			$var_sPostID = TWOCLICK_POST_ID;
+			$var_sPostID = get_the_ID();
 		}
 
 		return twoclick_buttons_get_js($var_sPostID);
@@ -916,7 +916,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 	function twoclick_buttons_get_js($var_sPostID = '') {
 		if(!is_admin()) {
 			if($var_sPostID == '') {
-				$var_sPostID = TWOCLICK_POST_ID;
+				$var_sPostID = get_the_ID();
 			}
 
 			$var_sTitle = rawurlencode(get_the_title($var_sPostID));
@@ -1132,13 +1132,16 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'perma_option' => $var_sShowXingPerm,
 						'language' => $var_sButtonLanguage,
 						'xing_lib' => $var_sXingLib
-					),
-					'txt_help' => (twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') : '',
-					'settings_perma' => (twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') : '',
-					'info_link' => (twoclick_buttons_get_option('twoclick_buttons_infolink') != '') ? twoclick_buttons_get_option('twoclick_buttons_infolink') : '',
-					'css_path' => $var_sCss,
-					'uri' => $var_sPermalink
-				)
+					)
+				),
+				'links' => array(
+					'permalink' => $var_sPermalink
+				),
+				'txt_help' => (twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') : '',
+				'settings_perma' => (twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') : '',
+				'info_link' => (twoclick_buttons_get_option('twoclick_buttons_infolink') != '') ? twoclick_buttons_get_option('twoclick_buttons_infolink') : '',
+				'css_path' => $var_sCss,
+				'uri' => $var_sPermalink
 			);
 
 			$var_sJavaScript = 'jQuery(document).ready(function($){
@@ -1147,7 +1150,6 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				}
 			});';
 
-			// Das JS als Einzeleiler zurückgeben, da sonst <p> drin sind, wieso auch immer.
 // 			return preg_replace('/\r|\n/s', '', '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . $var_sJavaScript);
 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
