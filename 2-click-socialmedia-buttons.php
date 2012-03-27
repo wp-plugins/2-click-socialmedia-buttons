@@ -599,7 +599,8 @@ if(!function_exists('twoclick_buttons_get_tweettext')) {
 			}
 		}
 
-		return twoclick_buttons_shorten_tweettext($tweettext);
+// 		return twoclick_buttons_shorten_tweettext($tweettext);
+		return twoclick_buttons_shorten_tweettext(html_entity_decode($tweettext, ENT_QUOTES, get_bloginfo('charset')));
 	}
 }
 
@@ -962,43 +963,48 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			// Infotexte
 			$var_sInfotextFacebook = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') != '') {
-				$var_sInfotextFacebook = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') . '\',';
+// 				$var_sInfotextFacebook = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') . '\',';
+				$var_sInfotextFacebook = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') . '\'';
 			}
 
 			$var_sInfotextTwitter = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') != '') {
-				$var_sInfotextTwitter = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') . '\',';
+// 				$var_sInfotextTwitter = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') . '\',';
+				$var_sInfotextTwitter = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') . '\'';
 			}
 
 			$var_sInfotextGoogleplus = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') != '') {
-				$var_sInfotextGoogleplus = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') . '\',';
+// 				$var_sInfotextGoogleplus = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') . '\',';
+				$var_sInfotextGoogleplus = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') . '\'';
 			}
 
 			$var_sInfotextFlattr = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') != '') {
-				$var_sInfotextFlattr = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') . '\',';
+// 				$var_sInfotextFlattr = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') . '\',';
+				$var_sInfotextFlattr = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') . '\'';
 			}
 
 			$var_sInfotextXing = '';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_xing') != '') {
-				$var_sInfotextXing = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_xing') . '\',';
+// 				$var_sInfotextXing = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_xing') . '\',';
+				$var_sInfotextXing = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_xing') . '\'';
 			}
 
-			$var_sInfotextInfobutton = '';
-			if(twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') {
-				$var_sInfotextInfobutton = '\'txt_help\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') . '\',';
-			}
+// 			$var_sInfotextInfobutton = '';
+// 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') {
+// 				$var_sInfotextInfobutton = '\'txt_help\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') . '\',';
+// 			}
 
-			$var_sInfotextPermaoption = '';
-			if(twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') {
-				$var_sInfotextPermaoption = '\'settings_perma\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') . '\',';
-			}
+// 			$var_sInfotextPermaoption = '';
+// 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') {
+// 				$var_sInfotextPermaoption = '\'settings_perma\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') . '\',';
+// 			}
 
-			$var_sInfolink = '';
-			if(twoclick_buttons_get_option('twoclick_buttons_infolink') != '') {
-				$var_sInfolink = '\'info_link\' : \'' . trim(twoclick_buttons_get_option('twoclick_buttons_infolink')) . '\',';
-			}
+// 			$var_sInfolink = '';
+// 			if(twoclick_buttons_get_option('twoclick_buttons_infolink') != '') {
+// 				$var_sInfolink = '\'info_link\' : \'' . trim(twoclick_buttons_get_option('twoclick_buttons_infolink')) . '\',';
+// 			}
 
 			// Dummybilder holen.
 			$array_DummyImages = twoclick_buttons_get_dummy_images(get_locale());
@@ -1011,74 +1017,139 @@ if(!function_exists('twoclick_buttons_get_js')) {
 
 			$var_sFacebookAction = (twoclick_buttons_get_option('twoclick_buttons_facebook_action')) ? twoclick_buttons_get_option('twoclick_buttons_facebook_action') : 'recommend';
 
-			$var_sJavaScript = '<script type="text/javascript">
-			jQuery(document).ready(function($){
+// 			$var_sJavaScript = 'jQuery(document).ready(function($){
+// 				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){
+// 					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy({
+// 						services : {
+// 							facebook : {
+// 								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['image'] . '\',
+// 								\'dummy_img_width\'	: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['width'] . '\',
+// 								\'dummy_img_height\': \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['height'] . '\',
+// 								\'status\'			: \'' . $var_sShowFacebook . '\',
+// 								' . $var_sInfotextFacebook . '
+// 								\'perma_option\'	: \'' . $var_sShowFacebookPerm . '\',
+// 								\'action\'			: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_action') . '\',
+// 								\'language\'		: \'' . get_locale() . '\'
+// 							},
+// 							twitter : {
+// 								\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
+// 								\'dummy_img\'		: \'' . $array_DummyImages['twitter-dummy-image']['image'] . '\',
+// 								\'dummy_img_width\'	: \'' . $array_DummyImages['twitter-dummy-image']['width'] . '\',
+// 								\'dummy_img_height\': \'' . $array_DummyImages['twitter-dummy-image']['height'] . '\',
+// 								\'tweet_text\'		: \'' . $var_sTweettext . '\',
+// 								\'status\'			: \'' . $var_sShowTwitter . '\',
+// 								' . $var_sInfotextTwitter . '
+// 								\'perma_option\'	: \'' . $var_sShowTwitterPerm . '\',
+// 								\'language\'		: \'' . $var_sButtonLanguage . '\'
+// 							},
+// 							gplus : {
+// 								\'dummy_img\'		: \'' . $array_DummyImages['googleplus-dummy-image']['image'] . '\',
+// 								\'dummy_img_width\'	: \'' . $array_DummyImages['googleplus-dummy-image']['width'] . '\',
+// 								\'dummy_img_height\': \'' . $array_DummyImages['googleplus-dummy-image']['height'] . '\',
+// 								\'status\'			: \'' . $var_sShowGoogleplus . '\',
+// 								' . $var_sInfotextGoogleplus . '
+// 								\'perma_option\'	: \'' . $var_sShowGoogleplusPerm . '\'
+// 							},
+// 							flattr : {
+// 								\'uid\'				: \'' . twoclick_buttons_get_option('twoclick_buttons_flattr_uid') . '\',
+// 								\'dummy_img\'		: \'' . $array_DummyImages['flattr-dummy-image']['image'] . '\',
+// 								\'dummy_img_width\'	: \'' . $array_DummyImages['flattr-dummy-image']['width'] . '\',
+// 								\'dummy_img_height\': \'' . $array_DummyImages['flattr-dummy-image']['height'] . '\',
+// 								\'status\'			: \'' . $var_sShowFlattr . '\',
+// 								\'the_title\'		: \'' . $var_sTitle . '\',
+// 								\'the_excerpt\'		: \'' . $var_sPostExcerpt . '\',
+// 								' . $var_sInfotextFlattr . '
+// 								\'perma_option\'	: \'' . $var_sShowFlattrPerm . '\'
+// 							},
+// 							xing : {
+// 								\'dummy_img\'		: \'' . $array_DummyImages['xing-dummy-image']['image'] . '\',
+// 								\'dummy_img_width\'	: \'' . $array_DummyImages['xing-dummy-image']['width'] . '\',
+// 								\'dummy_img_height\': \'' . $array_DummyImages['xing-dummy-image']['height'] . '\',
+// 								\'status\'			: \'' . $var_sShowXing . '\',
+// 								' . $var_sInfotextXing . '
+// 								\'perma_option\'	: \'' . $var_sShowXingPerm . '\',
+// 								\'language\'		: \'' . $var_sButtonLanguage . '\',
+// 								\'xing_lib\'		: \'' . $var_sXingLib . '\'
+// 							}
+// 						},
+// 						' . $var_sInfotextInfobutton . '
+// 						' . $var_sInfotextPermaoption . '
+// 						' . $var_sInfolink . '
+// 						\'css_path\'		: \'' . $var_sCss . '\',
+// 						\'uri\'				: \'' . $var_sPermalink . '\'
+// 					});
+// 				}
+// 			});';
+
+			$array_ButtonData = array(
+				'services' => array(
+					'facebook' => array(
+						'dummy_img' => $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['image'],
+						'dummy_img_width' => $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['width'],
+						'dummy_img_height' => $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['height'],
+						'status' => $var_sShowFacebook,
+						$var_sInfotextFacebook,
+						'perma_option' => $var_sShowFacebookPerm,
+						'action' => twoclick_buttons_get_option('twoclick_buttons_facebook_action'),
+						'language' => get_locale()
+					),
+					'twitter' => array(
+						'reply_to' => twoclick_buttons_get_option('twoclick_buttons_twitter_reply'),
+						'dummy_img' => $array_DummyImages['twitter-dummy-image']['image'],
+						'dummy_img_width' => $array_DummyImages['twitter-dummy-image']['width'],
+						'dummy_img_height' => $array_DummyImages['twitter-dummy-image']['height'],
+						'tweet_text' => rawurlencode(twoclick_buttons_get_tweettext()),
+						'status' => $var_sShowTwitter,
+						$var_sInfotextTwitter,
+						'perma_option' => $var_sShowTwitterPerm,
+						'language' => $var_sButtonLanguage
+					),
+					'gplus' => array(
+						'dummy_img' => $array_DummyImages['googleplus-dummy-image']['image'],
+						'dummy_img_width' => $array_DummyImages['googleplus-dummy-image']['width'],
+						'dummy_img_height' => $array_DummyImages['googleplus-dummy-image']['height'],
+						'status' => $var_sShowGoogleplus,
+						$var_sInfotextGoogleplus,
+						'perma_option' => $var_sShowGoogleplusPerm
+					),
+					'flattr' => array(
+						'uid' => twoclick_buttons_get_option('twoclick_buttons_flattr_uid'),
+						'dummy_img' => $array_DummyImages['flattr-dummy-image']['image'],
+						'dummy_img_width' => $array_DummyImages['flattr-dummy-image']['width'],
+						'dummy_img_height' => $array_DummyImages['flattr-dummy-image']['height'],
+						'status' => $var_sShowFlattr,
+						'the_title' => $var_sTitle,
+						'the_excerpt' => $var_sPostExcerpt,
+						$var_sInfotextFlattr,
+						'perma_option' => $var_sShowFlattrPerm
+					),
+					'xing' => array(
+						'dummy_img' => $array_DummyImages['xing-dummy-image']['image'],
+						'dummy_img_width' => $array_DummyImages['xing-dummy-image']['width'],
+						'dummy_img_height' => $array_DummyImages['xing-dummy-image']['height'],
+						'status' => $var_sShowXing,
+						$var_sInfotextXing,
+						'perma_option' => $var_sShowXingPerm,
+						'language' => $var_sButtonLanguage,
+						'xing_lib' => $var_sXingLib
+					),
+					'txt_help' => (twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') : '',
+					'settings_perma' => (twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') : '',
+					'info_link' => (twoclick_buttons_get_option('twoclick_buttons_infolink') != '') ? twoclick_buttons_get_option('twoclick_buttons_infolink') : '',
+					'css_path' => $var_sCss,
+					'uri' => $var_sPermalink
+				)
+			);
+
+			$var_sJavaScript = 'jQuery(document).ready(function($){
 				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){
-					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy({
-						services : {
-							facebook : {
-								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['image'] . '\',
-								\'dummy_img_width\'	: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['width'] . '\',
-								\'dummy_img_height\': \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['height'] . '\',
-								\'status\'			: \'' . $var_sShowFacebook . '\',
-								' . $var_sInfotextFacebook . '
-								\'perma_option\'	: \'' . $var_sShowFacebookPerm . '\',
-								\'action\'			: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_action') . '\',
-								\'language\'		: \'' . get_locale() . '\'
-							},
-							twitter : {
-								\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
-								\'dummy_img\'		: \'' . $array_DummyImages['twitter-dummy-image']['image'] . '\',
-								\'dummy_img_width\'	: \'' . $array_DummyImages['twitter-dummy-image']['width'] . '\',
-								\'dummy_img_height\': \'' . $array_DummyImages['twitter-dummy-image']['height'] . '\',
-								\'tweet_text\'		: \'' . $var_sTweettext . '\',
-								\'status\'			: \'' . $var_sShowTwitter . '\',
-								' . $var_sInfotextTwitter . '
-								\'perma_option\'	: \'' . $var_sShowTwitterPerm . '\',
-								\'language\'		: \'' . $var_sButtonLanguage . '\'
-							},
-							gplus : {
-								\'dummy_img\'		: \'' . $array_DummyImages['googleplus-dummy-image']['image'] . '\',
-								\'dummy_img_width\'	: \'' . $array_DummyImages['googleplus-dummy-image']['width'] . '\',
-								\'dummy_img_height\': \'' . $array_DummyImages['googleplus-dummy-image']['height'] . '\',
-								\'status\'			: \'' . $var_sShowGoogleplus . '\',
-								' . $var_sInfotextGoogleplus . '
-								\'perma_option\'	: \'' . $var_sShowGoogleplusPerm . '\'
-							},
-							flattr : {
-								\'uid\'				: \'' . twoclick_buttons_get_option('twoclick_buttons_flattr_uid') . '\',
-								\'dummy_img\'		: \'' . $array_DummyImages['flattr-dummy-image']['image'] . '\',
-								\'dummy_img_width\'	: \'' . $array_DummyImages['flattr-dummy-image']['width'] . '\',
-								\'dummy_img_height\': \'' . $array_DummyImages['flattr-dummy-image']['height'] . '\',
-								\'status\'			: \'' . $var_sShowFlattr . '\',
-								\'the_title\'		: \'' . $var_sTitle . '\',
-								\'the_excerpt\'		: \'' . $var_sPostExcerpt . '\',
-								' . $var_sInfotextFlattr . '
-								\'perma_option\'	: \'' . $var_sShowFlattrPerm . '\'
-							},
-							xing : {
-								\'dummy_img\'		: \'' . $array_DummyImages['xing-dummy-image']['image'] . '\',
-								\'dummy_img_width\'	: \'' . $array_DummyImages['xing-dummy-image']['width'] . '\',
-								\'dummy_img_height\': \'' . $array_DummyImages['xing-dummy-image']['height'] . '\',
-								\'status\'			: \'' . $var_sShowXing . '\',
-								' . $var_sInfotextGoogleplus . '
-								\'perma_option\'	: \'' . $var_sShowXingPerm . '\',
-								\'language\'		: \'' . $var_sButtonLanguage . '\',
-								\'xing_lib\'		: \'' . $var_sXingLib . '\'
-							}
-						},
-						' . $var_sInfotextInfobutton . '
-						' . $var_sInfotextPermaoption . '
-						' . $var_sInfolink . '
-						\'css_path\'		: \'' . $var_sCss . '\',
-						\'uri\'				: \'' . $var_sPermalink . '\'
-					});
+					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');
 				}
-			});
-			</script>';
+			});';
 
 			// Das JS als Einzeleiler zurückgeben, da sonst <p> drin sind, wieso auch immer.
-			return preg_replace('/\r|\n/s', '', '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . $var_sJavaScript);
+// 			return preg_replace('/\r|\n/s', '', '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . $var_sJavaScript);
+			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
 	}
 }
