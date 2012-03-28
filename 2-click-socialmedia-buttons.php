@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.31.2
+ * Version: 0.31.3
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -700,25 +700,6 @@ if(!function_exists('twoclick_buttons_get_dummy_images')) {
 			$var_sLang = 'default';
 		}
 
-		// Dummybilder
-// 		$array_DummyImages = array(
-// 			'default' => array(
-// 				'facebook-dummy-image-recommend' => $var_sPluginsUrl . 'images/facebook-dummy-image-recommend.png',
-// 				'facebook-dummy-image-like' => $var_sPluginsUrl . 'images/facebook-dummy-image-like.png',
-// 				'twitter-dummy-image' => $var_sPluginsUrl . 'images/twitter-dummy-image-tweet.png',
-// 				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/googleplus-dummy-image-gplusone.png',
-// 				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr-dummy-image-flattr.png',
-// 				'xing-dummy-image' => $var_sPluginsUrl . 'images/xing-dummy-image-xing.png'
-// 			),
-// 			'de_DE' => array(
-// 				'facebook-dummy-image-recommend' => $var_sPluginsUrl . 'images/facebook-dummy-image-empfehlen.png',
-// 				'facebook-dummy-image-like' => $var_sPluginsUrl . 'images/facebook-dummy-image-gefaellt-mir.png',
-// 				'twitter-dummy-image' => $var_sPluginsUrl . 'images/twitter-dummy-image-twittern.png',
-// 				'googleplus-dummy-image' => $var_sPluginsUrl . 'images/googleplus-dummy-image-gplusone.png',
-// 				'flattr-dummy-image' => $var_sPluginsUrl . 'images/flattr-dummy-image-flattr.png',
-// 				'xing-dummy-image' => $var_sPluginsUrl . 'images/xing-dummy-image-xing.png'
-// 			)
-// 		);
 		$array_DummyImages = array(
 			'default' => array(
 				'facebook-dummy-image-recommend' => array(
@@ -961,50 +942,45 @@ if(!function_exists('twoclick_buttons_get_js')) {
 			}
 
 			// Infotexte
-			$var_sInfotextFacebook = '';
+			$var_sInfotextFacebook = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') != '') {
-// 				$var_sInfotextFacebook = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') . '\',';
-				$var_sInfotextFacebook = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_facebook') . '\'';
+				$var_sInfotextFacebook = twoclick_buttons_get_option('twoclick_buttons_infotext_facebook');
 			}
 
-			$var_sInfotextTwitter = '';
+			$var_sInfotextTwitter = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') != '') {
-// 				$var_sInfotextTwitter = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') . '\',';
-				$var_sInfotextTwitter = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_twitter') . '\'';
+				$var_sInfotextTwitter = twoclick_buttons_get_option('twoclick_buttons_infotext_twitter');
 			}
 
-			$var_sInfotextGoogleplus = '';
+			$var_sInfotextGoogleplus = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') != '') {
-// 				$var_sInfotextGoogleplus = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') . '\',';
-				$var_sInfotextGoogleplus = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus') . '\'';
+				$var_sInfotextGoogleplus = twoclick_buttons_get_option('twoclick_buttons_infotext_googleplus');
 			}
 
-			$var_sInfotextFlattr = '';
+			$var_sInfotextFlattr = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') != '') {
-// 				$var_sInfotextFlattr = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') . '\',';
-				$var_sInfotextFlattr = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_flattr') . '\'';
+				$var_sInfotextFlattr = twoclick_buttons_get_option('twoclick_buttons_infotext_flattr');
 			}
 
-			$var_sInfotextXing = '';
+			$var_sInfotextXing = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_xing') != '') {
-// 				$var_sInfotextXing = '\'txt_info\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_xing') . '\',';
-				$var_sInfotextXing = '\'txt_info\' => \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_xing') . '\'';
+				$var_sInfotextXing = twoclick_buttons_get_option('twoclick_buttons_infotext_xing');
 			}
 
-// 			$var_sInfotextInfobutton = '';
-// 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') {
-// 				$var_sInfotextInfobutton = '\'txt_help\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') . '\',';
-// 			}
+			$var_sInfotextInfobutton = 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr oder Google ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.';
+			if(twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') {
+				$var_sInfotextInfobutton = twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton');
+			}
 
-// 			$var_sInfotextPermaoption = '';
-// 			if(twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') {
-// 				$var_sInfotextPermaoption = '\'settings_perma\' : \'' . twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') . '\',';
-// 			}
+			$var_sInfotextPermaoption = 'Dauerhaft aktivieren und Datenüber-tragung zustimmen:';
+			if(twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') {
+				$var_sInfotextPermaoption = twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption');
+			}
 
-// 			$var_sInfolink = '';
-// 			if(twoclick_buttons_get_option('twoclick_buttons_infolink') != '') {
-// 				$var_sInfolink = '\'info_link\' : \'' . trim(twoclick_buttons_get_option('twoclick_buttons_infolink')) . '\',';
-// 			}
+			$var_sInfolink = 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html';
+			if(twoclick_buttons_get_option('twoclick_buttons_infolink') != '') {
+				$var_sInfolink = trim(twoclick_buttons_get_option('twoclick_buttons_infolink'));
+			}
 
 			// Dummybilder holen.
 			$array_DummyImages = twoclick_buttons_get_dummy_images(get_locale());
@@ -1017,70 +993,6 @@ if(!function_exists('twoclick_buttons_get_js')) {
 
 			$var_sFacebookAction = (twoclick_buttons_get_option('twoclick_buttons_facebook_action')) ? twoclick_buttons_get_option('twoclick_buttons_facebook_action') : 'recommend';
 
-// 			$var_sJavaScript = 'jQuery(document).ready(function($){
-// 				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){
-// 					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy({
-// 						services : {
-// 							facebook : {
-// 								\'dummy_img\'		: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['image'] . '\',
-// 								\'dummy_img_width\'	: \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['width'] . '\',
-// 								\'dummy_img_height\': \'' . $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['height'] . '\',
-// 								\'status\'			: \'' . $var_sShowFacebook . '\',
-// 								' . $var_sInfotextFacebook . '
-// 								\'perma_option\'	: \'' . $var_sShowFacebookPerm . '\',
-// 								\'action\'			: \'' . twoclick_buttons_get_option('twoclick_buttons_facebook_action') . '\',
-// 								\'language\'		: \'' . get_locale() . '\'
-// 							},
-// 							twitter : {
-// 								\'reply_to\'		: \'' . twoclick_buttons_get_option('twoclick_buttons_twitter_reply') . '\',
-// 								\'dummy_img\'		: \'' . $array_DummyImages['twitter-dummy-image']['image'] . '\',
-// 								\'dummy_img_width\'	: \'' . $array_DummyImages['twitter-dummy-image']['width'] . '\',
-// 								\'dummy_img_height\': \'' . $array_DummyImages['twitter-dummy-image']['height'] . '\',
-// 								\'tweet_text\'		: \'' . $var_sTweettext . '\',
-// 								\'status\'			: \'' . $var_sShowTwitter . '\',
-// 								' . $var_sInfotextTwitter . '
-// 								\'perma_option\'	: \'' . $var_sShowTwitterPerm . '\',
-// 								\'language\'		: \'' . $var_sButtonLanguage . '\'
-// 							},
-// 							gplus : {
-// 								\'dummy_img\'		: \'' . $array_DummyImages['googleplus-dummy-image']['image'] . '\',
-// 								\'dummy_img_width\'	: \'' . $array_DummyImages['googleplus-dummy-image']['width'] . '\',
-// 								\'dummy_img_height\': \'' . $array_DummyImages['googleplus-dummy-image']['height'] . '\',
-// 								\'status\'			: \'' . $var_sShowGoogleplus . '\',
-// 								' . $var_sInfotextGoogleplus . '
-// 								\'perma_option\'	: \'' . $var_sShowGoogleplusPerm . '\'
-// 							},
-// 							flattr : {
-// 								\'uid\'				: \'' . twoclick_buttons_get_option('twoclick_buttons_flattr_uid') . '\',
-// 								\'dummy_img\'		: \'' . $array_DummyImages['flattr-dummy-image']['image'] . '\',
-// 								\'dummy_img_width\'	: \'' . $array_DummyImages['flattr-dummy-image']['width'] . '\',
-// 								\'dummy_img_height\': \'' . $array_DummyImages['flattr-dummy-image']['height'] . '\',
-// 								\'status\'			: \'' . $var_sShowFlattr . '\',
-// 								\'the_title\'		: \'' . $var_sTitle . '\',
-// 								\'the_excerpt\'		: \'' . $var_sPostExcerpt . '\',
-// 								' . $var_sInfotextFlattr . '
-// 								\'perma_option\'	: \'' . $var_sShowFlattrPerm . '\'
-// 							},
-// 							xing : {
-// 								\'dummy_img\'		: \'' . $array_DummyImages['xing-dummy-image']['image'] . '\',
-// 								\'dummy_img_width\'	: \'' . $array_DummyImages['xing-dummy-image']['width'] . '\',
-// 								\'dummy_img_height\': \'' . $array_DummyImages['xing-dummy-image']['height'] . '\',
-// 								\'status\'			: \'' . $var_sShowXing . '\',
-// 								' . $var_sInfotextXing . '
-// 								\'perma_option\'	: \'' . $var_sShowXingPerm . '\',
-// 								\'language\'		: \'' . $var_sButtonLanguage . '\',
-// 								\'xing_lib\'		: \'' . $var_sXingLib . '\'
-// 							}
-// 						},
-// 						' . $var_sInfotextInfobutton . '
-// 						' . $var_sInfotextPermaoption . '
-// 						' . $var_sInfolink . '
-// 						\'css_path\'		: \'' . $var_sCss . '\',
-// 						\'uri\'				: \'' . $var_sPermalink . '\'
-// 					});
-// 				}
-// 			});';
-
 			$array_ButtonData = array(
 				'services' => array(
 					'facebook' => array(
@@ -1088,7 +1000,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'dummy_img_width' => $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['width'],
 						'dummy_img_height' => $array_DummyImages['facebook-dummy-image-' . $var_sFacebookAction]['height'],
 						'status' => $var_sShowFacebook,
-						$var_sInfotextFacebook,
+						'txt_info' => $var_sInfotextFacebook,
 						'perma_option' => $var_sShowFacebookPerm,
 						'action' => twoclick_buttons_get_option('twoclick_buttons_facebook_action'),
 						'language' => get_locale()
@@ -1100,7 +1012,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'dummy_img_height' => $array_DummyImages['twitter-dummy-image']['height'],
 						'tweet_text' => rawurlencode(twoclick_buttons_get_tweettext()),
 						'status' => $var_sShowTwitter,
-						$var_sInfotextTwitter,
+						'txt_info' => $var_sInfotextTwitter,
 						'perma_option' => $var_sShowTwitterPerm,
 						'language' => $var_sButtonLanguage
 					),
@@ -1109,7 +1021,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'dummy_img_width' => $array_DummyImages['googleplus-dummy-image']['width'],
 						'dummy_img_height' => $array_DummyImages['googleplus-dummy-image']['height'],
 						'status' => $var_sShowGoogleplus,
-						$var_sInfotextGoogleplus,
+						'txt_info' => $var_sInfotextGoogleplus,
 						'perma_option' => $var_sShowGoogleplusPerm
 					),
 					'flattr' => array(
@@ -1120,7 +1032,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'status' => $var_sShowFlattr,
 						'the_title' => $var_sTitle,
 						'the_excerpt' => $var_sPostExcerpt,
-						$var_sInfotextFlattr,
+						'txt_info' => $var_sInfotextFlattr,
 						'perma_option' => $var_sShowFlattrPerm
 					),
 					'xing' => array(
@@ -1128,18 +1040,15 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'dummy_img_width' => $array_DummyImages['xing-dummy-image']['width'],
 						'dummy_img_height' => $array_DummyImages['xing-dummy-image']['height'],
 						'status' => $var_sShowXing,
-						$var_sInfotextXing,
+						'txt_info' => $var_sInfotextXing,
 						'perma_option' => $var_sShowXingPerm,
 						'language' => $var_sButtonLanguage,
 						'xing_lib' => $var_sXingLib
 					)
 				),
-				'links' => array(
-					'permalink' => $var_sPermalink
-				),
-				'txt_help' => (twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_infobutton') : '',
-				'settings_perma' => (twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') != '') ? twoclick_buttons_get_option('twoclick_buttons_infotext_permaoption') : '',
-				'info_link' => (twoclick_buttons_get_option('twoclick_buttons_infolink') != '') ? twoclick_buttons_get_option('twoclick_buttons_infolink') : '',
+				'txt_help' => $var_sInfotextInfobutton,
+				'settings_perma' => $var_sInfotextPermaoption,
+				'info_link' => $var_sInfolink,
 				'css_path' => $var_sCss,
 				'uri' => $var_sPermalink
 			);
@@ -1150,7 +1059,6 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				}
 			});';
 
-// 			return preg_replace('/\r|\n/s', '', '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div>' . $var_sJavaScript);
 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
 	}
