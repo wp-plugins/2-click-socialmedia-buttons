@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.32.1
+ * Version: 0.32.2
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -154,7 +154,7 @@ if(!function_exists('twoclick_buttons_options_page')) {
 					'twoclick_buttons_facebook_action' => (string) (@$_REQUEST['twoclick_buttons_facebook_action']),
 					'twoclick_buttons_postthumbnail' => (string) (@$_REQUEST['twoclick_buttons_postthumbnail']),
 				);
-print_r($_REQUEST);
+
 				twoclick_buttons_update_options($array_Options);
 
 				echo '<div id="message" class="updated fade">';
