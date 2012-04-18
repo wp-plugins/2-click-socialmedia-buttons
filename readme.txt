@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest
 Requires at least: 3.0.1
 Tested up to: 3.4-alpha
-Stable tag: 0.32.2
+Stable tag: 0.34
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -60,6 +60,17 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.34 =
+* (18. April 2012)
+* !! SICHERHEITSUPDATE !!
+* Sicherheitslücke in der Verarbeitung der Buttons von Xing und Pinterest geschlossen. Danke an das WordPress-Team für die Meldung.
+
+= 0.33 =
+* (03. April 2012)
+* Margin des Dummybutton entfernt, welcher in einigen Themes auftaucht.
+* Padding des Dummybutton entfernt, welcher in einigen Themes auftaucht.
+* Border des Dummybutton entfernt, welcher in einigen Themes auftaucht.
 
 = 0.32.2 =
 * (03. April 2012)
@@ -326,10 +337,11 @@ Facebook, Google+ und Pinterest nutzen Bilder aus den Artikeln. Das Plugin erken
 
 Oder einfacher ausgedrückt, dies ist die Möglichkeit ein Platzhalterbild an diese Dienste zu übermitteln. Euer Logo zum Beispiel.
 
-= Wieso sehe ich Optionen für die permanente aktivierung auf der Startseite nicht? =
+= Wieso sehe ich die Optionen für die permanente aktivierung auf der Startseite nicht? =
 Nicht nur auf der Startseite. Auf jeder Seite auf der mehrere Artikel angezeigt werden, ist diese Funktion deaktiviert, da sie dort nicht richtig funktioniert.
 
-Falls Du jedoch eine Frage hast, dann stell diese unter [http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/](http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
+= Und wenn ich noch andere Fragen habe? =
+Falls Du noch eine Frage hast, die hier nicht auftaucht dann stell diese unter [http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/](http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
 
 == Upgrade Notice ==
 

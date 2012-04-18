@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.32.2
+ * Version: 0.34
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -1169,7 +1169,6 @@ if(!function_exists('twoclick_buttons_get_js')) {
 						'dummy_img_width' => $array_DummyImages['pinterest']['width'],
 						'dummy_img_height' => '20',
 						'status' => $var_sShowPinterest,
-// 						'the_excerpt' => (twoclick_buttons_get_option('twoclick_buttons_pinterest_description') == 'posttitle') ? get_the_title(get_the_ID()) : get_the_title(get_the_ID()) . ' &raquo; ' . $var_sPostExcerpt,
 						'the_excerpt' => twoclick_buttons_get_pinterest_description(),
 						'txt_info' => $var_sInfotextPinterest,
 						'perma_option' => $var_sShowPinterestPerm,
@@ -1181,14 +1180,10 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				'settings_perma' => $var_sInfotextPermaoption,
 				'info_link' => $var_sInfolink,
 				'css_path' => $var_sCss,
-				'uri' => $var_sPermalink
+				'uri' => esc_url($var_sPermalink)
 			);
 
-			$var_sJavaScript = 'jQuery(document).ready(function($){
-				if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){
-					$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');
-				}
-			});';
+			$var_sJavaScript = '// WP-Language: ' . get_locale() . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});';
 
 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
