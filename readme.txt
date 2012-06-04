@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 0.35
+Stable tag: 0.35.1
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -60,6 +60,10 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.35.1 =
+* (04. Juni 2012)
+* Fix: Im komprimierten JavaScript ist statt &amp;quot; bei den alt-Attributen der Dummy-Buttons ein ", das führt leider zu ungültigem HTML und falschen alt-Attributen. Nun ist &amp;quot; auch im komrpimierten JS vorhanden. Danke an Michael für den Hinweis.
 
 = 0.35 =
 * (18. April 2012)
