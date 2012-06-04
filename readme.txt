@@ -3,8 +3,8 @@ Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest
 Requires at least: 3.0.1
-Tested up to: 3.4-alpha
-Stable tag: 0.34
+Tested up to: 3.4
+Stable tag: 0.35.1
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -60,6 +60,15 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 0.35.1 =
+* (04. Juni 2012)
+* Fix: Im komprimierten JavaScript ist statt &amp;quot; bei den alt-Attributen der Dummy-Buttons ein ", das führt leider zu ungültigem HTML und falschen alt-Attributen. Nun ist &amp;quot; auch im komrpimierten JS vorhanden. Danke an Michael für den Hinweis.
+
+= 0.35 =
+* (18. April 2012)
+* Filter - 'twoclick-css' -  für CSS hinzugefügt, zur besseren Anpassung in eigenen Themes. (gewünscht von <a href="http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/comment-page-8/#comment-28654">Caspar</a>)
+* Fix für ds Plugin 'wp-Typography' eingebaut, da dieses unter gewissen Umständen den Titel Formatiert und es somit zu Fehlern kommen konnte. (Danke an <a href="http://www.malteskitchen.de/">Malte</a> für die Meldung)
 
 = 0.34 =
 * (18. April 2012)

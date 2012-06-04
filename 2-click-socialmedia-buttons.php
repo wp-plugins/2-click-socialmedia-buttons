@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.34
+ * Version: 0.35.1
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -643,7 +643,7 @@ if(!function_exists('twoclick_buttons_generate_post_excerpt')) {
 			} // END if(function_exists('mb_strimwidth'))
 		} // END if(strlen($excerpt) > $maxlength)
 
-		return $excerpt;
+		return strip_tags($excerpt);
 	} // END function twoclick_buttons_generate_post_excerpt($excerpt, $maxlength)
 } // END if(!function_exists('twoclick_buttons_generate_post_excerpt'))
 
@@ -689,15 +689,15 @@ if(!function_exists('twoclick_buttons_get_pinterest_description')) {
 
 		switch(twoclick_buttons_get_option('twoclick_buttons_pinterest_description')) {
 			case 'posttitle-tags':
-				$var_sPinterestDescription = get_the_title(get_the_ID()) . ' ' . strip_tags(get_the_tag_list(' #', ' #', ''));
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID())) . ' ' . strip_tags(get_the_tag_list(' #', ' #', ''));
 				break;
 
 			case 'posttitle-excerpt':
-				$var_sPinterestDescription = get_the_title(get_the_ID()) . ' &raquo; ' . twoclick_buttons_generate_post_excerpt(get_the_content(), 70);
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID())) . ' &raquo; ' . twoclick_buttons_generate_post_excerpt(get_the_content(), 70);
 				break;
 
 			default:
-				$var_sPinterestDescription = get_the_title(get_the_ID());
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID()));
 				break;
 		}
 
@@ -969,14 +969,14 @@ if(!function_exists('twoclick_buttons_opengraph_tags')) {
 		 *
 		 * @since 0.7
 		 */
-		echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '"/>' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '"/>' . "\n";
 		echo '<meta property="og:type" content="article"/>' . "\n";
-		echo '<meta property="og:title" content="' . get_the_title() . '"/>' . "\n";
-		echo '<meta property="og:url" content="' . get_permalink() . '"/>' . "\n";
+		echo '<meta property="og:title" content="' . strip_tags(get_the_title()) . '"/>' . "\n";
+		echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '"/>' . "\n";
 		if($var_sPostThumbnail) {
 			echo '<meta property="og:image" content="' . esc_url($var_sPostThumbnail) . '"/>' . "\n";
 		}
-		echo '<meta property="og:description" content="' . esc_attr(TWOCLICK_POST_EXCERPT) . '"/>' . "\n";
+		echo '<meta property="og:description" content="' . strip_tags(esc_attr(TWOCLICK_POST_EXCERPT)) . '"/>' . "\n";
 		echo '<!-- Facebook Like Thumbnail -->' . "\n";
 	}
 }
@@ -1179,7 +1179,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				'txt_help' => $var_sInfotextInfobutton,
 				'settings_perma' => $var_sInfotextPermaoption,
 				'info_link' => $var_sInfolink,
-				'css_path' => $var_sCss,
+				'css_path' => apply_filters('twoclick-css', $var_sCss),
 				'uri' => esc_url($var_sPermalink)
 			);
 
