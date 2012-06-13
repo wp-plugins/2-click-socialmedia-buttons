@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.35.1
+ * Version: 0.35.2
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -108,7 +108,6 @@ if(!function_exists('twoclick_buttons_options_page')) {
 				 * @var array
 				 */
 				$array_Options = array(
-					'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
 					'twoclick_buttons_where' => (string) (@$_REQUEST['twoclick_buttons_where']),
 					'twoclick_buttons_twitter_reply' => (string) (@$_REQUEST['twoclick_buttons_twitter_reply']),
 					'twoclick_buttons_twitter_tweettext' => (string) (@$_REQUEST['twoclick_buttons_twitter_tweettext']),
@@ -1183,7 +1182,7 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				'uri' => esc_url($var_sPermalink)
 			);
 
-			$var_sJavaScript = '// WP-Language: ' . get_locale() . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});';
+			$var_sJavaScript = '/* <![CDATA[ */' . "\n" . '// WP-Language = ' . get_locale() . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
 
 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
@@ -1325,11 +1324,14 @@ if(!is_admin()) {
 	 *
 	 * @since 0.4
 	 */
-	wp_enqueue_script('jquery');
+	function jquery_init() {
+		wp_enqueue_script('jquery');
+	}
 
 	// Aktionen
 	add_action('wp_head', 'twoclick_buttons_head');
 	add_action('wp_footer', 'twoclick_buttons_footer');
+	add_action('init', 'jquery_init');
 }
 /* Nur wenn User auch der Admin ist, sind die Adminoptionen zu sehen */
 if(is_admin()) {
@@ -1347,6 +1349,6 @@ if(is_admin()) {
  *
  * @since 0.1
  */
-add_filter('the_content', 'twoclick_buttons', 8);
-add_filter('plugin_action_links', 'twoclick_buttons_settings_link', 9, 2 );
+add_filter('the_content', 'twoclick_buttons');
+add_filter('plugin_action_links', 'twoclick_buttons_settings_link', 9, 2);
 ?>
