@@ -3,7 +3,7 @@
  * Plugin Name: 2 Click Social Media Buttons
  * Plugin URI: http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/
  * Description: Fügt die Buttons für Facebook-Like (Empfehlen), Twitter, Flattr, Xing und Googleplus dem deutschen Datenschutz entsprechend in euer WordPress ein.
- * Version: 0.34
+ * Version: 0.35.2
  * Author: H.-Peter Pfeufer
  * Author URI: http://ppfeufer.de
  */
@@ -108,7 +108,6 @@ if(!function_exists('twoclick_buttons_options_page')) {
 				 * @var array
 				 */
 				$array_Options = array(
-					'twoclick_buttons_plugin_version' => (string) TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,
 					'twoclick_buttons_where' => (string) (@$_REQUEST['twoclick_buttons_where']),
 					'twoclick_buttons_twitter_reply' => (string) (@$_REQUEST['twoclick_buttons_twitter_reply']),
 					'twoclick_buttons_twitter_tweettext' => (string) (@$_REQUEST['twoclick_buttons_twitter_tweettext']),
@@ -643,7 +642,7 @@ if(!function_exists('twoclick_buttons_generate_post_excerpt')) {
 			} // END if(function_exists('mb_strimwidth'))
 		} // END if(strlen($excerpt) > $maxlength)
 
-		return $excerpt;
+		return strip_tags($excerpt);
 	} // END function twoclick_buttons_generate_post_excerpt($excerpt, $maxlength)
 } // END if(!function_exists('twoclick_buttons_generate_post_excerpt'))
 
@@ -689,15 +688,15 @@ if(!function_exists('twoclick_buttons_get_pinterest_description')) {
 
 		switch(twoclick_buttons_get_option('twoclick_buttons_pinterest_description')) {
 			case 'posttitle-tags':
-				$var_sPinterestDescription = get_the_title(get_the_ID()) . ' ' . strip_tags(get_the_tag_list(' #', ' #', ''));
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID())) . ' ' . strip_tags(get_the_tag_list(' #', ' #', ''));
 				break;
 
 			case 'posttitle-excerpt':
-				$var_sPinterestDescription = get_the_title(get_the_ID()) . ' &raquo; ' . twoclick_buttons_generate_post_excerpt(get_the_content(), 70);
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID())) . ' &raquo; ' . twoclick_buttons_generate_post_excerpt(get_the_content(), 70);
 				break;
 
 			default:
-				$var_sPinterestDescription = get_the_title(get_the_ID());
+				$var_sPinterestDescription = strip_tags(get_the_title(get_the_ID()));
 				break;
 		}
 
@@ -969,14 +968,14 @@ if(!function_exists('twoclick_buttons_opengraph_tags')) {
 		 *
 		 * @since 0.7
 		 */
-		echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '"/>' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '"/>' . "\n";
 		echo '<meta property="og:type" content="article"/>' . "\n";
-		echo '<meta property="og:title" content="' . get_the_title() . '"/>' . "\n";
-		echo '<meta property="og:url" content="' . get_permalink() . '"/>' . "\n";
+		echo '<meta property="og:title" content="' . strip_tags(get_the_title()) . '"/>' . "\n";
+		echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '"/>' . "\n";
 		if($var_sPostThumbnail) {
 			echo '<meta property="og:image" content="' . esc_url($var_sPostThumbnail) . '"/>' . "\n";
 		}
-		echo '<meta property="og:description" content="' . esc_attr(TWOCLICK_POST_EXCERPT) . '"/>' . "\n";
+		echo '<meta property="og:description" content="' . strip_tags(esc_attr(TWOCLICK_POST_EXCERPT)) . '"/>' . "\n";
 		echo '<!-- Facebook Like Thumbnail -->' . "\n";
 	}
 }
@@ -1179,11 +1178,11 @@ if(!function_exists('twoclick_buttons_get_js')) {
 				'txt_help' => $var_sInfotextInfobutton,
 				'settings_perma' => $var_sInfotextPermaoption,
 				'info_link' => $var_sInfolink,
-				'css_path' => $var_sCss,
+				'css_path' => apply_filters('twoclick-css', $var_sCss),
 				'uri' => esc_url($var_sPermalink)
 			);
 
-			$var_sJavaScript = '// WP-Language: ' . get_locale() . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});';
+			$var_sJavaScript = '/* <![CDATA[ */' . "\n" . '// WP-Language = ' . get_locale() . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
 
 			return '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix"></div><script type="text/javascript">' . $var_sJavaScript . '</script>';
 		}
@@ -1325,11 +1324,14 @@ if(!is_admin()) {
 	 *
 	 * @since 0.4
 	 */
-	wp_enqueue_script('jquery');
+	function jquery_init() {
+		wp_enqueue_script('jquery');
+	}
 
 	// Aktionen
 	add_action('wp_head', 'twoclick_buttons_head');
 	add_action('wp_footer', 'twoclick_buttons_footer');
+	add_action('init', 'jquery_init');
 }
 /* Nur wenn User auch der Admin ist, sind die Adminoptionen zu sehen */
 if(is_admin()) {
@@ -1347,6 +1349,6 @@ if(is_admin()) {
  *
  * @since 0.1
  */
-add_filter('the_content', 'twoclick_buttons', 8);
-add_filter('plugin_action_links', 'twoclick_buttons_settings_link', 9, 2 );
+add_filter('the_content', 'twoclick_buttons');
+add_filter('plugin_action_links', 'twoclick_buttons_settings_link', 9, 2);
 ?>
