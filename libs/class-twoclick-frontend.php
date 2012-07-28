@@ -218,6 +218,10 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			} // END if(is_feed() || is_trackback() || !is_singular())
 
 			$var_sPostThumbnail = $this->_get_article_image();
+			if($var_sPostThumbnail) {
+				echo "\n" . '<!-- Article Thumbnail -->' . "\n";
+				echo sprintf('<link href="%s" rel="image_src" />%s', esc_url($var_sPostThumbnail), "\n");
+			}
 
 			/**
 			 * Post Excerpt suchen und eventuell setzen, da sonst bei Facebook und G+ nichts steht.
