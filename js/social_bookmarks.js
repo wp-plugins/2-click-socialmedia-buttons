@@ -158,6 +158,32 @@
 					'referrer_track'	: '',
 					'pinterest_lib'		: '',
 					'media'				: ''
+				},
+				't3n' : {
+					'status'			: 'on',
+					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
+					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+					'txt_pinterest_off'	: 'nicht mit Pinterest verbunden',
+					'txt_pinterest_on'	: 'mit Pinterest verbunden',
+					'perma_option'		: 'on',
+					'display_name'		: 't3n',
+					'referrer_track'	: '',
+					't3n_lib'			: '',
+				},
+				'linkedin' : {
+					'status'			: 'on',
+					'dummy_img'			: '',
+					'dummy_img_width'	: '',
+					'dummy_img_height'	: '',
+					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+					'txt_pinterest_off'	: 'nicht mit Pinterest verbunden',
+					'txt_pinterest_on'	: 'mit Pinterest verbunden',
+					'perma_option'		: 'on',
+					'display_name'		: 'LinkedIn',
+					'referrer_track'	: '',
+					'linkedin_lib'		: '',
 				}
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
@@ -167,7 +193,8 @@
 			'cookie_domain'		: document.location.host,
 			'cookie_expires'	: '365',
 			'css_path'			: '',
-			'uri'				: getURI
+			'uri'				: getURI,
+			'post_id'			: ''
 		};
 
 		var options = $.extend(true, defaults, options);
@@ -178,9 +205,11 @@
 		var flattr_on		= (options.services.flattr.status === 'on');
 		var xing_on			= (options.services.xing.status === 'on');
 		var pinterest_on	= (options.services.pinterest.status === 'on');
+		var t3n_on			= (options.services.t3n.status === 'on');
+		var linkedin_on		= (options.services.linkedin.status === 'on');
 
 		// check if at least one service is "on"
-		if(!facebook_on && !twitter_on && !gplus_on && !flattr_on && !xing_on && !pinterest_on) {
+		if(!facebook_on && !twitter_on && !gplus_on && !flattr_on && !xing_on && !pinterest_on && !t3n_on && !linkedin_on) {
 			return;
 		}
 
@@ -189,8 +218,8 @@
 			$('head').append('<link rel="stylesheet" type="text/css" href="' + options.css_path + '" />');
 		}
 
-		$(this).prepend('<ul class="social_share_privacy_area"></ul>');
-		var context = $('.social_share_privacy_area', this);
+		$(this).prepend('<ul class="social_share_privacy_area_' + options.post_id + '"></ul>');
+		var context = $('.social_share_privacy_area_' + options.post_id, this);
 
 		// canonical uri that will be shared
 		var uri = options.uri;
@@ -212,7 +241,7 @@
 
 				var $container_fb = $('li.facebook', context);
 
-				$('li.facebook div.fb_like img.fb_like_privacy_dummy,li.facebook span.switch', context).live('click', function () {
+				$('li.facebook div.fb_like img.fb_like_privacy_dummy,.social_share_privacy_area_' + options.post_id + ' li.facebook span.switch', context).live('click', function () {
 					if ($container_fb.find('span.switch').hasClass('off')) {
 						$container_fb.addClass('info_off');
 						$container_fb.find('span.switch').addClass('on').removeClass('off').html(options.services.facebook.txt_fb_on);
@@ -239,16 +268,21 @@
 				// 120 is the max character count left after twitters automatic url shortening with t.co
 				text = abbreviateText(text, '120');
 
+				var reply = '';
+				if(options.services.twitter.reply_to != '') {
+					var reply = '&amp;via='+options.services.twitter.reply_to;
+				}
+
 				var twitter_enc_uri = encodeURIComponent(uri+options.services.twitter.referrer_track);
 				var twitter_count_url = encodeURIComponent(uri);
-				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + '&amp;via='+options.services.twitter.reply_to+'&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
+				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
 				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="twitter_dummy" />';
 
 				context.append('<li class="twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
 				var $container_tw = $('li.twitter', context);
 
-				$('li.twitter div.tweet img,li.twitter span.switch', context).live('click', function () {
+				$('li.twitter div.tweet img, .social_share_privacy_area_' + options.post_id + ' li.twitter span.switch', context).live('click', function () {
 					if($container_tw.find('span.switch').hasClass('off')) {
 						$container_tw.addClass('info_off');
 						$container_tw.find('span.switch').addClass('on').removeClass('off').html(options.services.twitter.txt_twitter_on);
@@ -276,7 +310,7 @@
 
 				var $container_gplus = $('li.gplus', context);
 
-				$('li.gplus div.gplusone img,li.gplus span.switch', context).live('click', function () {
+				$('li.gplus div.gplusone img, .social_share_privacy_area_' + options.post_id + ' li.gplus span.switch', context).live('click', function () {
 					if($container_gplus.find('span.switch').hasClass('off')) {
 						$container_gplus.addClass('info_off');
 						$container_gplus.find('span.switch').addClass('on').removeClass('off').html(options.services.gplus.txt_gplus_on);
@@ -303,7 +337,7 @@
 
 				var $container_flattr = $('li.flattr', context);
 
-				$('li.flattr div.flattrbtn img,li.flattr span.switch', context).live('click', function () {
+				$('li.flattr div.flattrbtn img, .social_share_privacy_area_' + options.post_id + ' li.flattr span.switch', context).live('click', function () {
 					if($container_flattr.find('span.switch').hasClass('off')) {
 						$container_flattr.addClass('info_off');
 						$container_flattr.find('span.switch').addClass('on').removeClass('off').html(options.services.flattr.txt_flattr_on);
@@ -330,7 +364,7 @@
 
 				var $container_xing = $('li.xing', context);
 
-				$('li.xing div.xingbtn img,li.xing span.switch', context).live('click', function () {
+				$('li.xing div.xingbtn img, .social_share_privacy_area_' + options.post_id + ' li.xing span.switch', context).live('click', function () {
 					if($container_xing.find('span.switch').hasClass('off')) {
 						$container_xing.addClass('info_off');
 						$container_xing.find('span.switch').addClass('on').removeClass('off').html(options.services.xing.txt_xing_on);
@@ -360,7 +394,7 @@
 
 				var $container_pinterest = $('li.pinterest', context);
 
-				$('li.pinterest div.pinterestbtn img,li.pinterest span.switch', context).live('click', function () {
+				$('li.pinterest div.pinterestbtn img, .social_share_privacy_area_' + options.post_id + ' li.pinterest span.switch', context).live('click', function () {
 					if($container_pinterest.find('span.switch').hasClass('off')) {
 						$container_pinterest.addClass('info_off');
 						$container_pinterest.find('span.switch').addClass('on').removeClass('off').html(options.services.pinterest.txt_pinterest_on);
@@ -369,6 +403,60 @@
 						$container_pinterest.removeClass('info_off');
 						$container_pinterest.find('span.switch').addClass('off').removeClass('on').html(options.services.pinterest.txt_pinterest_off);
 						$container_pinterest.find('.pinterestbtn').html(pinterest_dummy_btn);
+					}
+				});
+			}
+
+			//
+			// t3n
+			//
+			if(t3n_on) {
+				var t3n_lib = options.services.t3n.t3n_lib;
+				var t3n_uri = uri + options.services.t3n.referrer_track;
+
+				var t3n_code = '<iframe allowtransparency="true" src="' + t3n_lib + '?t3n-url=' + t3n_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var t3n_dummy_btn = '<img src="' + options.services.t3n.dummy_img + '" width="' + options.services.t3n.dummy_img_width + '" height="' + options.services.t3n.dummy_img_height + '" alt="&quot;t3n&quot;-Dummy" class="t3n_dummy" />';
+
+				context.append('<li class="t3n help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></li>');
+
+				var $container_t3n = $('li.t3n', context);
+
+				$('li.t3n div.t3nbtn img, .social_share_privacy_area_' + options.post_id + ' li.t3n span.switch', context).live('click', function () {
+					if($container_t3n.find('span.switch').hasClass('off')) {
+						$container_t3n.addClass('info_off');
+						$container_t3n.find('span.switch').addClass('on').removeClass('off').html(options.services.t3n.txt_t3n_on);
+						$container_t3n.find('img.t3n_dummy').replaceWith(t3n_code);
+					} else {
+						$container_t3n.removeClass('info_off');
+						$container_t3n.find('span.switch').addClass('off').removeClass('on').html(options.services.t3n.txt_t3n_off);
+						$container_t3n.find('.t3nbtn').html(t3n_dummy_btn);
+					}
+				});
+			}
+
+			//
+			// linkedin
+			//
+			if(linkedin_on) {
+				var linkedin_lib = options.services.linkedin.linkedin_lib;
+				var linkedin_uri = uri + options.services.linkedin.referrer_track;
+
+				var linkedin_code = '<iframe allowtransparency="true" src="' + linkedin_lib + '?linkedin-url=' + linkedin_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var linkedin_dummy_btn = '<img src="' + options.services.linkedin.dummy_img + '" width="' + options.services.linkedin.dummy_img_width + '" height="' + options.services.linkedin.dummy_img_height + '" alt="&quot;LinkedIn&quot;-Dummy" class="linkedin_dummy" />';
+
+				context.append('<li class="linkedin help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></li>');
+
+				var $container_linkedin = $('li.linkedin', context);
+
+				$('li.linkedin div.linkedinbtn img, .social_share_privacy_area_' + options.post_id + ' li.linkedin span.switch', context).live('click', function () {
+					if($container_linkedin.find('span.switch').hasClass('off')) {
+						$container_linkedin.addClass('info_off');
+						$container_linkedin.find('span.switch').addClass('on').removeClass('off').html(options.services.linkedin.txt_linkedin_on);
+						$container_linkedin.find('img.linkedin_dummy').replaceWith(linkedin_code);
+					} else {
+						$container_linkedin.removeClass('info_off');
+						$container_linkedin.find('span.switch').addClass('off').removeClass('on').html(options.services.linkedin.txt_linkedin_off);
+						$container_linkedin.find('.linkedinbtn').html(linkedin_dummy_btn);
 					}
 				});
 			}
@@ -399,6 +487,8 @@
 			var flattr_perma		= (options.services.flattr.perma_option		=== 'on');
 			var xing_perma			= (options.services.xing.perma_option		=== 'on');
 			var pinterest_perma		= (options.services.pinterest.perma_option	=== 'on');
+			var t3n_perma			= (options.services.t3n.perma_option		=== 'on');
+			var linkedin_perma		= (options.services.linkedin.perma_option	=== 'on');
 
 			// Menue zum dauerhaften Einblenden der aktiven Dienste via Cookie einbinden
 			// Die IE7 wird hier ausgenommen, da er kein JSON kann und die Cookies hier ueber JSON-Struktur abgebildet werden
@@ -407,7 +497,9 @@
 				|| (gplus_on && gplus_perma)
 				|| (flattr_on && flattr_perma)
 				|| (xing_on && xing_perma)
-				|| (pinterest_on && pinterest_perma))
+				|| (pinterest_on && pinterest_perma)
+				|| (t3n_on && t3n_perma)
+				|| (linkedin_on && linkedin_perma))
 				&& (!$.browser.msie || ($.browser.msie && ($.browser.version > 7.0)))) {
 
 				// Cookies abrufen
@@ -439,6 +531,8 @@
 
 				// Die Dienste mit <input> und <label>, sowie checked-Status laut Cookie, schreiben
 				var checked = ' checked="checked"';
+
+				// Facebook
 				if(facebook_on && facebook_perma) {
 					var perma_status_facebook = cookies.socialSharePrivacy_facebook === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
@@ -448,6 +542,7 @@
 					);
 				}
 
+				// Twitter
 				if(twitter_on && twitter_perma) {
 					var perma_status_twitter = cookies.socialSharePrivacy_twitter === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
@@ -457,6 +552,7 @@
 					);
 				}
 
+				// Google+
 				if(gplus_on && gplus_perma) {
 					var perma_status_gplus = cookies.socialSharePrivacy_gplus === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
@@ -466,6 +562,7 @@
 					);
 				}
 
+				// Flattr
 				if(flattr_on && flattr_perma) {
 					var perma_status_flattr = cookies.socialSharePrivacy_flattr === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
@@ -475,6 +572,7 @@
 					);
 				}
 
+				// Xing
 				if(xing_on && xing_perma) {
 					var perma_status_xing = cookies.socialSharePrivacy_xing === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
@@ -484,12 +582,33 @@
 					);
 				}
 
+				// Pinteres
 				if(pinterest_on && pinterest_perma) {
 					var perma_status_pinterest = cookies.socialSharePrivacy_pinterest === 'perma_on' ? checked : '';
 					$container_settings_info.find('form fieldset').append(
-						'<input type="checkbox" name="perma_status_pinterest" id="perma_status_pinterest"'
+							'<input type="checkbox" name="perma_status_pinterest" id="perma_status_pinterest"'
 							+ perma_status_pinterest + ' /><label for="perma_status_pinterest">'
 							+ options.services.pinterest.display_name + '</label>'
+					);
+				}
+
+				// t3n
+				if(t3n_on && t3n_perma) {
+					var perma_status_t3n = cookies.socialSharePrivacy_t3n === 'perma_on' ? checked : '';
+					$container_settings_info.find('form fieldset').append(
+							'<input type="checkbox" name="perma_status_t3n" id="perma_status_t3n"'
+							+ perma_status_t3n + ' /><label for="perma_status_t3n">'
+							+ options.services.t3n.display_name + '</label>'
+					);
+				}
+
+				// LinkedIn
+				if(linkedin_on && linkedin_perma) {
+					var perma_status_linkedin = cookies.socialSharePrivacy_linkedin === 'perma_on' ? checked : '';
+					$container_settings_info.find('form fieldset').append(
+						'<input type="checkbox" name="perma_status_linkedin" id="perma_status_linkedin"'
+							+ perma_status_linkedin + ' /><label for="perma_status_linkedin">'
+							+ options.services.linkedin.display_name + '</label>'
 					);
 				}
 
@@ -557,6 +676,16 @@
 				if(pinterest_on && pinterest_perma && cookies.socialSharePrivacy_pinterest === 'perma_on') {
 //					$('li.pinterest span.switch', context).click();
 					$('li.pinterest div.pinterestbtn img', context).click();
+				}
+
+				// t3n
+				if(t3n_on && t3n_perma && cookies.socialSharePrivacy_t3n === 'perma_on') {
+					$('li.t3n div.t3nbtn img', context).click();
+				}
+
+				// LinkedIn
+				if(linkedin_on && linkedin_perma && cookies.socialSharePrivacy_linkedin === 'perma_on') {
+					$('li.linkedin div.linkedinbtn img', context).click();
 				}
 			}
 		});
