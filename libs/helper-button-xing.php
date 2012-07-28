@@ -1,6 +1,5 @@
 <?php
 if(!empty($_REQUEST['xing-url'])) {
-// 	$_REQUEST['xing-url'] = strip_tags($_REQUEST['xing-url']);
 	?>
 	<!DOCTYPE html>
 	<html>
@@ -16,4 +15,3 @@ if(!empty($_REQUEST['xing-url'])) {
 	</html>
 	<?php
 }
-?>
