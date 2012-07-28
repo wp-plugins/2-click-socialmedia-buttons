@@ -15,4 +15,3 @@ if(!empty($_REQUEST['pinterest-url']) && !empty($_REQUEST['pinterest-description
 	</html>
 	<?php
 }
-?>
