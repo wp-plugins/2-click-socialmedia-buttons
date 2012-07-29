@@ -697,6 +697,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 * Helperfiles
 				 */
 				$var_sXingLib = plugin_dir_url(__FILE__) . 'helper-button-xing.php';
+				$var_sXingJs = plugins_url('/js/xing_share.js', dirname(__FILE__));
 				$var_sPinterestLib = plugin_dir_url(__FILE__) . 'helper-button-pinterest.php';
 				$var_sT3nLib = plugin_dir_url(__FILE__) . 'helper-button-t3n.php';
 				$var_sLinkedinLib = plugin_dir_url(__FILE__) . 'helper-button-linkedin.php';
@@ -848,7 +849,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 							'txt_info' => $var_sInfotextXing,
 							'perma_option' => $var_sShowXingPerm,
 							'language' => $var_sButtonLanguage,
-							'xing_lib' => $var_sXingLib
+// 							'xing_lib' => $var_sXingLib
+							'xing_lib' => $var_sXingJs
 						),
 						'pinterest' => array(
 							'dummy_img' => $array_DummyImages['pinterest']['image'],

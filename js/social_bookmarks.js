@@ -355,9 +355,11 @@
 			//
 			if(xing_on) {
 				var xing_lib = options.services.xing.xing_lib;
+				var xing_lingua = options.services.xing.language;
 				var xing_uri = uri + options.services.xing.referrer_track;
 
-				var xing_code = '<iframe allowtransparency="true" src="' + xing_lib + '?xing-url=' + xing_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+//				var xing_code = '<iframe allowtransparency="true" src="' + xing_lib + '?xing-url=' + xing_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var xing_code = '<script src="' + xing_lib + '" type="text/javascript"></script><script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script>';
 				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing&quot;-Dummy" class="xing_dummy" />';
 
 				context.append('<li class="xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_xing_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
@@ -386,8 +388,8 @@
 				var pinterest_excerpt = encodeURIComponent(options.services.pinterest.the_excerpt);
 				var pinterest_media = options.services.pinterest.media;
 
-				var pinterest_code = '<iframe allowtransparency="true" src="' + pinterest_lib + '?pinterest-url=' + pinterest_uri + '&pinterest-description=' + pinterest_excerpt + '&pinterest-media=' + pinterest_media + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
-//				var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
+//				var pinterest_code = '<iframe allowtransparency="true" src="' + pinterest_lib + '?pinterest-url=' + pinterest_uri + '&pinterest-description=' + pinterest_excerpt + '&pinterest-media=' + pinterest_media + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
 				var pinterest_dummy_btn = '<img src="' + options.services.pinterest.dummy_img + '" width="' + options.services.pinterest.dummy_img_width + '" height="' + options.services.pinterest.dummy_img_height + '" alt="&quot;Pinterest&quot;-Dummy" class="pinterest_dummy" />';
 
 				context.append('<li class="pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterestbtn dummy_btn">' + pinterest_dummy_btn + '</div></li>');
@@ -414,7 +416,8 @@
 				var t3n_lib = options.services.t3n.t3n_lib;
 				var t3n_uri = uri + options.services.t3n.referrer_track;
 
-				var t3n_code = '<iframe allowtransparency="true" src="' + t3n_lib + '?t3n-url=' + t3n_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+//				var t3n_code = '<iframe allowtransparency="true" src="' + t3n_lib + '?t3n-url=' + t3n_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var t3n_code = '<div class="t3nAggregator" data-url="' + t3n_uri + '"></div><script type="text/javascript">(function() {var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;po.src = "http://t3n.de/aggregator/ebutton_async";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);})();</script>';
 				var t3n_dummy_btn = '<img src="' + options.services.t3n.dummy_img + '" width="' + options.services.t3n.dummy_img_width + '" height="' + options.services.t3n.dummy_img_height + '" alt="&quot;t3n&quot;-Dummy" class="t3n_dummy" />';
 
 				context.append('<li class="t3n help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></li>');
@@ -441,7 +444,8 @@
 				var linkedin_lib = options.services.linkedin.linkedin_lib;
 				var linkedin_uri = uri + options.services.linkedin.referrer_track;
 
-				var linkedin_code = '<iframe allowtransparency="true" src="' + linkedin_lib + '?linkedin-url=' + linkedin_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+//				var linkedin_code = '<iframe allowtransparency="true" src="' + linkedin_lib + '?linkedin-url=' + linkedin_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
+				var linkedin_code = '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="' + linkedin_uri + '" data-counter="right"></script>';
 				var linkedin_dummy_btn = '<img src="' + options.services.linkedin.dummy_img + '" width="' + options.services.linkedin.dummy_img_width + '" height="' + options.services.linkedin.dummy_img_height + '" alt="&quot;LinkedIn&quot;-Dummy" class="linkedin_dummy" />';
 
 				context.append('<li class="linkedin help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></li>');
