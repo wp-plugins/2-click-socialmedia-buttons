@@ -23,7 +23,6 @@ Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Da
 * Wählbar welcher Button angezeigt werden soll.
 * Wählbar ob es dem Besucher möglich sein soll, die Buttons permanent anzeigen zu lassen.
 * Anzeige auf den Artikelseiten (default, nicht änderbar).
-* Optionale Anzeige auf CMS-Seiten.
 * Optionale Anzeige im Artikelindex.
 * Optionale Anzeige in Archiven. (Jahresarchiv, Monatsarchiv, Tagesarchiv)
 * Optionale Anzeige in der Kategorieansicht.
