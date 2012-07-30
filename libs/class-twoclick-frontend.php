@@ -274,7 +274,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			 */
 			echo "\n" . '<!-- OpenGraph Tags (added by 2-Click Social Media Buttons) -->' . "\n";
 			echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '"/>' . "\n";
-			echo '<meta property="og:locale" content="' . strtolower(get_locale()) . '"/>' . "\n";
+			echo '<meta property="og:locale" content="' . get_locale() . '"/>' . "\n";
+			echo '<meta property="og:locale:alternate" content="' . get_locale() . '"/>' . "\n";
 			echo '<meta property="og:type" content="article"/>' . "\n";
 			echo '<meta property="og:title" content="' . strip_tags($var_sTitle) . '"/>' . "\n";
 			echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '"/>' . "\n";
@@ -850,7 +851,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 							'perma_option' => $var_sShowXingPerm,
 							'language' => $var_sButtonLanguage,
 // 							'xing_lib' => $var_sXingLib
-							'xing_lib' => $var_sXingJs
+// 							'xing_lib' => $var_sXingJs
 						),
 						'pinterest' => array(
 							'dummy_img' => $array_DummyImages['pinterest']['image'],

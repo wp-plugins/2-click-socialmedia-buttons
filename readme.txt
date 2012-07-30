@@ -59,7 +59,7 @@ Nutze dafür einfach dein Dashboard
 == Changelog ==
 
 = 1.0 =
-* *Im Betatest*
+* *coming soon (Betatest)*
 * **Change:** Kompletter "Rewrite" des Plugins.
 * **Change:** Code aufgeräumt.
 * **Change:** Klassen erstellt.
@@ -83,6 +83,7 @@ Nutze dafür einfach dein Dashboard
 * **Neu:** Bei Erstinstallation werden nun einige Optionen als Default gesetzt. Buttons müssen weiterhin manuell aktiviert werden.
 * **Neu:** Introtext - Dies ist ein kleiner Text, welcher über die Buttons gesetzt werden kann.
 * **Fix:** CSS-Fix: Pointer ist nur noch überm Dummy-Button und beim Umschalter zu sehen, nicht mehr über die volle Breite.
+* **Fix:** CSS-Fix: Für IE8. Bei einigen Themes konnte es im IE8 vorkommen, dass die Dummybilder nicht richtig angezeigt wurden.
 * **Fix:** Doppeltes Laden der CSS-Datei unterbunden.
 * **Fix:** Trigger für das Aktivieren in der Artikelübersicht überarbeitet. Es werden nun nicht mehr alle Buttons eines Netzwerkes in der Artikelübersicht umgeschalten, sondern wirklich nur der, auf dem auf geklickt wurde.
 * **Update:** Deutsche Übersetzung.
