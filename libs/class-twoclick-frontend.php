@@ -129,8 +129,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 		 */
 		function _enqueue() {
 			if(!is_admin()) {
-// 				$var_sJavaScript = plugins_url('/js/social_bookmarks.js', dirname(__FILE__));
-				$var_sJavaScript = plugins_url('/js/social_bookmarks-min.js', dirname(__FILE__));
+				$var_sJavaScript = plugins_url('/js/social_bookmarks.js', dirname(__FILE__));
+// 				$var_sJavaScript = plugins_url('/js/social_bookmarks-min.js', dirname(__FILE__));
 // 				$var_sCss = apply_filters('twoclick-css', plugins_url('/css/socialshareprivacy.css', dirname(__FILE__)));
 				$var_sCss = apply_filters('twoclick-css', plugins_url('/css/socialshareprivacy-min.css', dirname(__FILE__)));
 
@@ -850,7 +850,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 							'perma_option' => $var_sShowXingPerm,
 							'language' => $var_sButtonLanguage,
 // 							'xing_lib' => $var_sXingLib
-							'xing_lib' => $var_sXingJs
+// 							'xing_lib' => $var_sXingJs
 						),
 						'pinterest' => array(
 							'dummy_img' => $array_DummyImages['pinterest']['image'],
