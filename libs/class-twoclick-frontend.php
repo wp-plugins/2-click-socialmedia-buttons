@@ -129,8 +129,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 		 */
 		function _enqueue() {
 			if(!is_admin()) {
-				$var_sJavaScript = plugins_url('/js/social_bookmarks.js', dirname(__FILE__));
-// 				$var_sJavaScript = plugins_url('/js/social_bookmarks-min.js', dirname(__FILE__));
+// 				$var_sJavaScript = plugins_url('/js/social_bookmarks.js', dirname(__FILE__));
+				$var_sJavaScript = plugins_url('/js/social_bookmarks-min.js', dirname(__FILE__));
 // 				$var_sCss = apply_filters('twoclick-css', plugins_url('/css/socialshareprivacy.css', dirname(__FILE__)));
 				$var_sCss = apply_filters('twoclick-css', plugins_url('/css/socialshareprivacy-min.css', dirname(__FILE__)));
 
@@ -274,7 +274,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			 */
 			echo "\n" . '<!-- OpenGraph Tags (added by 2-Click Social Media Buttons) -->' . "\n";
 			echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '"/>' . "\n";
-			echo '<meta property="og:locale" content="' . strtolower(get_locale()) . '"/>' . "\n";
+			echo '<meta property="og:locale" content="' . get_locale() . '"/>' . "\n";
+			echo '<meta property="og:locale:alternate" content="' . get_locale() . '"/>' . "\n";
 			echo '<meta property="og:type" content="article"/>' . "\n";
 			echo '<meta property="og:title" content="' . strip_tags($var_sTitle) . '"/>' . "\n";
 			echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '"/>' . "\n";
