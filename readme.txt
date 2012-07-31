@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 0.35.2
+Stable tag: 1.0
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -23,18 +23,26 @@ Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Da
 * Wählbar welcher Button angezeigt werden soll.
 * Wählbar ob es dem Besucher möglich sein soll, die Buttons permanent anzeigen zu lassen.
 * Anzeige auf den Artikelseiten (default, nicht änderbar).
+* Optionale Anzeige auf CMS-Seiten. (Über die "Exclude Pages" Funktion können gewählte Seiten von der Einbindung ausgenommen werden.)
 * Optionale Anzeige im Artikelindex.
 * Optionale Anzeige in Archiven. (Jahresarchiv, Monatsarchiv, Tagesarchiv)
 * Optionale Anzeige in der Kategorieansicht.
 * Optionale Anzeige in den Suchergebnissen.
+* Optionale Anzeige als Sidebarwidget in Einzelartikeln und -seiten.
+* Optionale Anzeige in passwortgeschützten Artikeln.
+* Optionale Anzeige in private Artikeln.
+* Optionales Abschalten der OpenGraph-Metatags möglich.
 * Facebook Like/Recommend Button
 * Twitter Button
 * Google+ Button
 * Flattr Button
 * Xing Button
 * Pinterest Button
+* t3n Button
+* LinkedIn Button
 * Eigene Hinweistexte möglich.
 * Eigener Infolink möglich.
+* Ausführliche F.A.Q.-Seite. (hauptsächlich in deutsch)
 
 == Installation ==
 
@@ -59,7 +67,7 @@ Nutze dafür einfach dein Dashboard
 == Changelog ==
 
 = 1.0 =
-* *coming soon (Betatest)*
+* *01. August 2012*
 * **Change:** Kompletter "Rewrite" des Plugins.
 * **Change:** Code aufgeräumt.
 * **Change:** Klassen erstellt.
@@ -87,6 +95,7 @@ Nutze dafür einfach dein Dashboard
 * **Fix:** Doppeltes Laden der CSS-Datei unterbunden.
 * **Fix:** Trigger für das Aktivieren in der Artikelübersicht überarbeitet. Es werden nun nicht mehr alle Buttons eines Netzwerkes in der Artikelübersicht umgeschalten, sondern wirklich nur der, auf dem auf geklickt wurde.
 * **Update:** Deutsche Übersetzung.
+* **Bitte die Einstellungen prüfen und speichern**
 
 = 0.35.2 =
 * *14. Juni 2012*
@@ -103,7 +112,7 @@ Nutze dafür einfach dein Dashboard
 
 = 0.34 =
 * *18. April 2012*
-* <strong>!! SICHERHEITSUPDATE !!</strong>
+* **!! SICHERHEITSUPDATE !!**
 * **Fix:** Sicherheitslücke in der Verarbeitung der Buttons von Xing und Pinterest geschlossen. Danke an das WordPress-Team für die Meldung.
 
 = 0.33 =
@@ -134,7 +143,7 @@ Nutze dafür einfach dein Dashboard
 * Bei dieser Gelegenheit auch gleich mal wieder den Quelltext etwas aufgeräumt :-)
 
 = 0.31.2 =
-* (27. März 2012)
+* *27. März 2012*
 * **Fix:** Post ID im Loop wurde nicht korrekt übergeben.
 * **Fix:** Permalink im Loop wurde nicht korrekt übergeben.
 * Sorry für die kleinen Pannen :-)
@@ -331,7 +340,7 @@ Nutze dafür einfach dein Dashboard
 * **Fix:**  Plugin URI in den Kopfdaten.
 .
 = 0.6 =
-* (08. September 2011)
+* *08. September 2011*
 * **Neu:** Anzeige auch für die Artikelübersicht.
 * **Neu:** Auswahl welche Buttons angezeigt werden sollen.
 * **Neu:** Auswahl welcher Button permanent aktiviert werden darf.

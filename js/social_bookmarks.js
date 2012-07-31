@@ -74,28 +74,28 @@
 		var defaults = {
 			'services' : {
 				'facebook' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_fb_off'		: 'nicht mit Facebook verbunden',
 					'txt_fb_on'			: 'mit Facebook verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Facebook',
 					'referrer_track'	: '',
 					'language'			: 'de_DE',
 					'action'			: 'recommend'
 				},
 				'twitter' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_twitter_off'	: 'nicht mit Twitter verbunden',
 					'txt_twitter_on'	: 'mit Twitter verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Twitter',
 					'reply_to'			: '',
 					'tweet_text'		: '',
@@ -103,20 +103,20 @@
 					'language'			: 'de'
 				},
 				'gplus' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Google+ verbunden',
 					'txt_plus_on'		: 'mit Google+ verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Google+',
 					'referrer_track'	: '',
 					'plusone_lib'		: ''
 				},
 				'flattr' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'uid'				: '',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
@@ -124,28 +124,27 @@
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_flattr_off'	: 'nicht mit Flattr verbunden',
 					'txt_flattr_on'		: 'mit Flattr verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Flattr',
 					'the_title'			: '',
 					'referrer_track'	: '',
 					'the_excerpt'		: ''
 				},
 				'xing' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_xing_off'		: 'nicht mit Xing verbunden',
 					'txt_xing_on'		: 'mit Xing verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Xing',
 					'referrer_track'	: '',
-					'language'			: 'de',
-					'xing_lib'			: ''
+					'language'			: 'de'
 				},
 				'pinterest' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'the_excerpt'		: '',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
@@ -153,37 +152,34 @@
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_pinterest_off'	: 'nicht mit Pinterest verbunden',
 					'txt_pinterest_on'	: 'mit Pinterest verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'Pinterest',
 					'referrer_track'	: '',
-					'pinterest_lib'		: '',
 					'media'				: ''
 				},
 				't3n' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_t3n_off'		: 'nicht mit t3n verbunden',
 					'txt_t3n_on'		: 'mit t3n verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 't3n',
-					'referrer_track'	: '',
-					't3n_lib'			: '',
+					'referrer_track'	: ''
 				},
 				'linkedin' : {
-					'status'			: 'on',
+					'status'			: 'off',
 					'dummy_img'			: '',
 					'dummy_img_width'	: '',
 					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_linkedin_off'	: 'nicht mit LinkedIn verbunden',
 					'txt_linkedin_on'	: 'mit LinkedIn verbunden',
-					'perma_option'		: 'on',
+					'perma_option'		: 'off',
 					'display_name'		: 'LinkedIn',
-					'referrer_track'	: '',
-					'linkedin_lib'		: '',
+					'referrer_track'	: ''
 				}
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
@@ -235,6 +231,9 @@
 			if(facebook_on) {
 				var fb_enc_uri = encodeURIComponent(uri+options.services.facebook.referrer_track);
 				var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
+				// Commented out
+				// Planned for 1.1
+//				var fb_code = '<div class="fb-like" data-href="' + fb_enc_uri + '" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-action="' + options.services.facebook.action + '"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/de_DE/all.js";fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>';
 				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_like_privacy_dummy" />';
 
 				context.append('<li class="facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
@@ -259,7 +258,6 @@
 			//
 			if(twitter_on) {
 				var text = options.services.twitter.tweet_text;
-//				var text = getTweetText();
 
 				if(typeof text === 'function') {
 					text = text();
@@ -358,8 +356,6 @@
 				var xing_lingua = options.services.xing.language;
 				var xing_uri = uri + options.services.xing.referrer_track;
 
-//				var xing_code = '<iframe allowtransparency="true" src="' + xing_lib + '?xing-url=' + xing_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
-//				var xing_code = '<script src="' + xing_lib + '" type="text/javascript"></script><script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script>';
 				var xing_code = '<script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script><script>;(function(d, s) {var x = d.createElement(s),s = d.getElementsByTagName(s)[0];x.src =\'https://www.xing-share.com/js/external/share.js\';s.parentNode.insertBefore(x, s);})(document, \'script\');</script>';
 				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing&quot;-Dummy" class="xing_dummy" />';
 
@@ -389,7 +385,6 @@
 				var pinterest_excerpt = encodeURIComponent(options.services.pinterest.the_excerpt);
 				var pinterest_media = options.services.pinterest.media;
 
-//				var pinterest_code = '<iframe allowtransparency="true" src="' + pinterest_lib + '?pinterest-url=' + pinterest_uri + '&pinterest-description=' + pinterest_excerpt + '&pinterest-media=' + pinterest_media + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
 				var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
 				var pinterest_dummy_btn = '<img src="' + options.services.pinterest.dummy_img + '" width="' + options.services.pinterest.dummy_img_width + '" height="' + options.services.pinterest.dummy_img_height + '" alt="&quot;Pinterest&quot;-Dummy" class="pinterest_dummy" />';
 
