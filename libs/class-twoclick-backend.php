@@ -241,8 +241,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				/**
 				 * CSS
 				 */
-// 				$var_sCss = plugins_url('/css/twoclick-admin-min.css', dirname(__FILE__));
-				$var_sCss = plugins_url('/css/twoclick-admin.css', dirname(__FILE__));
+				$var_sCss = plugins_url('/css/twoclick-admin-min.css', dirname(__FILE__));
+// 				$var_sCss = plugins_url('/css/twoclick-admin.css', dirname(__FILE__));
 
 				wp_register_style('twoclick-admin', $var_sCss, '', $this->_get_plugin_version());
 				wp_enqueue_style('twoclick-admin');
@@ -563,7 +563,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				<div class="icon32" id="icon-options-general"><br /></div>
 				<h2><?php _e('Settings for 2-Click Social Media Buttons', TWOCLICK_TEXTDOMAIN); ?></h2>
 				<?php
-				settings_errors();
 
 				/**
 				 * Setting the active tab
