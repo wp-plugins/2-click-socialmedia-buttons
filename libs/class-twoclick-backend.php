@@ -407,8 +407,12 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						$output['twoclick_buttons_infotext_flattr'] = wp_filter_kses($input['twoclick_buttons_infotext_flattr']);
 						$output['twoclick_buttons_infotext_xing'] = wp_filter_kses($input['twoclick_buttons_infotext_xing']);
 						$output['twoclick_buttons_infotext_pinterest'] = wp_filter_kses($input['twoclick_buttons_infotext_pinterest']);
+						$output['twoclick_buttons_infotext_t3n'] = wp_filter_kses($input['twoclick_buttons_infotext_t3n']);
+						$output['twoclick_buttons_infotext_linkedin'] = wp_filter_kses($input['twoclick_buttons_infotext_linkedin']);
+
 						$output['twoclick_buttons_infotext_infobutton'] = wp_filter_kses($input['twoclick_buttons_infotext_infobutton']);
 						$output['twoclick_buttons_infotext_permaoption'] = wp_filter_kses($input['twoclick_buttons_infotext_permaoption']);
+
 						$output['twoclick_buttons_infolink'] = esc_url($input['twoclick_buttons_infolink']);
 
 						if(!empty($input['twoclick_buttons_introtext'])) {

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -66,6 +66,11 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 1.0.1 =
+* *01. August 2012*
+* **Fix:** CSS-Fix - Bei einigen Themes kann es vorkommen, dass um die aktivierten Buttons ein Rahmen gezogen wurde. Nun nicht mehr.
+* **Fix:** Infotexte für t3n und LinkedIn werden nun übernommen. (Danke an [Franz](http://www.noobtech.at/) für die Meldung)
+
 = 1.0 =
 * *01. August 2012*
 * **Change:** Kompletter "Rewrite" des Plugins.
@@ -76,7 +81,7 @@ Nutze dafür einfach dein Dashboard
 * **Change:** Plugindateien, die ausführbaren Code enthalten (.php) vor direktem Zugriff geschützt.
 * **Change:** Einbindung der OpenGraph-Tags überarbeitet.
 * **Neu:** OpenGraph-Tags: Nun via Option abschaltbar. Dies verhindert dass diese eventuell mehrfach eingebunden werden, wenn dies schon durch das Theme oder andere Plugins geschieht.
-* **Neu:** OpenGraph-Tags: Kompatibilität mit wpSEO und All in One SEO Pack bei Titel und Beschreibung. Sollte eines dieser beiden SEO-Plugins installiert sein, so wird der Titel und die Beschreibung hergenommen, die duch das Plugin beim Erstellen oder Editieren des Artikels angegeben werden .
+* **Neu:** OpenGraph-Tags: Kompatibilität mit [wpSEO](http://wpseo.de/) und [All in One SEO Pack](http://wordpress.org/extend/plugins/all-in-one-seo-pack/) bei Titel und Beschreibung. Sollte eines dieser beiden SEO-Plugins installiert sein, so wird der Titel und die Beschreibung hergenommen, die duch das Plugin beim Erstellen oder Editieren des Artikels angegeben werden .
 * **Neu:** OpenGraph-Tags: Locale hinzugefügt.
 * **Neu:** Validierung der Optionen eingebaut.
 * **Neu:** Exclude Pages - Hiermit können CMS-Seiten bestimmt werden, auf denen die Buttons nicht zu sehen sein sollen.
