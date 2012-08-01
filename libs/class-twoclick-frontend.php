@@ -646,13 +646,16 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			 * Einige Themes tun das einfach nicht.
 			 *
 			 * @since 0.7.1
+			 * @author ppfeufer
+			 *
+			 * @return string|boolean
 			 */
 			if(function_exists('get_post_thumbnail_id')) {
-				$array_Image = wp_get_attachment_image_src(get_post_thumbnail_id($GLOBALS['post']->ID));
+				$array_Image = wp_get_attachment_image_src(get_post_thumbnail_id($GLOBALS['post']->ID), '');
 			} // END if(function_exists('get_post_thumbnail_id'))
 
 			if(is_array($array_Image)) {
-				$var_sPostThumbnail = $array_Image['0'];
+				$var_sArticleImage = $array_Image['0'];
 			} else {
 				$var_sDefaultThumbnail = '';
 				$var_sOutput = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $GLOBALS['post']->post_content, $array_Matches);
@@ -666,10 +669,22 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 						$var_sPostThumbnail = false;
 					} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail'] != '')
 				} // END if($var_sOutput > 0)
+
+				/**
+				 * Check if we have a thumbnailimage and not the original.
+				 * If we do, remove the dimensions to get the original file.
+				 *
+				 * @since 1.1
+				 */
+				$var_sPattern = '/-[0-9\/]+x[0-9\/]+/';
+
+				preg_match_all($var_sPattern, $var_sPostThumbnail, $matches);
+
+				$var_sArticleImage = str_replace(array_pop($matches[0]), '', $var_sPostThumbnail);
 			} // END if(is_array($array_Image))
 
-			return $var_sPostThumbnail;
-		} // END private function _get_article_image()
+			return $var_sArticleImage;
+		} // END private function _get_article_thumbnail()
 
 		/**
 		 * <[ Helper ]>
