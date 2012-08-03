@@ -533,7 +533,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					break;
 			} // END switch($this->array_TwoclickButtonsOptions['twoclick_buttons_pinterest_description'])
 
-			return rawurlencode($var_sPinterestDescription);
+// 			return rawurlencode($var_sPinterestDescription);
+			return $var_sPinterestDescription;
 		} // END function _get_pinterest_description()
 
 
@@ -875,7 +876,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 						'dummy_img_height' => '20',
 						'status' => 'on',
 						'the_title' => $var_sTitle,
-						'the_excerpt' => $this->var_sPostExcerpt,
+						'the_excerpt' => htmlspecialchars($this->var_sPostExcerpt),
 						'txt_info' => $var_sInfotextFlattr,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_flattr_perm']) ? 'on' : 'off'
 					);
