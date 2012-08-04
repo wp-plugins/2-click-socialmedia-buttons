@@ -228,7 +228,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				 */
 				wp_enqueue_script('media-upload');
 				wp_enqueue_script('thickbox');
-				wp_register_script('twoclick-image-upload', plugins_url('/js/jquery-media-upload.js', dirname(__FILE__)), array(
+// 				wp_register_script('twoclick-image-upload', plugins_url('/js/jquery-media-upload.js', dirname(__FILE__)), array(
+				wp_register_script('twoclick-image-upload', plugins_url('/js/jquery-media-upload-min.js', dirname(__FILE__)), array(
 					'jquery',
 					'media-upload',
 					'thickbox'
@@ -401,14 +402,70 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 
 					case 'infotext-settings':
 						// Validating Infotext
-						$output['twoclick_buttons_infotext_facebook'] = wp_filter_kses($input['twoclick_buttons_infotext_facebook']);
-						$output['twoclick_buttons_infotext_twitter'] = wp_filter_kses($input['twoclick_buttons_infotext_twitter']);
-						$output['twoclick_buttons_infotext_googleplus'] = wp_filter_kses($input['twoclick_buttons_infotext_googleplus']);
-						$output['twoclick_buttons_infotext_flattr'] = wp_filter_kses($input['twoclick_buttons_infotext_flattr']);
-						$output['twoclick_buttons_infotext_xing'] = wp_filter_kses($input['twoclick_buttons_infotext_xing']);
-						$output['twoclick_buttons_infotext_pinterest'] = wp_filter_kses($input['twoclick_buttons_infotext_pinterest']);
-						$output['twoclick_buttons_infotext_t3n'] = wp_filter_kses($input['twoclick_buttons_infotext_t3n']);
-						$output['twoclick_buttons_infotext_linkedin'] = wp_filter_kses($input['twoclick_buttons_infotext_linkedin']);
+// 						$output['twoclick_buttons_infotext_facebook'] = wp_filter_kses($input['twoclick_buttons_infotext_facebook']);
+// 						$output['twoclick_buttons_infotext_twitter'] = wp_filter_kses($input['twoclick_buttons_infotext_twitter']);
+// 						$output['twoclick_buttons_infotext_googleplus'] = wp_filter_kses($input['twoclick_buttons_infotext_googleplus']);
+// 						$output['twoclick_buttons_infotext_flattr'] = wp_filter_kses($input['twoclick_buttons_infotext_flattr']);
+// 						$output['twoclick_buttons_infotext_xing'] = wp_filter_kses($input['twoclick_buttons_infotext_xing']);
+// 						$output['twoclick_buttons_infotext_pinterest'] = wp_filter_kses($input['twoclick_buttons_infotext_pinterest']);
+// 						$output['twoclick_buttons_infotext_t3n'] = wp_filter_kses($input['twoclick_buttons_infotext_t3n']);
+// 						$output['twoclick_buttons_infotext_linkedin'] = wp_filter_kses($input['twoclick_buttons_infotext_linkedin']);
+
+						// Facebook
+						if(!empty($input['twoclick_buttons_infotext_facebook'])) {
+							$output['twoclick_buttons_infotext_facebook'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_facebook']));
+						} else {
+							unset($output['twoclick_buttons_infotext_facebook']);
+						} // END if(!empty($input['twoclick_buttons_infotext_facebook']))
+
+						// Twitter
+						if(!empty($input['twoclick_buttons_infotext_twitter'])) {
+							$output['twoclick_buttons_infotext_twitter'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_twitter']));
+						} else {
+							unset($output['twoclick_buttons_infotext_twitter']);
+						} // END if(!empty($input['twoclick_buttons_infotext_twitter']))
+
+						// Google+
+						if(!empty($input['twoclick_buttons_infotext_googleplus'])) {
+							$output['twoclick_buttons_infotext_googleplus'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_googleplus']));
+						} else {
+							unset($output['twoclick_buttons_infotext_googleplus']);
+						} // END if(!empty($input['twoclick_buttons_introtext']))
+
+						// Flattr
+						if(!empty($input['twoclick_buttons_infotext_flattr'])) {
+							$output['twoclick_buttons_infotext_flattr'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_flattr']));
+						} else {
+							unset($output['twoclick_buttons_infotext_flattr']);
+						} // END if(!empty($input['twoclick_buttons_infotext_flattr']))
+
+						// Xing
+						if(!empty($input['twoclick_buttons_infotext_xing'])) {
+							$output['twoclick_buttons_infotext_xing'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_xing']));
+						} else {
+							unset($output['twoclick_buttons_infotext_xing']);
+						} // END if(!empty($input['twoclick_buttons_infotext_xing']))
+
+						// Pinterest
+						if(!empty($input['twoclick_buttons_infotext_pinterest'])) {
+							$output['twoclick_buttons_infotext_pinterest'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_pinterest']));
+						} else {
+							unset($output['twoclick_buttons_infotext_pinterest']);
+						} // END if(!empty($input['twoclick_buttons_infotext_pinterest']))
+
+						// t3n
+						if(!empty($input['twoclick_buttons_infotext_t3n'])) {
+							$output['twoclick_buttons_infotext_t3n'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_t3n']));
+						} else {
+							unset($output['twoclick_buttons_infotext_t3n']);
+						} // END if(!empty($input['twoclick_buttons_infotext_t3n']))
+
+						// LinkedIn
+						if(!empty($input['twoclick_buttons_infotext_linkedin'])) {
+							$output['twoclick_buttons_infotext_linkedin'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_linkedin']));
+						} else {
+							unset($output['twoclick_buttons_infotext_linkedin']);
+						} // END if(!empty($input['twoclick_buttons_infotext_linkedin']))
 
 						$output['twoclick_buttons_infotext_infobutton'] = wp_filter_kses($input['twoclick_buttons_infotext_infobutton']);
 						$output['twoclick_buttons_infotext_permaoption'] = wp_filter_kses($input['twoclick_buttons_infotext_permaoption']);
@@ -929,43 +986,62 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						<div class="postbox clearfix">
 							<h3><span><?php _e('Infotext', TWOCLICK_TEXTDOMAIN); ?></span></h3>
 							<div class="inside">
-								<?php
-								foreach((array) $this->array_SupportedNetworks as $var_sKey => $var_sValue) {
-									?>
-									<!-- <?php echo $var_sValue; ?> -->
-									<div>
-										<label for="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" style="display:inline-block; width:100px;"><?php _e($var_sValue, TWOCLICK_TEXTDOMAIN); ?>:</label>
-										<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_infotext_' . $var_sKey); ?>" name="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" id="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" />
-									</div>
+								<div class="twoclick-infotexte">
 									<?php
-								} // END foreach((array) $this->array_SupportedNetworks as $var_sKey => $var_sValue)
-								?>
-								<!-- Infobutton -->
-								<div>
-									<label for="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" style="display:inline-block; width:100px;"><?php _e('Infobutton:', TWOCLICK_TEXTDOMAIN); ?></label>
-									<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_infotext_infobutton'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" id="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" />
-								</div>
-
-								<!--  Permaoption -->
-								<div>
-									<label for="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" style="display:inline-block; width:100px;"><?php _e('Permaoption:', TWOCLICK_TEXTDOMAIN); ?></label>
-									<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_infotext_permaoption'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" id="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" />
-								</div>
-
-								<!-- Infolink -->
-								<div>
-									<label for="twoclick_buttons_settings[twoclick_buttons_infolink]" style="display:inline-block; width:100px;"><?php _e('Infolink:', TWOCLICK_TEXTDOMAIN); ?></label>
-									<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_infolink'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infolink]" id="twoclick_buttons_settings[twoclick_buttons_infolink]" /> <span class="description"><?php _e('Links starting with http://', TWOCLICK_TEXTDOMAIN); ?></span>
-								</div>
-
-								<!-- Introtext -->
-								<div>
-									<div style="display:inline-block; width:100px; vertical-align:top;">
-										<label for="twoclick_buttons_settings[twoclick_buttons_introtext]"><?php _e('Introtext:', TWOCLICK_TEXTDOMAIN); ?></label>
+									foreach((array) $this->array_SupportedNetworks as $var_sKey => $var_sValue) {
+										?>
+										<!-- <?php echo $var_sValue; ?> -->
+										<div class="twoclick-infotext-input">
+											<div class="label">
+												<label for="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]"><?php _e($var_sValue, TWOCLICK_TEXTDOMAIN); ?></label>
+											</div>
+											<div class="input">
+												<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_' . $var_sKey); ?></textarea>
+											</div>
+										</div>
+										<?php
+									} // END foreach((array) $this->array_SupportedNetworks as $var_sKey => $var_sValue)
+									?>
+									<!-- Infobutton -->
+									<div class="twoclick-infotext-input">
+										<div class="label">
+											<label for="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]"><?php _e('Infobutton:', TWOCLICK_TEXTDOMAIN); ?></label>
+										</div>
+										<div class="input">
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_infobutton'); ?></textarea>
+										</div>
 									</div>
-									<div style="display:inline-block;">
-										<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_introtext]" style="width:450px;"><?php echo esc_textarea($this->_get_option('twoclick_buttons_introtext')); ?></textarea><br />
-										<span class="description"><?php _e('This "Introtext" will be displayed before the buttons. You can use some HTML here. Paragraphs will be included automaticly.', TWOCLICK_TEXTDOMAIN); ?></span>
+
+									<!--  Permaoption -->
+									<div class="twoclick-infotext-input">
+										<div class="label">
+											<label for="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]"><?php _e('Permaoption:', TWOCLICK_TEXTDOMAIN); ?></label>
+										</div>
+										<div class="input">
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_permaoption'); ?></textarea>
+										</div>
+									</div>
+
+									<!-- Infolink -->
+									<div class="twoclick-infotext-input">
+										<div class="label">
+											<label for="twoclick_buttons_settings[twoclick_buttons_infolink]" style="display:inline-block; width:100px;"><?php _e('Infolink:', TWOCLICK_TEXTDOMAIN); ?></label>
+										</div>
+										<div class="input">
+											<input style="width:450px;" type="text" value="<?php echo $this->_get_option('twoclick_buttons_infolink'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infolink]" id="twoclick_buttons_settings[twoclick_buttons_infolink]" /><br />
+											<span class="description"><?php _e('Links starting with http://', TWOCLICK_TEXTDOMAIN); ?></span>
+										</div>
+									</div>
+
+									<!-- Introtext -->
+									<div class="twoclick-infotext-input">
+										<div class="label">
+											<label for="twoclick_buttons_settings[twoclick_buttons_introtext]"><?php _e('Introtext:', TWOCLICK_TEXTDOMAIN); ?></label>
+										</div>
+										<div class="input">
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_introtext]" style="width:450px;"><?php echo esc_textarea($this->_get_option('twoclick_buttons_introtext')); ?></textarea><br />
+											<span class="description"><?php _e('This "Introtext" will be displayed before the buttons. You can use some HTML here. Paragraphs will be included automaticly.', TWOCLICK_TEXTDOMAIN); ?></span>
+										</div>
 									</div>
 								</div>
 							</div>
