@@ -27,3 +27,7 @@ html[xmlns] .clearfix {display:block;}
 .twoclick-infotext-input {margin-top:15px;}
 .twoclick-infotext-input .label {display:inline-block; width:100px; vertical-align:top;}
 .twoclick-infotext-input .input {display:inline-block;}
+
+/* Debug
+----------------------------------------------- */
+.twoclick-debug.plugindata {margin-top:15px;}
