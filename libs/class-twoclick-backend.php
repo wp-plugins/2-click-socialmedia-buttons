@@ -618,6 +618,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				'faq' => __('F.A.Q.', TWOCLICK_TEXTDOMAIN),
 				'changelog' => __('Changelog', TWOCLICK_TEXTDOMAIN),
 				'donate' => __('Donate', TWOCLICK_TEXTDOMAIN),
+				'debug' => __('Debug', TWOCLICK_TEXTDOMAIN),
 			);
 			?>
 			<div class="wrap">
@@ -640,6 +641,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 					case 'faq':
 					case 'changelog':
 					case 'donate':
+					case 'debug':
 						require_once(plugin_dir_path(__FILE__) . 'class-twoclick-backend-' . $this->var_sActiveTab . '.php');
 						break;
 
