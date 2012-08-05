@@ -1066,9 +1066,23 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				/**
 				 * In den Content einbinden
 				 */
+				/**
+				 * Gewählte Seiten ausnehmen
+				 *
+				 * @since 1.0
+				 */
 				if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && (array_key_exists($post->ID, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'][$post->ID] == true)) {
 					return $content;
 				} // END if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && (array_key_exists($post->ID, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'][$post->ID] == true))
+
+				/**
+				 * Gewählte CPT ausnehmen
+				 *
+				 * @since 1.1
+				 */
+				if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && (array_key_exists($post->post_type, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'][$post->post_type] == true)) {
+					return $content;
+				}
 
 				if($this->array_TwoclickButtonsOptions[$var_sWhere] == 'beforeandafter') {
 					/**

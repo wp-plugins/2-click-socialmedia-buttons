@@ -375,15 +375,28 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						$output['twoclick_buttons_display_tag'] = ($input['twoclick_buttons_display_tag'] == 1 ? true : false);
 						$output['twoclick_buttons_where'] = wp_filter_nohtml_kses($input['twoclick_buttons_where']);
 
+						// Validating custom post types
+						unset($output['twoclick_buttons_exclude_cpt']);
+						if(is_array($input['twoclick_buttons_exclude_cpt'])) {
+							foreach($input['twoclick_buttons_exclude_cpt'] as $key => $value) {
+								if((post_type_exists($key)) && ($value == 1)) {
+									$output['twoclick_buttons_exclude_cpt'][$key] = true;
+								} else {
+									unset($output['twoclick_buttons_exclude_cpt'][$key]);
+								} // END if((post_type_exists($key)) && ($value == 1))
+							} // END foreach($input['twoclick_buttons_exclude_page'] as $key => $value)
+						} // END if(is_array($input['twoclick_buttons_exclude_page']))
+						break;
+
 						// Validating excludes pages
 						unset($output['twoclick_buttons_exclude_page']);
 						if(is_array($input['twoclick_buttons_exclude_page'])) {
 							foreach($input['twoclick_buttons_exclude_page'] as $key => $value) {
-								if((get_post_type($key) == 'page') && $value == 1) {
+								if((get_post_type($key) == 'page') && ($value == 1)) {
 									$output['twoclick_buttons_exclude_page'][$key] = true;
 								} else {
 									unset($output['twoclick_buttons_exclude_page'][$key]);
-								} // END if((get_post_type($key) == 'page') && $value == 1)
+								} // END if((get_post_type($key) == 'page') && ($value == 1))
 							} // END foreach($input['twoclick_buttons_exclude_page'] as $key => $value)
 						} // END if(is_array($input['twoclick_buttons_exclude_page']))
 						break;
@@ -739,9 +752,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											?>
 											<!-- <?php echo $var_sValue; ?> -->
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_' . $var_sKey) == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>]" id="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_' . $var_sKey] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>]" id="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>]" style="display:inline-block; width:150px;"><?php echo sprintf(__('Enable %1$s', TWOCLICK_TEXTDOMAIN), $var_sValue); ?></label>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_' . $var_sKey . '_perm') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>_perm]" id="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>_perm]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_' . $var_sKey . '_perm'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>_perm]" id="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>_perm]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_<?php echo $var_sKey; ?>_perm]"><?php echo sprintf(__('Option for permanent activation for %1$s', TWOCLICK_TEXTDOMAIN), $var_sValue); ?></label>
 											</div>
 											<?php
@@ -756,10 +769,10 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									<div style="margin-left:100px;">
 										<div>
 											<select name="twoclick_buttons_settings[twoclick_buttons_where]">
-												<option <?php if($this->_get_option('twoclick_buttons_where') == 'before') echo 'selected="selected"'; ?> value="before"><?php _e('Before the Post', TWOCLICK_TEXTDOMAIN); ?></option>
-												<option <?php if($this->_get_option('twoclick_buttons_where') == 'after') echo 'selected="selected"'; ?> value="after"><?php _e('After the Post', TWOCLICK_TEXTDOMAIN); ?></option>
-												<option <?php if($this->_get_option('twoclick_buttons_where') == 'shortcode') echo 'selected="selected"'; ?> value="shortcode"><?php _e('Manuall (Shortcode)', TWOCLICK_TEXTDOMAIN); ?></option>
-												<option <?php if($this->_get_option('twoclick_buttons_where') == 'template') echo 'selected="selected"'; ?> value="template"><?php _e('Manuall (Template)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'before') echo 'selected="selected"'; ?> value="before"><?php _e('Before the Post', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'after') echo 'selected="selected"'; ?> value="after"><?php _e('After the Post', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'shortcode') echo 'selected="selected"'; ?> value="shortcode"><?php _e('Manuall (Shortcode)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'template') echo 'selected="selected"'; ?> value="template"><?php _e('Manuall (Template)', TWOCLICK_TEXTDOMAIN); ?></option>
 											</select>
 										</div>
 										<div>
@@ -774,21 +787,28 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<?php _e('Exclude Pages:', TWOCLICK_TEXTDOMAIN); ?>
 											<?php $this->_get_pages(); ?>
 										</div>
+
+										<div>
+											<p>
+												<strong><?php _e('Posts and Pages Handling', TWOCLICK_TEXTDOMAIN); ?></strong>
+											</p>
+										</div>
 										<div>
 											<div style="margin-top:10px;">
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_page') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_page]" id="twoclick_buttons_settings[twoclick_buttons_display_page]" onchange="toggleElementVisibility('exclude-page')" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_page'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_page]" id="twoclick_buttons_settings[twoclick_buttons_display_page]" onchange="toggleElementVisibility('exclude-page')" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_page]"><?php _e('Display on CMS-Pages', TWOCLICK_TEXTDOMAIN); ?></label>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_index') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_index]" id="twoclick_buttons_settings[twoclick_buttons_display_index]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_index'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_index]" id="twoclick_buttons_settings[twoclick_buttons_display_index]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_index]"><?php _e('Display on Index', TWOCLICK_TEXTDOMAIN); ?></label>
 											</div>
+
 											<div style="margin-top:10px;">
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_private') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_private]" id="twoclick_buttons_settings[twoclick_buttons_display_private]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_private'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_private]" id="twoclick_buttons_settings[twoclick_buttons_display_private]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_private]"><?php _e('Display on Private Posts', TWOCLICK_TEXTDOMAIN); ?></label>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_password') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_password]" id="twoclick_buttons_settings[twoclick_buttons_display_password]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_password'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_password]" id="twoclick_buttons_settings[twoclick_buttons_display_password]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_password]"><?php _e('Display on Password Protected Posts', TWOCLICK_TEXTDOMAIN); ?></label>
 											</div>
 											<?php
@@ -796,34 +816,36 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											if(is_readable(plugin_dir_path(__FILE__) . 'class-twoclick-sidebar-widget.php')) {
 												?>
 												<div>
-													<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_sidebar_widget') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_sidebar_widget]" id="twoclick_buttons_settings[twoclick_buttons_display_sidebar_widget]" />
+													<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_sidebar_widget'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_sidebar_widget]" id="twoclick_buttons_settings[twoclick_buttons_display_sidebar_widget]" />
 													<label for="twoclick_buttons_settings[twoclick_buttons_display_sidebar_widget]"><?php _e('Display Sidebar-Widget', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Only in single posts or pages.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 												</div>
 												<?php
 											} // END if(is_readable(plugin_dir_path(__FILE__) . 'class-twoclick-sidebar-widget.php'))
 											?>
+
 											<div style="margin-top:10px;">
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_year') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_year]" id="twoclick_buttons_settings[twoclick_buttons_display_year]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_year'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_year]" id="twoclick_buttons_settings[twoclick_buttons_display_year]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_year]"><?php _e('Display on Yearly Archives', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_month') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_month]" id="twoclick_buttons_settings[twoclick_buttons_display_month]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_month'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_month]" id="twoclick_buttons_settings[twoclick_buttons_display_month]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_month]"><?php _e('Display on Monthly Archives', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_day') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_day]" id="twoclick_buttons_settings[twoclick_buttons_display_day]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_day'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_day]" id="twoclick_buttons_settings[twoclick_buttons_display_day]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_day]"><?php _e('Display on Daily Archives', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
+
 											<div style="margin-top:10px;">
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_search') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_search]" id="twoclick_buttons_settings[twoclick_buttons_display_search]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_search'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_search]" id="twoclick_buttons_settings[twoclick_buttons_display_search]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_search]"><?php _e('Display on Search-Pages', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_category') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_category]" id="twoclick_buttons_settings[twoclick_buttons_display_category]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_category'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_category]" id="twoclick_buttons_settings[twoclick_buttons_display_category]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_category]"><?php _e('Display on Category-Archive', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
 											<div>
-												<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_display_tag') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_tag]" id="twoclick_buttons_settings[twoclick_buttons_display_tag]" />
+												<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_tag'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_tag]" id="twoclick_buttons_settings[twoclick_buttons_display_tag]" />
 												<label for="twoclick_buttons_settings[twoclick_buttons_display_tag]"><?php _e('Display on Tag-Archive', TWOCLICK_TEXTDOMAIN); ?></label> <span class="description">(<?php _e('Note: Not every theme supports this option.',  TWOCLICK_TEXTDOMAIN); ?>)</span>
 											</div>
 											<div>
@@ -831,6 +853,32 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 													<?php _e('On singleposts the buttons will be shown by default. There is no option needed.', TWOCLICK_TEXTDOMAIN); ?>
 												</p>
 											</div>
+
+
+											<!-- Custom Post Types -->
+											<?php
+											$array_CustomPostTypes = $this->_get_custom_post_types();
+
+											if($array_CustomPostTypes) {
+												?>
+												<div>
+													<p>
+														<strong><?php _e('Custom Post Type Handling', TWOCLICK_TEXTDOMAIN); ?></strong>
+													</p>
+												</div>
+												<?php
+												$count_i = 1;
+												foreach((array) $array_CustomPostTypes as $key => $value) {
+													?>
+													<div<?php if($count_i == 1) {echo ' style="margin-top:10px;"';}?>>
+														<input type="checkbox" value="1" <?php if((isset($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'][$value])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'][$value] == '1')) {echo 'checked="checked"';} ?> name="twoclick_buttons_settings[twoclick_buttons_exclude_cpt][<?php echo $value; ?>]" id="twoclick_buttons_settings[twoclick_buttons_exclude_cpt][<?php echo $value; ?>]" />
+														<label for="twoclick_buttons_settings[twoclick_buttons_exclude_cpt][<?php echo $value; ?>]"><?php printf(__('Exclude on Custom Post Type "%1$s"', TWOCLICK_TEXTDOMAIN), '<em>' . $value . '</em>'); ?></label>
+													</div>
+													<?php
+													$count_i++;
+												} // END foreach((array) $array_CustomPostTypes as $key => $value)
+											}
+											?>
 										</div>
 									</div>
 								</div>
@@ -861,8 +909,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									<div>
 										<label for="twoclick_buttons_settings[twoclick_buttons_facebook_action]" style="display:inline-block; width:100px;"><?php _e('Button:', TWOCLICK_TEXTDOMAIN); ?></label>
 										<select name="twoclick_buttons_settings[twoclick_buttons_facebook_action]">
-											<option <?php if($this->_get_option('twoclick_buttons_facebook_action') == 'recommend') echo 'selected="selected"'; ?> value="recommend"><?php _e('Recommend', TWOCLICK_TEXTDOMAIN); ?></option>
-											<option <?php if($this->_get_option('twoclick_buttons_facebook_action') == 'like') echo 'selected="selected"'; ?> value="like"><?php _e('Like', TWOCLICK_TEXTDOMAIN); ?></option>
+											<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'] == 'recommend') echo 'selected="selected"'; ?> value="recommend"><?php _e('Recommend', TWOCLICK_TEXTDOMAIN); ?></option>
+											<option <?php if($this->_array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'] == 'like') echo 'selected="selected"'; ?> value="like"><?php _e('Like', TWOCLICK_TEXTDOMAIN); ?></option>
 										</select>
 									</div>
 								</div>
@@ -884,7 +932,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										RT @:
 									</div>
 									<div style="display:inline-block;">
-										<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_twitter_reply'); ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" id="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" class="required" />
+										<input type="text" value="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply']; ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" id="twoclick_buttons_settings[twoclick_buttons_twitter_reply]" class="required" />
 										<span class="description"><?php _e('Please use \'yourname\', <strong>not</strong> \'RT @yourname\'.', TWOCLICK_TEXTDOMAIN); ?></span>
 									</div>
 								</div>
@@ -894,20 +942,20 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										<?php _e('Tweettext:', TWOCLICK_TEXTDOMAIN); ?>
 									</div>
 									<div style="display:inline-block;">
-										<input type="radio" value="default" <?php if ($this->_get_option('twoclick_buttons_twitter_tweettext') == 'default') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_default]" />
+										<input type="radio" value="default" <?php if ($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext'] == 'default') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_default]" />
 										<select name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_default_as]">
-											<option <?php if($this->_get_option('twoclick_buttons_twitter_tweettext_default_as') == 'posttitle-blogtitle') echo 'selected="selected"'; ?> value="posttitle-blogtitle"><?php _e('Posttitle &raquo; Blogtitle', TWOCLICK_TEXTDOMAIN); ?></option>
-											<option <?php if($this->_get_option('twoclick_buttons_twitter_tweettext_default_as') == 'posttitle') echo 'selected="selected"'; ?> value="posttitle"><?php _e('Posttitle', TWOCLICK_TEXTDOMAIN); ?></option>
+											<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_default_as'] == 'posttitle-blogtitle') echo 'selected="selected"'; ?> value="posttitle-blogtitle"><?php _e('Posttitle &raquo; Blogtitle', TWOCLICK_TEXTDOMAIN); ?></option>
+											<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_default_as'] == 'posttitle') echo 'selected="selected"'; ?> value="posttitle"><?php _e('Posttitle', TWOCLICK_TEXTDOMAIN); ?></option>
 										</select>
 										<label for="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_default]"><?php _e('The title of the page the button is on.', TWOCLICK_TEXTDOMAIN); ?></label>
 									</div>
 
 									<div style="margin-left:104px;">
-										<input type="radio" value="own" <?php if ($this->_get_option('twoclick_buttons_twitter_tweettext') == 'own') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_own]" />
-										<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_twitter_tweettext_owntext'); ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_owntext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_owntext]" />
+										<input type="radio" value="own" <?php if ($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext'] == 'own') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_own]" />
+										<input type="text" value="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_owntext']; ?>" name="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_owntext]" id="twoclick_buttons_settings[twoclick_buttons_twitter_tweettext_owntext]" />
 										<span class="description"><?php _e('This is the text that people will include in their Tweet when they share from your website.', TWOCLICK_TEXTDOMAIN); ?></span>
 										<?php
-										if($this->_get_option('twoclick_buttons_twitter_tweettext') == 'own' && strlen($this->_get_option('twoclick_buttons_twitter_tweettext_owntext')) == 0) {
+										if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext'] == 'own' && strlen($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_owntext']) == 0) {
 											?>
 											<div class="error">
 												<p style="font-weight:bold;">
@@ -918,11 +966,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 												</p>
 											</div>
 											<?php
-										} // END if($this->_get_option('twoclick_buttons_twitter_tweettext') == 'own' && strlen($this->_get_option('twoclick_buttons_twitter_tweettext_owntext')) == 0)
+										} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext'] == 'own' && strlen($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_owntext']) == 0)
 										?>
 									</div>
 									<div style="margin-left:104px;">
-										<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_twitter_hashtags') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_hashtags]" id="twoclick_buttons_settings[twoclick_buttons_twitter_hashtags]" />
+										<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_hashtags'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_twitter_hashtags]" id="twoclick_buttons_settings[twoclick_buttons_twitter_hashtags]" />
 										<label for="twoclick_buttons_settings[twoclick_buttons_twitter_hashtags]"><?php _e('Use tags as #hashtags', TWOCLICK_TEXTDOMAIN); ?></label>
 									</div>
 								</div>
@@ -940,7 +988,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 							<h3><span><?php _e('Flattr', TWOCLICK_TEXTDOMAIN); ?></span></h3>
 							<div class="inside">
 								<label for="twoclick_buttons_settings[twoclick_buttons_flattr_uid]" style="display:inline-block; width:100px;"><?php _e('User:', TWOCLICK_TEXTDOMAIN); ?></label>
-								<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_flattr_uid'); ?>" name="twoclick_buttons_settings[twoclick_buttons_flattr_uid]" id="twoclick_buttons_settings[twoclick_buttons_flattr_uid]" class="required" />
+								<input type="text" value="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_flattr_uid']; ?>" name="twoclick_buttons_settings[twoclick_buttons_flattr_uid]" id="twoclick_buttons_settings[twoclick_buttons_flattr_uid]" class="required" />
 							</div>
 						</div>
 					</div>
@@ -959,9 +1007,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 								</div>
 								<div style="display:inline-block;">
 									<select name="twoclick_buttons_settings[twoclick_buttons_pinterest_description]">
-										<option <?php if($this->_get_option('twoclick_buttons_pinterest_description') == 'posttitle') echo 'selected="selected"'; ?> value="posttitle"><?php _e('Posttitle', TWOCLICK_TEXTDOMAIN); ?></option>
-										<option <?php if($this->_get_option('twoclick_buttons_pinterest_description') == 'posttitle-tags') echo 'selected="selected"'; ?> value="posttitle-tags"><?php _e('Posttitle and #Tags', TWOCLICK_TEXTDOMAIN); ?></option>
-										<option <?php if($this->_get_option('twoclick_buttons_pinterest_description') == 'posttitle-excerpt') echo 'selected="selected"'; ?> value="posttitle-excerpt"><?php _e('Posttitle &raquo; Excerpt', TWOCLICK_TEXTDOMAIN); ?></option>
+										<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_pinterest_description'] == 'posttitle') echo 'selected="selected"'; ?> value="posttitle"><?php _e('Posttitle', TWOCLICK_TEXTDOMAIN); ?></option>
+										<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_pinterest_description'] == 'posttitle-tags') echo 'selected="selected"'; ?> value="posttitle-tags"><?php _e('Posttitle and #Tags', TWOCLICK_TEXTDOMAIN); ?></option>
+										<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_pinterest_description'] == 'posttitle-excerpt') echo 'selected="selected"'; ?> value="posttitle-excerpt"><?php _e('Posttitle &raquo; Excerpt', TWOCLICK_TEXTDOMAIN); ?></option>
 									</select>
 									<label for="twoclick_buttons_settings[twoclick_buttons_pinterest_description]"><?php _e('The description wich is send to Pinterest.', TWOCLICK_TEXTDOMAIN); ?></label>
 								</div>
@@ -998,7 +1046,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 												<label for="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]"><?php _e($var_sValue, TWOCLICK_TEXTDOMAIN); ?></label>
 											</div>
 											<div class="input">
-												<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_' . $var_sKey); ?></textarea>
+												<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_<?php echo $var_sKey; ?>]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_' . $var_sKey]); ?></textarea>
 											</div>
 										</div>
 										<?php
@@ -1010,7 +1058,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<label for="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]"><?php _e('Infobutton:', TWOCLICK_TEXTDOMAIN); ?></label>
 										</div>
 										<div class="input">
-											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_infobutton'); ?></textarea>
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_infobutton]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_infobutton']); ?></textarea>
 										</div>
 									</div>
 
@@ -1020,7 +1068,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<label for="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]"><?php _e('Permaoption:', TWOCLICK_TEXTDOMAIN); ?></label>
 										</div>
 										<div class="input">
-											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" style="width:450px;"><?php echo $this->_get_option('twoclick_buttons_infotext_permaoption'); ?></textarea>
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_infotext_permaoption]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_permaoption']); ?></textarea>
 										</div>
 									</div>
 
@@ -1030,7 +1078,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<label for="twoclick_buttons_settings[twoclick_buttons_infolink]" style="display:inline-block; width:100px;"><?php _e('Infolink:', TWOCLICK_TEXTDOMAIN); ?></label>
 										</div>
 										<div class="input">
-											<input style="width:450px;" type="text" value="<?php echo $this->_get_option('twoclick_buttons_infolink'); ?>" name="twoclick_buttons_settings[twoclick_buttons_infolink]" id="twoclick_buttons_settings[twoclick_buttons_infolink]" /><br />
+											<input style="width:450px;" type="text" value="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_infolink']; ?>" name="twoclick_buttons_settings[twoclick_buttons_infolink]" id="twoclick_buttons_settings[twoclick_buttons_infolink]" /><br />
 											<span class="description"><?php _e('Links starting with http://', TWOCLICK_TEXTDOMAIN); ?></span>
 										</div>
 									</div>
@@ -1041,7 +1089,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<label for="twoclick_buttons_settings[twoclick_buttons_introtext]"><?php _e('Introtext:', TWOCLICK_TEXTDOMAIN); ?></label>
 										</div>
 										<div class="input">
-											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_introtext]" style="width:450px;"><?php echo esc_textarea($this->_get_option('twoclick_buttons_introtext')); ?></textarea><br />
+											<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_introtext]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_introtext']); ?></textarea><br />
 											<span class="description"><?php _e('This "Introtext" will be displayed before the buttons. You can use some HTML here. Paragraphs will be included automaticly.', TWOCLICK_TEXTDOMAIN); ?></span>
 										</div>
 									</div>
@@ -1074,20 +1122,20 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										<?php _e('Link:', TWOCLICK_TEXTDOMAIN); ?>
 									</div>
 									<div style="display:inline-block;">
-										<input type="text" value="<?php echo $this->_get_option('twoclick_buttons_postthumbnail'); ?>" name="twoclick_buttons_settings[twoclick_buttons_postthumbnail]" id="twoclick_buttons_postthumbnail" />
+										<input type="text" value="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail']; ?>" name="twoclick_buttons_settings[twoclick_buttons_postthumbnail]" id="twoclick_buttons_postthumbnail" />
 										<input id="upload-image-button" type="button" value="<?php _e('Upload Image', TWOCLICK_TEXTDOMAIN); ?>" /><br />
 										<span class="description"><?php _e('Links starting with http://', TWOCLICK_TEXTDOMAIN); ?></span>
 									</div>
 								</div>
 								<div>
 									<?php
-									if($this->_get_option('twoclick_buttons_postthumbnail') != '') {
+									if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail'])) {
 										?>
 										<div>
-											<p><img src="<?php echo $this->_get_option('twoclick_buttons_postthumbnail'); ?>" /></p>
+											<p><img src="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail']; ?>" /></p>
 										</div>
 										<?php
-									} // END if($this->_get_option('twoclick_buttons_postthumbnail') != '')
+									} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail'))
 									?>
 									<div>
 										<p>
@@ -1113,7 +1161,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										<?php _e('Disable:', TWOCLICK_TEXTDOMAIN); ?>
 									</div>
 									<div style="display:inline-block;;">
-										<input type="checkbox" value="1" <?php if($this->_get_option('twoclick_buttons_opengraph_disable') == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_opengraph_disable]" id="twoclick_buttons_settings[twoclick_buttons_opengraph_disable]" />
+										<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_opengraph_disable'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_opengraph_disable]" id="twoclick_buttons_settings[twoclick_buttons_opengraph_disable]" />
 									</div>
 								</div>
 
@@ -1143,7 +1191,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									?>
 								</p>
 								<p>
-									<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_custom_css]" style="width:450px;"><?php echo esc_textarea($this->_get_option('twoclick_buttons_custom_css')); ?></textarea>
+									<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_custom_css]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_custom_css']); ?></textarea>
 								</p>
 							</div>
 						</div>
@@ -1239,7 +1287,34 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				</div>
 			</div>
 			<?php
-		} // END private function pages_meta_box()
+		} // END private function _get_pages()
+
+		/**
+		 * <[ Helper ]>
+		 * Genutzte Custom Post Types zurückgeben.
+		 *
+		 * @since 1.1
+		 * @author ppfeufer
+		 *
+		 * @param boolean $return
+		 * @return Ambigous <multitype:, array, multitype:unknown , unknown>
+		 */
+		private function _get_custom_post_types() {
+			$array_Arguments = array(
+				'public' => true,
+				'_builtin' => false
+			);
+
+			$var_sOutput = 'names'; // names or objects, note names is the default
+			$var_sOperator = 'and'; // 'and' or 'or'
+			$array_CustomPostTypes = get_post_types($array_Arguments, $var_sOutput, $var_sOperator);
+
+			if(empty($array_CustomPostTypes)) {
+				return false;
+			}
+
+			return $array_CustomPostTypes;
+		} // END private function _get_custom_post_types()
 
 		/**
 		 * Link zur Adminseite in der Pluginübersicht hinzufügen.
