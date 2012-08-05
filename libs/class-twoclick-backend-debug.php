@@ -225,19 +225,19 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Debug')) {
 									?>
 									<div class="twoclick-debug plugindata clearfix">
 										<div>
-											<span>Plugin: </span><span><?php echo $array_Data['Name']; ?> (<?php echo $array_Data['Version']; ?>)</span>
+											<span><?php _e('Plugin', TWOCLICK_TEXTDOMAIN)?>: </span><span><?php echo $array_Data['Name']; ?> (<?php echo $array_Data['Version']; ?>)</span>
 										</div>
 										<div>
-											<span>Status: </span><span><?php if($this->_is_active_plugin($var_sPLuginPath)) {_e('activated', TWOCLICK_TEXTDOMAIN);} else {_e('deactivated', TWOCLICK_TEXTDOMAIN);}?></span>
+											<span><?php _e('Status', TWOCLICK_TEXTDOMAIN)?>: </span><span><?php if($this->_is_active_plugin($var_sPLuginPath)) {_e('activated', TWOCLICK_TEXTDOMAIN);} else {_e('deactivated', TWOCLICK_TEXTDOMAIN);}?></span>
 										</div>
 										<div>
-											<span>Autor: </span><span><?php echo strip_tags($array_Data['Author']); ?></span>
+											<span><?php _e('Author', TWOCLICK_TEXTDOMAIN)?>: </span><span><?php echo strip_tags($array_Data['Author']); ?></span>
 										</div>
 										<div>
-											<span>Link: </span><span><?php echo $array_Data['PluginURI']; ?></span>
+											<span><?php _e('URL', TWOCLICK_TEXTDOMAIN)?>: </span><span><?php echo $array_Data['PluginURI']; ?></span>
 										</div>
 										<div>
-											<span>Pfad: </span><span><?php echo $var_sPLuginPath; ?></span>
+											<span><?php _e('Path', TWOCLICK_TEXTDOMAIN)?>: </span><span><?php echo $var_sPLuginPath; ?></span>
 										</div>
 									</div>
 									<?php
