@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.0.1
+Stable tag: 1.1
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -43,6 +43,7 @@ Dies wird leider durch immer verwirrendere Datenschutzbestimmungen notwendig. Da
 * Eigene Hinweistexte möglich.
 * Eigener Infolink möglich.
 * Ausführliche F.A.Q.-Seite. (hauptsächlich in deutsch)
+* Custom Post Type Handling
 
 == Installation ==
 
@@ -65,6 +66,16 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.1 =
+* *07. August 2012*
+* **Fix:** Für die OpenGraph-Tags wird nun das komplette Bild hergenommen und nicht nur das verkleinerte Artikelbild.
+* **Fix:** Pinterest Beschreibung.
+* **Fix:** Flattr Excerpt.
+* **Fix:** Felder für Infotexte sind nun wirklich Textfelder :-)
+* **Fix:** CSS Klassen umbenannt um Wechselwirkungen mit anderen Plugins zu umgehen. Beispiel: `li.facebook` => `li.twoclick-facebook` und `li.twitter` => `li.twoclick-twitter` und so weiter. Bitte bei Verwendung von eigenem CSS dort anpassen.
+* **Neu:** Seite mit Debuginformationen zu den Einstellungen hinzugefügt. Diese können mir durchaus bei der Beseitigung von Problemen nützlich sein.
+* **Neu:** Exclude Custom Post Types. Es können nun bestimmte Custom Post Type von der Anzeige ausgenommen werden.
 
 = 1.0.1 =
 * *01. August 2012*
