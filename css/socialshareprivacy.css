@@ -2,6 +2,7 @@
 .social_share_privacy {clear:both; margin:0 auto; width:100%; margin-bottom:15px;}
 .social_share_privacy ul {clear:both; margin:0 !important; padding:0; height:25px; width:100%;}
 .social_share_privacy li {margin:0 !important; padding:0; height:20px; float:left; list-style-type:none !important; list-style:none !important; background:none !important; border:none !important; overflow:visible !important;}
+.social_share_privacy li:before {content:none;}
 .social_share_privacy li .dummy_btn {float:left; margin-left:10px; padding:0;}
 .social_share_privacy li .dummy_btn img {max-width:none; cursor:pointer;}
 .social_share_privacy li .dummy_btn iframe {max-width:none; border:none;}

@@ -56,7 +56,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 * @author ppfeufer
 				 */
 				add_action('init', array(
-					$this, '_enqueue'
+					$this,
+					'_enqueue'
 				));
 
 				/**
