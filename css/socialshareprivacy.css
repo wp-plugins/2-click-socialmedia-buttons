@@ -2,9 +2,42 @@
 .social_share_privacy {clear:both; margin:0 auto; width:100%; margin-bottom:15px;}
 .social_share_privacy ul {clear:both; margin:0 !important; padding:0; height:25px; width:100%;}
 .social_share_privacy li {margin:0 !important; padding:0; height:20px; float:left; list-style-type:none !important; list-style:none !important; background:none !important; border:none !important; overflow:visible !important;}
+.social_share_privacy li:before {content:none;}
 .social_share_privacy li .dummy_btn {float:left; margin-left:10px; padding:0;}
-.social_share_privacy li .dummy_btn img {max-width:none; cursor:pointer;}
+.social_share_privacy li .dummy_btn span.twoclick-network {max-width:none; cursor:pointer;}
 .social_share_privacy li .dummy_btn iframe {max-width:none; border:none;}
+
+/* Sprite global
+----------------------------------------------- */
+.social_share_privacy li .dummy_btn {background: url(../images/sprite.png) no-repeat top left; height:25px;}
+.social_share_privacy.de_DE li .dummy_btn {background: url(../images/sprite-de_DE.png) no-repeat top left; height:25px;}
+.social_share_privacy li.info_off .dummy_btn {background:none;}
+.social_share_privacy li .dummy_btn span.twoclick-network {display:block; width:100%;}
+
+/* Sprite Fallback
+----------------------------------------------- */
+.social_share_privacy li .fb_like {background-position: 0 0; width: 72px; height: 20px;}
+.social_share_privacy li .fb_recommend { background-position: 0 -25px; width: 83px; height: 20px;}
+.social_share_privacy li .tweet {background-position: 0 -175px; width: 63px; height: 20px;}
+.social_share_privacy li .gplusone {background-position: 0 -75px; width: 32px; height: 20px;}
+.social_share_privacy li .flattrbtn {background-position: 0 -50px; width: 54px; height: 20px;}
+.social_share_privacy li .xingbtn {background-position: 0 -200px; width: 55px; height: 20px;}
+.social_share_privacy li .pinterestbtn {background-position: 0 -125px; width: 63px; height: 20px;}
+.social_share_privacy li .t3nbtn {background-position: 0 -150px; width: 63px; height: 20px;}
+.social_share_privacy li .linkedinbtn {background-position: 0 -100px; width: 63px; height: 20px;}
+
+/* Sprite de_DE
+----------------------------------------------- */
+.social_share_privacy.de_DE li .fb_like {background-position: 0 0; width: 72px; height: 20px}
+.social_share_privacy.de_DE li .fb_recommend {background-position: 0 -25px; width: 83px; height: 20px;}
+.social_share_privacy.de_DE li .tweet {background-position: 0 -175px; width: 63px; height: 20px;}
+.social_share_privacy.de_DE li .gplusone {background-position: 0 -75px; width: 32px; height: 20px;}
+.social_share_privacy.de_DE li .flattrbtn {background-position: 0 -50px; width: 54px; height: 20px;}
+.social_share_privacy.de_DE li .xingbtn {background-position: 0 -200px; width: 55px; height: 20px;}
+.social_share_privacy.de_DE li .pinterestbtn {background-position: 0 -125px; width: 63px; height: 20px;}
+.social_share_privacy.de_DE li .t3nbtn {background-position: 0 -150px; width: 63px; height: 20px;}
+.social_share_privacy.de_DE li .linkedinbtn {background-position: 0 -100px; width: 63px; height: 20px;}
+
 
 /* Facebook
 ----------------------------------------------- */

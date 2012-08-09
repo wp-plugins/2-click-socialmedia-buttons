@@ -234,21 +234,23 @@
 				// Commented out
 				// Planned
 //				var fb_code = '<div class="fb-like" data-href="' + fb_enc_uri + '" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-action="' + options.services.facebook.action + '"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' + options.services.facebook.language + '/all.js";fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>';
-				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_like_privacy_dummy" />';
+//				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_' + options.services.facebook.action + '_privacy_dummy" />';
+				var fb_dummy_btn = '<span class="fb_' + options.services.facebook.action + '_privacy_dummy twoclick-network">&nbsp;</span>';
 
-				context.append('<li class="twoclick-facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_like dummy_btn">' + fb_dummy_btn + '</div></li>');
+				context.append('<li class="twoclick-facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_' + options.services.facebook.action + ' dummy_btn">' + fb_dummy_btn + '</div></li>');
 
 				var $container_fb = $('li.twoclick-facebook', context);
 
-				$('li.twoclick-facebook div.fb_like img.fb_like_privacy_dummy,.social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', context).live('click', function () {
+				$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_privacy_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', context).live('click', function () {
 					if ($container_fb.find('span.switch').hasClass('off')) {
 						$container_fb.addClass('info_off');
 						$container_fb.find('span.switch').addClass('on').removeClass('off').html(options.services.facebook.txt_fb_on);
-						$container_fb.find('img.fb_like_privacy_dummy').replaceWith(fb_code);
+//						$container_fb.find('img.fb_' + options.services.facebook.action + '_privacy_dummy').replaceWith(fb_code);
+						$container_fb.find('span.fb_' + options.services.facebook.action + '_privacy_dummy').replaceWith(fb_code);
 					} else {
 						$container_fb.removeClass('info_off');
 						$container_fb.find('span.switch').addClass('off').removeClass('on').html(options.services.facebook.txt_fb_off);
-						$container_fb.find('.fb_like').html(fb_dummy_btn);
+						$container_fb.find('.fb_' + options.services.facebook.action).html(fb_dummy_btn);
 					}
 				});
 			}
@@ -274,17 +276,18 @@
 				var twitter_enc_uri = encodeURIComponent(uri+options.services.twitter.referrer_track);
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:130px; height:25px;"></iframe>';
-				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="twitter_dummy" />';
+//				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="twitter_dummy" />';
+				var twitter_dummy_btn = '<span class="twitter_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
 
 				var $container_tw = $('li.twoclick-twitter', context);
 
-				$('li.twoclick-twitter div.tweet img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-twitter span.switch', context).live('click', function () {
+				$('li.twoclick-twitter div.tweet span.twitter_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-twitter span.switch', context).live('click', function () {
 					if($container_tw.find('span.switch').hasClass('off')) {
 						$container_tw.addClass('info_off');
 						$container_tw.find('span.switch').addClass('on').removeClass('off').html(options.services.twitter.txt_twitter_on);
-						$container_tw.find('img.twitter_dummy').replaceWith(twitter_code);
+						$container_tw.find('span.twitter_dummy').replaceWith(twitter_code);
 					} else {
 						$container_tw.removeClass('info_off');
 						$container_tw.find('span.switch').addClass('off').removeClass('on').html(options.services.twitter.txt_twitter_off);
@@ -302,17 +305,18 @@
 
 				// we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" width="' + options.services.gplus.dummy_img_width + '" height="' + options.services.gplus.dummy_img_height + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
+//				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" width="' + options.services.gplus.dummy_img_width + '" height="' + options.services.gplus.dummy_img_height + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
+				var gplus_dummy_btn = '<span class="gplus_one_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
 
 				var $container_gplus = $('li.twoclick-gplus', context);
 
-				$('li.twoclick-gplus div.gplusone img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-gplus span.switch', context).live('click', function () {
+				$('li.twoclick-gplus div.gplusone span.gplus_one_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-gplus span.switch', context).live('click', function () {
 					if($container_gplus.find('span.switch').hasClass('off')) {
 						$container_gplus.addClass('info_off');
 						$container_gplus.find('span.switch').addClass('on').removeClass('off').html(options.services.gplus.txt_gplus_on);
-						$container_gplus.find('img.gplus_one_dummy').replaceWith(gplus_code);
+						$container_gplus.find('span.gplus_one_dummy').replaceWith(gplus_code);
 					} else {
 						$container_gplus.removeClass('info_off');
 						$container_gplus.find('span.switch').addClass('off').removeClass('on').html(options.services.gplus.txt_gplus_off);
@@ -329,17 +333,18 @@
 				var flattr_uri = encodeURIComponent(uri);
 				var flattr_excerpt = options.services.flattr.the_excerpt;
 				var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
-				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" width="' + options.services.flattr.dummy_img_width + '" height="' + options.services.flattr.dummy_img_height + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
+//				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" width="' + options.services.flattr.dummy_img_width + '" height="' + options.services.flattr.dummy_img_height + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
+				var flattr_dummy_btn = '<span class="flattr_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-flattr help_info"><span class="info">' + options.services.flattr.txt_info + '</span><span class="switch off">' + options.services.flattr.txt_flattr_off + '</span><div class="flattrbtn dummy_btn">' + flattr_dummy_btn + '</div></li>');
 
 				var $container_flattr = $('li.twoclick-flattr', context);
 
-				$('li.twoclick-flattr div.flattrbtn img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-flattr span.switch', context).live('click', function () {
+				$('li.twoclick-flattr div.flattrbtn span.flattr_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-flattr span.switch', context).live('click', function () {
 					if($container_flattr.find('span.switch').hasClass('off')) {
 						$container_flattr.addClass('info_off');
 						$container_flattr.find('span.switch').addClass('on').removeClass('off').html(options.services.flattr.txt_flattr_on);
-						$container_flattr.find('img.flattr_dummy').replaceWith(flattr_code);
+						$container_flattr.find('span.flattr_dummy').replaceWith(flattr_code);
 					} else {
 						$container_flattr.removeClass('info_off');
 						$container_flattr.find('span.switch').addClass('off').removeClass('on').html(options.services.flattr.txt_flattr_off);
@@ -357,17 +362,18 @@
 				var xing_uri = uri + options.services.xing.referrer_track;
 
 				var xing_code = '<script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script><script>;(function(d, s) {var x = d.createElement(s),s = d.getElementsByTagName(s)[0];x.src =\'https://www.xing-share.com/js/external/share.js\';s.parentNode.insertBefore(x, s);})(document, \'script\');</script>';
-				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing&quot;-Dummy" class="xing_dummy" />';
+//				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing&quot;-Dummy" class="xing_dummy" />';
+				var xing_dummy_btn = '<span class="xing_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_xing_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
 
 				var $container_xing = $('li.twoclick-xing', context);
 
-				$('li.twoclick-xing div.xingbtn img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-xing span.switch', context).live('click', function () {
+				$('li.twoclick-xing div.xingbtn span.xing_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-xing span.switch', context).live('click', function () {
 					if($container_xing.find('span.switch').hasClass('off')) {
 						$container_xing.addClass('info_off');
 						$container_xing.find('span.switch').addClass('on').removeClass('off').html(options.services.xing.txt_xing_on);
-						$container_xing.find('img.xing_dummy').replaceWith(xing_code);
+						$container_xing.find('span.xing_dummy').replaceWith(xing_code);
 					} else {
 						$container_xing.removeClass('info_off');
 						$container_xing.find('span.switch').addClass('off').removeClass('on').html(options.services.xing.txt_xing_off);
@@ -386,17 +392,18 @@
 				var pinterest_media = options.services.pinterest.media;
 
 				var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
-				var pinterest_dummy_btn = '<img src="' + options.services.pinterest.dummy_img + '" width="' + options.services.pinterest.dummy_img_width + '" height="' + options.services.pinterest.dummy_img_height + '" alt="&quot;Pinterest&quot;-Dummy" class="pinterest_dummy" />';
+//				var pinterest_dummy_btn = '<img src="' + options.services.pinterest.dummy_img + '" width="' + options.services.pinterest.dummy_img_width + '" height="' + options.services.pinterest.dummy_img_height + '" alt="&quot;Pinterest&quot;-Dummy" class="pinterest_dummy" />';
+				var pinterest_dummy_btn = '<span class="pinterest_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterestbtn dummy_btn">' + pinterest_dummy_btn + '</div></li>');
 
 				var $container_pinterest = $('li.twoclick-pinterest', context);
 
-				$('li.twoclick-pinterest div.pinterestbtn img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-pinterest span.switch', context).live('click', function () {
+				$('li.twoclick-pinterest div.pinterestbtn span.pinterest_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-pinterest span.switch', context).live('click', function () {
 					if($container_pinterest.find('span.switch').hasClass('off')) {
 						$container_pinterest.addClass('info_off');
 						$container_pinterest.find('span.switch').addClass('on').removeClass('off').html(options.services.pinterest.txt_pinterest_on);
-						$container_pinterest.find('img.pinterest_dummy').replaceWith(pinterest_code);
+						$container_pinterest.find('span.pinterest_dummy').replaceWith(pinterest_code);
 					} else {
 						$container_pinterest.removeClass('info_off');
 						$container_pinterest.find('span.switch').addClass('off').removeClass('on').html(options.services.pinterest.txt_pinterest_off);
@@ -414,17 +421,18 @@
 
 //				var t3n_code = '<iframe allowtransparency="true" src="' + t3n_lib + '?t3n-url=' + t3n_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
 				var t3n_code = '<div class="t3nAggregator" data-url="' + t3n_uri + '"></div><script type="text/javascript">(function() {var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;po.src = "http://t3n.de/aggregator/ebutton_async";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);})();</script>';
-				var t3n_dummy_btn = '<img src="' + options.services.t3n.dummy_img + '" width="' + options.services.t3n.dummy_img_width + '" height="' + options.services.t3n.dummy_img_height + '" alt="&quot;t3n&quot;-Dummy" class="t3n_dummy" />';
+//				var t3n_dummy_btn = '<img src="' + options.services.t3n.dummy_img + '" width="' + options.services.t3n.dummy_img_width + '" height="' + options.services.t3n.dummy_img_height + '" alt="&quot;t3n&quot;-Dummy" class="t3n_dummy" />';
+				var t3n_dummy_btn = '<span class="t3n_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-t3n help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></li>');
 
 				var $container_t3n = $('li.twoclick-t3n', context);
 
-				$('li.twoclick-t3n div.t3nbtn img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-t3n span.switch', context).live('click', function () {
+				$('li.twoclick-t3n div.t3nbtn span.t3n_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-t3n span.switch', context).live('click', function () {
 					if($container_t3n.find('span.switch').hasClass('off')) {
 						$container_t3n.addClass('info_off');
 						$container_t3n.find('span.switch').addClass('on').removeClass('off').html(options.services.t3n.txt_t3n_on);
-						$container_t3n.find('img.t3n_dummy').replaceWith(t3n_code);
+						$container_t3n.find('span.t3n_dummy').replaceWith(t3n_code);
 					} else {
 						$container_t3n.removeClass('info_off');
 						$container_t3n.find('span.switch').addClass('off').removeClass('on').html(options.services.t3n.txt_t3n_off);
@@ -442,17 +450,18 @@
 
 //				var linkedin_code = '<iframe allowtransparency="true" src="' + linkedin_lib + '?linkedin-url=' + linkedin_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
 				var linkedin_code = '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="' + linkedin_uri + '" data-counter="right"></script>';
-				var linkedin_dummy_btn = '<img src="' + options.services.linkedin.dummy_img + '" width="' + options.services.linkedin.dummy_img_width + '" height="' + options.services.linkedin.dummy_img_height + '" alt="&quot;LinkedIn&quot;-Dummy" class="linkedin_dummy" />';
+//				var linkedin_dummy_btn = '<img src="' + options.services.linkedin.dummy_img + '" width="' + options.services.linkedin.dummy_img_width + '" height="' + options.services.linkedin.dummy_img_height + '" alt="&quot;LinkedIn&quot;-Dummy" class="linkedin_dummy" />';
+				var linkedin_dummy_btn = '<span class="linkedin_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-linkedin help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></li>');
 
 				var $container_linkedin = $('li.twoclick-linkedin', context);
 
-				$('li.twoclick-linkedin div.linkedinbtn img, .social_share_privacy_area_' + options.post_id + ' li.twoclick-linkedin span.switch', context).live('click', function () {
+				$('li.twoclick-linkedin div.linkedinbtn span.linkedin_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-linkedin span.switch', context).live('click', function () {
 					if($container_linkedin.find('span.switch').hasClass('off')) {
 						$container_linkedin.addClass('info_off');
 						$container_linkedin.find('span.switch').addClass('on').removeClass('off').html(options.services.linkedin.txt_linkedin_on);
-						$container_linkedin.find('img.linkedin_dummy').replaceWith(linkedin_code);
+						$container_linkedin.find('span.linkedin_dummy').replaceWith(linkedin_code);
 					} else {
 						$container_linkedin.removeClass('info_off');
 						$container_linkedin.find('span.switch').addClass('off').removeClass('on').html(options.services.linkedin.txt_linkedin_off);
