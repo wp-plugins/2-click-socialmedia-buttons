@@ -910,7 +910,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										<label for="twoclick_buttons_settings[twoclick_buttons_facebook_action]" style="display:inline-block; width:100px;"><?php _e('Button:', TWOCLICK_TEXTDOMAIN); ?></label>
 										<select name="twoclick_buttons_settings[twoclick_buttons_facebook_action]">
 											<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'] == 'recommend') echo 'selected="selected"'; ?> value="recommend"><?php _e('Recommend', TWOCLICK_TEXTDOMAIN); ?></option>
-											<option <?php if($this->_array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'] == 'like') echo 'selected="selected"'; ?> value="like"><?php _e('Like', TWOCLICK_TEXTDOMAIN); ?></option>
+											<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'] == 'like') echo 'selected="selected"'; ?> value="like"><?php _e('Like', TWOCLICK_TEXTDOMAIN); ?></option>
 										</select>
 									</div>
 								</div>
