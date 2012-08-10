@@ -235,18 +235,18 @@
 				// Planned
 //				var fb_code = '<div class="fb-like" data-href="' + fb_enc_uri + '" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-action="' + options.services.facebook.action + '"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' + options.services.facebook.language + '/all.js";fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>';
 //				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_' + options.services.facebook.action + '_privacy_dummy" />';
-				var fb_dummy_btn = '<span class="fb_' + options.services.facebook.action + '_privacy_dummy twoclick-network">&nbsp;</span>';
+				var fb_dummy_btn = '<span class="fb_' + options.services.facebook.action + '_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_' + options.services.facebook.action + ' dummy_btn">' + fb_dummy_btn + '</div></li>');
 
 				var $container_fb = $('li.twoclick-facebook', context);
 
-				$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_privacy_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', context).live('click', function () {
+				$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', context).live('click', function () {
 					if ($container_fb.find('span.switch').hasClass('off')) {
 						$container_fb.addClass('info_off');
 						$container_fb.find('span.switch').addClass('on').removeClass('off').html(options.services.facebook.txt_fb_on);
 //						$container_fb.find('img.fb_' + options.services.facebook.action + '_privacy_dummy').replaceWith(fb_code);
-						$container_fb.find('span.fb_' + options.services.facebook.action + '_privacy_dummy').replaceWith(fb_code);
+						$container_fb.find('span.fb_' + options.services.facebook.action + '_dummy').replaceWith(fb_code);
 					} else {
 						$container_fb.removeClass('info_off');
 						$container_fb.find('span.switch').addClass('off').removeClass('on').html(options.services.facebook.txt_fb_off);
