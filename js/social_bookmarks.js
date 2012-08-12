@@ -302,7 +302,7 @@
 			//
 			if(gplus_on) {
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
-				var gplus_uri = uri + options.concat + options.services.gplus.referrer_track;
+				var gplus_uri = uri + decodeURIComponent(options.concat) + options.services.gplus.referrer_track;
 
 				// we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
