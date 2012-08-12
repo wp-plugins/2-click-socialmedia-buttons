@@ -75,9 +75,6 @@
 			'services' : {
 				'facebook' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_fb_off'		: 'nicht mit Facebook verbunden',
 					'txt_fb_on'			: 'mit Facebook verbunden',
@@ -89,9 +86,6 @@
 				},
 				'twitter' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_twitter_off'	: 'nicht mit Twitter verbunden',
 					'txt_twitter_on'	: 'mit Twitter verbunden',
@@ -104,9 +98,6 @@
 				},
 				'gplus' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_gplus_off'		: 'nicht mit Google+ verbunden',
 					'txt_plus_on'		: 'mit Google+ verbunden',
@@ -118,9 +109,6 @@
 				'flattr' : {
 					'status'			: 'off',
 					'uid'				: '',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_flattr_off'	: 'nicht mit Flattr verbunden',
 					'txt_flattr_on'		: 'mit Flattr verbunden',
@@ -132,9 +120,6 @@
 				},
 				'xing' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_xing_off'		: 'nicht mit Xing verbunden',
 					'txt_xing_on'		: 'mit Xing verbunden',
@@ -146,22 +131,16 @@
 				'pinterest' : {
 					'status'			: 'off',
 					'the_excerpt'		: '',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_pinterest_off'	: 'nicht mit Pinterest verbunden',
 					'txt_pinterest_on'	: 'mit Pinterest verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Pinterest',
-					'referrer_track'	: 'utm_campaign=2-Click+Pinterest+Button',
+					'referrer_track'	: '',
 					'media'				: ''
 				},
 				't3n' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_t3n_off'		: 'nicht mit t3n verbunden',
 					'txt_t3n_on'		: 'mit t3n verbunden',
@@ -171,9 +150,6 @@
 				},
 				'linkedin' : {
 					'status'			: 'off',
-					'dummy_img'			: '',
-					'dummy_img_width'	: '',
-					'dummy_img_height'	: '',
 					'txt_info'			: '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 					'txt_linkedin_off'	: 'nicht mit LinkedIn verbunden',
 					'txt_linkedin_on'	: 'mit LinkedIn verbunden',
@@ -188,9 +164,9 @@
 			'cookie_path'		: '/',
 			'cookie_domain'		: document.location.host,
 			'cookie_expires'	: '365',
-			'css_path'			: '',
 			'uri'				: getURI,
 			'post_id'			: '',
+			'post_title'		: '',
 			'concat'			: '?'
 		};
 
@@ -210,11 +186,6 @@
 			return;
 		}
 
-		// insert stylesheet into document and prepend target element
-		if(options.css_path.length > 0) {
-			$('head').append('<link rel="stylesheet" type="text/css" href="' + options.css_path + '" />');
-		}
-
 		$(this).prepend('<ul class="social_share_privacy_area_' + options.post_id + '"></ul>');
 		var context = $('.social_share_privacy_area_' + options.post_id, this);
 
@@ -230,12 +201,11 @@
 			// Facebook
 			//
 			if(facebook_on) {
-				var fb_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.facebook.referrer_track);
+				var fb_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.facebook.referrer_track + options.post_title);
 				var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
 				// Commented out
 				// Planned
 //				var fb_code = '<div class="fb-like" data-href="' + fb_enc_uri + '" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-action="' + options.services.facebook.action + '"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' + options.services.facebook.language + '/all.js";fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>';
-//				var fb_dummy_btn = '<img src="' + options.services.facebook.dummy_img + '" width="' + options.services.facebook.dummy_img_width + '" height="' + options.services.facebook.dummy_img_height + '" alt="Facebook &quot;Like&quot;-Dummy" class="fb_' + options.services.facebook.action + '_privacy_dummy" />';
 				var fb_dummy_btn = '<span class="fb_' + options.services.facebook.action + '_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_' + options.services.facebook.action + ' dummy_btn">' + fb_dummy_btn + '</div></li>');
@@ -246,7 +216,6 @@
 					if ($container_fb.find('span.switch').hasClass('off')) {
 						$container_fb.addClass('info_off');
 						$container_fb.find('span.switch').addClass('on').removeClass('off').html(options.services.facebook.txt_fb_on);
-//						$container_fb.find('img.fb_' + options.services.facebook.action + '_privacy_dummy').replaceWith(fb_code);
 						$container_fb.find('span.fb_' + options.services.facebook.action + '_dummy').replaceWith(fb_code);
 					} else {
 						$container_fb.removeClass('info_off');
@@ -274,10 +243,9 @@
 					var reply = '&amp;via=' + options.services.twitter.reply_to;
 				}
 
-				var twitter_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.twitter.referrer_track);
+				var twitter_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.twitter.referrer_track + options.post_title);
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:115px; height:25px;"></iframe>';
-//				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="twitter_dummy" />';
 				var twitter_dummy_btn = '<span class="twitter_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
@@ -302,11 +270,10 @@
 			//
 			if(gplus_on) {
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
-				var gplus_uri = uri + decodeURIComponent(options.concat) + options.services.gplus.referrer_track;
+				var gplus_uri = uri + decodeURIComponent(options.concat) + options.services.gplus.referrer_track + options.post_title;
 
 				// we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
-//				var gplus_dummy_btn = '<img src="' + options.services.gplus.dummy_img + '" width="' + options.services.gplus.dummy_img_width + '" height="' + options.services.gplus.dummy_img_height + '" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy" />';
 				var gplus_dummy_btn = '<span class="gplus_one_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
@@ -331,10 +298,9 @@
 			//
 			if(flattr_on) {
 				var flattr_title = options.services.flattr.the_title;
-				var flattr_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.flattr.referrer_track);
+				var flattr_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.flattr.referrer_track + options.post_title);
 				var flattr_excerpt = options.services.flattr.the_excerpt;
 				var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
-//				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" width="' + options.services.flattr.dummy_img_width + '" height="' + options.services.flattr.dummy_img_height + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
 				var flattr_dummy_btn = '<span class="flattr_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-flattr help_info"><span class="info">' + options.services.flattr.txt_info + '</span><span class="switch off">' + options.services.flattr.txt_flattr_off + '</span><div class="flattrbtn dummy_btn">' + flattr_dummy_btn + '</div></li>');
@@ -358,12 +324,10 @@
 			// Xing
 			//
 			if(xing_on) {
-				var xing_lib = options.services.xing.xing_lib;
 				var xing_lingua = options.services.xing.language;
-				var xing_uri = uri + options.concat + options.services.xing.referrer_track;
+				var xing_uri = uri + decodeURIComponent(options.concat) + options.services.xing.referrer_track + decodeURIComponent(options.post_title);
 
 				var xing_code = '<script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script><script>;(function(d, s) {var x = d.createElement(s),s = d.getElementsByTagName(s)[0];x.src =\'https://www.xing-share.com/js/external/share.js\';s.parentNode.insertBefore(x, s);})(document, \'script\');</script>';
-//				var xing_dummy_btn = '<img src="' + options.services.xing.dummy_img + '" width="' + options.services.xing.dummy_img_width + '" height="' + options.services.xing.dummy_img_height + '" alt="&quot;Xing&quot;-Dummy" class="xing_dummy" />';
 				var xing_dummy_btn = '<span class="xing_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_xing_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
@@ -387,14 +351,11 @@
 			// Pinterest
 			//
 			if(pinterest_on) {
-				var pinterest_lib = options.services.pinterest.pinterest_lib;
-//				var pinterest_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.pinterest.referrer_track);
-				var pinterest_uri = encodeURIComponent(uri);
+				var pinterest_uri = uri + options.services.pinterest.referrer_track;
 				var pinterest_excerpt = encodeURIComponent(options.services.pinterest.the_excerpt);
 				var pinterest_media = options.services.pinterest.media;
 
 				var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
-//				var pinterest_dummy_btn = '<img src="' + options.services.pinterest.dummy_img + '" width="' + options.services.pinterest.dummy_img_width + '" height="' + options.services.pinterest.dummy_img_height + '" alt="&quot;Pinterest&quot;-Dummy" class="pinterest_dummy" />';
 				var pinterest_dummy_btn = '<span class="pinterest_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterestbtn dummy_btn">' + pinterest_dummy_btn + '</div></li>');
@@ -418,12 +379,9 @@
 			// t3n
 			//
 			if(t3n_on) {
-				var t3n_lib = options.services.t3n.t3n_lib;
-				var t3n_uri = uri + options.concat + options.services.t3n.referrer_track;
+				var t3n_uri = uri + decodeURIComponent(options.concat) + options.services.t3n.referrer_track + decodeURIComponent(options.post_title);
 
-//				var t3n_code = '<iframe allowtransparency="true" src="' + t3n_lib + '?t3n-url=' + t3n_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
 				var t3n_code = '<div class="t3nAggregator" data-url="' + t3n_uri + '"></div><script type="text/javascript">(function() {var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;po.src = "http://t3n.de/aggregator/ebutton_async";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);})();</script>';
-//				var t3n_dummy_btn = '<img src="' + options.services.t3n.dummy_img + '" width="' + options.services.t3n.dummy_img_width + '" height="' + options.services.t3n.dummy_img_height + '" alt="&quot;t3n&quot;-Dummy" class="t3n_dummy" />';
 				var t3n_dummy_btn = '<span class="t3n_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-t3n help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></li>');
@@ -447,12 +405,9 @@
 			// linkedin
 			//
 			if(linkedin_on) {
-				var linkedin_lib = options.services.linkedin.linkedin_lib;
-				var linkedin_uri = uri + options.concat + options.services.linkedin.referrer_track;
+				var linkedin_uri = uri + decodeURIComponent(options.concat) + options.services.linkedin.referrer_track + options.post_title;
 
-//				var linkedin_code = '<iframe allowtransparency="true" src="' + linkedin_lib + '?linkedin-url=' + linkedin_uri + '" scrolling="no" frameborder="0" style="border:none; width:110px; height:65px;" align="left"></iframe>';
 				var linkedin_code = '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="' + linkedin_uri + '" data-counter="right"></script>';
-//				var linkedin_dummy_btn = '<img src="' + options.services.linkedin.dummy_img + '" width="' + options.services.linkedin.dummy_img_width + '" height="' + options.services.linkedin.dummy_img_height + '" alt="&quot;LinkedIn&quot;-Dummy" class="linkedin_dummy" />';
 				var linkedin_dummy_btn = '<span class="linkedin_dummy twoclick-network">&nbsp;</span>';
 
 				context.append('<li class="twoclick-linkedin help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></li>');
@@ -655,37 +610,31 @@
 				// Dienste automatisch einbinden, wenn entsprechendes Cookie vorhanden ist
 				// Facebook
 				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
-//					$('li.facebook span.switch', context).click();
 					$('li.twoclick-facebook div.fb_like img', context).click();
 				}
 
 				// Twitter
 				if(twitter_on && twitter_perma && cookies.socialSharePrivacy_twitter === 'perma_on') {
-//					$('li.twitter span.switch', context).click();
 					$('li.twoclick-twitter div.tweet img', context).click();
 				}
 
 				// Googleplus
 				if(gplus_on && gplus_perma && cookies.socialSharePrivacy_gplus === 'perma_on') {
-//					$('li.gplus span.switch', context).click();
 					$('li.twoclick-gplus div.gplusone img', context).click();
 				}
 
 				// Flattr
 				if(flattr_on && flattr_perma && cookies.socialSharePrivacy_flattr === 'perma_on') {
-//					$('li.flattr span.switch', context).click();
 					$('li.twoclick-flattr div.flattrbtn img', context).click();
 				}
 
 				// Xing
 				if(xing_on && xing_perma && cookies.socialSharePrivacy_xing === 'perma_on') {
-//					$('li.xing span.switch', context).click();
 					$('li.twoclick-xing div.xingbtn img', context).click();
 				}
 
 				// Pinterest
 				if(pinterest_on && pinterest_perma && cookies.socialSharePrivacy_pinterest === 'perma_on') {
-//					$('li.pinterest span.switch', context).click();
 					$('li.twoclick-pinterest div.pinterestbtn img', context).click();
 				}
 

@@ -709,6 +709,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				$var_sTitle = rawurlencode(get_the_title($var_sPostID));
 				$var_sTweettext = rawurlencode($this->_get_tweettext());
 				$var_sArticleImage = $this->_get_article_image();
+				$array_ButtonData = array();
 
 				/**
 				 * Settings for singular
@@ -735,7 +736,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					 *
 					 * @since 1.2
 					 */
-					unset($_GET['utm_campaign']);		// Kampagne
+					unset($_GET['utm_campaign']);		// Google Analytics
+					unset($_GET['utm_source']);			// Google Analytics
+					unset($_GET['utm_term']);			// Google Analytics
+					unset($_GET['utm_content']);		// Google Analytics
+					unset($_GET['utm_medium']);			// Google Analytics
 					unset($_GET['fb_action_ids']);		// Facebook
 					unset($_GET['fb_action_types']);	// Facebook
 					unset($_GET['fb_source']);			// Facebook
@@ -743,16 +748,15 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					unset($_GET['action_type_map']);	// Facebook
 					unset($_GET['action_ref_map']);		// Facebook
 
-					if(count($_GET) > 0) {
+					if(count($_GET) != 0) {
 						$var_sGetVars = '?' . http_build_query($_GET);
 						$var_bGetOptionsInLink = true;
 					} else {
 						$var_sGetVars = '';
 						$var_bGetOptionsInLink = false;
-					}
+					} // END if(count($_GET) != 0)
 
 					$var_sGetVars = http_build_query($_GET);
-// 					$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 					$var_sPermalink = get_permalink($var_sPostID) . $var_sGetVars;
 				} else {
 					$var_sPermalink = get_permalink($var_sPostID);
@@ -839,9 +843,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_facebook']) {
 					$array_ButtonData['services']['facebook'] = array(
-// 						'dummy_img' => $array_DummyImages['facebook-' . $var_sFacebookAction]['image'],
-						'dummy_img_width' => $array_DummyImages['facebook-' . $var_sFacebookAction]['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'txt_info' => $var_sInfotextFacebook,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_facebook_perm']) ? 'on' : 'off',
@@ -859,9 +860,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter']) {
 					$array_ButtonData['services']['twitter'] = array(
 						'reply_to' => $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply'],
-// 						'dummy_img' => $array_DummyImages['twitter']['image'],
-						'dummy_img_width' => $array_DummyImages['twitter']['width'],
-						'dummy_img_height' => '20',
 						'tweet_text' => rawurlencode($this->_get_tweettext()),
 						'status' => 'on',
 						'txt_info' => $var_sInfotextTwitter,
@@ -878,9 +876,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus']) {
 					$array_ButtonData['services']['gplus'] = array(
-// 						'dummy_img' => $array_DummyImages['googleplus']['image'],
-						'dummy_img_width' => $array_DummyImages['googleplus']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'txt_info' => $var_sInfotextGoogleplus,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus_perm']) ? 'on' : 'off'
@@ -896,9 +891,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_flattr']) {
 					$array_ButtonData['services']['flattr'] = array(
 						'uid' => $this->array_TwoclickButtonsOptions['twoclick_buttons_flattr_uid'],
-// 						'dummy_img' => $array_DummyImages['flattr']['image'],
-						'dummy_img_width' => $array_DummyImages['flattr']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'the_title' => $var_sTitle,
 						'the_excerpt' => htmlspecialchars($this->var_sPostExcerpt),
@@ -915,9 +907,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing']) {
 					$array_ButtonData['services']['xing'] = array(
-// 						'dummy_img' => $array_DummyImages['xing']['image'],
-						'dummy_img_width' => $array_DummyImages['xing']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'txt_info' => $var_sInfotextXing,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing_perm']) ? 'on' : 'off',
@@ -933,9 +922,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_pinterest'] && $var_sArticleImage) {
 					$array_ButtonData['services']['pinterest'] = array(
-// 						'dummy_img' => $array_DummyImages['pinterest']['image'],
-						'dummy_img_width' => $array_DummyImages['pinterest']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'the_excerpt' => $this->_get_pinterest_description(),
 						'txt_info' => $var_sInfotextPinterest,
@@ -952,9 +938,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_t3n']) {
 					$array_ButtonData['services']['t3n'] = array(
-// 						'dummy_img' => $array_DummyImages['t3n']['image'],
-						'dummy_img_width' => $array_DummyImages['t3n']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'txt_info' => $var_sInfotextT3n,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_t3n_perm']) ? 'on' : 'off'
@@ -969,9 +952,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_linkedin']) {
 					$array_ButtonData['services']['linkedin'] = array(
-// 						'dummy_img' => $array_DummyImages['linkedin']['image'],
-						'dummy_img_width' => $array_DummyImages['linkedin']['width'],
-						'dummy_img_height' => '20',
 						'status' => 'on',
 						'txt_info' => $var_sInfotextLinkedin,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_linkedin_perm']) ? 'on' : 'off'
@@ -983,6 +963,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				$array_ButtonData['info_link'] = $var_sInfolink;
 				$array_ButtonData['uri'] = esc_url($var_sPermalink);
 				$array_ButtonData['post_id'] = $var_sPostID;
+				$array_ButtonData['post_title'] = urlencode(' - (' . get_the_title($var_sPostID) . ')');
 				$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
 
 				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
