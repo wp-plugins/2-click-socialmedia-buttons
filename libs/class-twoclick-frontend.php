@@ -730,8 +730,30 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 * @since 0.16
 				 */
 				if(isset($_GET) && count($_GET) != '0') {
-					$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-					$var_bGetOptionsInLink = true;
+					/**
+					 * Entferne ungewollte $_GET-Variablen
+					 *
+					 * @since 1.2
+					 */
+					unset($_GET['utm_campaign']);		// Kampagne
+					unset($_GET['fb_action_ids']);		// Facebook
+					unset($_GET['fb_action_types']);	// Facebook
+					unset($_GET['fb_source']);			// Facebook
+					unset($_GET['action_object_map']);	// Facebook
+					unset($_GET['action_type_map']);	// Facebook
+					unset($_GET['action_ref_map']);		// Facebook
+
+					if(count($_GET) > 0) {
+						$var_sGetVars = '?' . http_build_query($_GET);
+						$var_bGetOptionsInLink = true;
+					} else {
+						$var_sGetVars = '';
+						$var_bGetOptionsInLink = false;
+					}
+
+					$var_sGetVars = http_build_query($_GET);
+// 					$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+					$var_sPermalink = get_permalink($var_sPostID) . $var_sGetVars;
 				} else {
 					$var_sPermalink = get_permalink($var_sPostID);
 					$var_bGetOptionsInLink = false;
@@ -961,6 +983,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				$array_ButtonData['info_link'] = $var_sInfolink;
 				$array_ButtonData['uri'] = esc_url($var_sPermalink);
 				$array_ButtonData['post_id'] = $var_sPostID;
+				$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
 
 				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
 

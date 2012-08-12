@@ -386,7 +386,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 								} // END if((post_type_exists($key)) && ($value == 1))
 							} // END foreach($input['twoclick_buttons_exclude_page'] as $key => $value)
 						} // END if(is_array($input['twoclick_buttons_exclude_page']))
-						break;
 
 						// Validating excludes pages
 						unset($output['twoclick_buttons_exclude_page']);
