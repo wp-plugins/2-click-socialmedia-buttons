@@ -731,8 +731,10 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 */
 				if(isset($_GET) && count($_GET) != '0') {
 					$var_sPermalink = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+					$var_bGetOptionsInLink = true;
 				} else {
 					$var_sPermalink = get_permalink($var_sPostID);
+					$var_bGetOptionsInLink = false;
 				} // END if(isset($_GET) && count($_GET) != '0')
 
 				/**

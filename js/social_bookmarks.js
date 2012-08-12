@@ -83,7 +83,7 @@
 					'txt_fb_on'			: 'mit Facebook verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Facebook',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Facebook+Button',
 					'language'			: 'de_DE',
 					'action'			: 'recommend'
 				},
@@ -99,7 +99,7 @@
 					'display_name'		: 'Twitter',
 					'reply_to'			: '',
 					'tweet_text'		: '',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Twitter+Button',
 					'language'			: 'de'
 				},
 				'gplus' : {
@@ -112,7 +112,7 @@
 					'txt_plus_on'		: 'mit Google+ verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Google+',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Googleplus+Button',
 					'plusone_lib'		: ''
 				},
 				'flattr' : {
@@ -127,7 +127,7 @@
 					'perma_option'		: 'off',
 					'display_name'		: 'Flattr',
 					'the_title'			: '',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Flattr+Button',
 					'the_excerpt'		: ''
 				},
 				'xing' : {
@@ -140,7 +140,7 @@
 					'txt_xing_on'		: 'mit Xing verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Xing',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Xing+Button',
 					'language'			: 'de'
 				},
 				'pinterest' : {
@@ -154,7 +154,7 @@
 					'txt_pinterest_on'	: 'mit Pinterest verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Pinterest',
-					'referrer_track'	: '',
+					'referrer_track'	: '?utm_campaign=2-Click+Pinterest+Button',
 					'media'				: ''
 				},
 				't3n' : {
@@ -167,7 +167,7 @@
 					'txt_t3n_on'		: 'mit t3n verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 't3n',
-					'referrer_track'	: ''
+					'referrer_track'	: '?utm_campaign=2-Click+t3n+Button'
 				},
 				'linkedin' : {
 					'status'			: 'off',
@@ -179,7 +179,7 @@
 					'txt_linkedin_on'	: 'mit LinkedIn verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'LinkedIn',
-					'referrer_track'	: ''
+					'referrer_track'	: '?utm_campaign=2-Click+LinkedIn+Button'
 				}
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
@@ -229,7 +229,7 @@
 			// Facebook
 			//
 			if(facebook_on) {
-				var fb_enc_uri = encodeURIComponent(uri+options.services.facebook.referrer_track);
+				var fb_enc_uri = encodeURIComponent(uri + options.services.facebook.referrer_track);
 				var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
 				// Commented out
 				// Planned
@@ -270,10 +270,10 @@
 
 				var reply = '';
 				if(options.services.twitter.reply_to != '') {
-					var reply = '&amp;via='+options.services.twitter.reply_to;
+					var reply = '&amp;via=' + options.services.twitter.reply_to;
 				}
 
-				var twitter_enc_uri = encodeURIComponent(uri+options.services.twitter.referrer_track);
+				var twitter_enc_uri = encodeURIComponent(uri + options.services.twitter.referrer_track);
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:115px; height:25px;"></iframe>';
 //				var twitter_dummy_btn = '<img src="' + options.services.twitter.dummy_img + '" width="' + options.services.twitter.dummy_img_width + '" height="' + options.services.twitter.dummy_img_height + '" alt="&quot;Tweet this&quot;-Dummy" class="twitter_dummy" />';
@@ -330,7 +330,7 @@
 			//
 			if(flattr_on) {
 				var flattr_title = options.services.flattr.the_title;
-				var flattr_uri = encodeURIComponent(uri);
+				var flattr_uri = encodeURIComponent(uri + options.services.flattr.referrer_track);
 				var flattr_excerpt = options.services.flattr.the_excerpt;
 				var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
 //				var flattr_dummy_btn = '<img src="' + options.services.flattr.dummy_img + '" width="' + options.services.flattr.dummy_img_width + '" height="' + options.services.flattr.dummy_img_height + '" alt="&quot;Flattr&quot;-Dummy" class="flattr_dummy" />';
@@ -387,7 +387,7 @@
 			//
 			if(pinterest_on) {
 				var pinterest_lib = options.services.pinterest.pinterest_lib;
-				var pinterest_uri = uri + options.services.pinterest.referrer_track;
+				var pinterest_uri = encodeURIComponent(uri + options.services.pinterest.referrer_track);
 				var pinterest_excerpt = encodeURIComponent(options.services.pinterest.the_excerpt);
 				var pinterest_media = options.services.pinterest.media;
 

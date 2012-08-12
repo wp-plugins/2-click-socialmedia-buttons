@@ -1191,7 +1191,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									?>
 								</p>
 								<p>
-									<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_custom_css]" style="width:450px;"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_custom_css']); ?></textarea>
+									<textarea class="code large-text" rows="5" name="twoclick_buttons_settings[twoclick_buttons_custom_css]"><?php echo esc_textarea($this->array_TwoclickButtonsOptions['twoclick_buttons_custom_css']); ?></textarea>
 								</p>
 							</div>
 						</div>
