@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 2 Click Social Media Buttons v1.2-beta-8\n"
+"Project-Id-Version: 2 Click Social Media Buttons v1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-08-12 15:03:05+0000\n"
+"PO-Revision-Date: 2012-08-13 19:46:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -601,15 +601,15 @@ msgstr "H.-Peter Pfeufer"
 msgid "http://ppfeufer.de"
 msgstr "http://ppfeufer.de"
 
-#. translators: plugin header field 'Version'
-#: 2-click-socialmedia-buttons.php:0
-#@ twoclick-socialmedia
-msgid "1.2-beta-8"
-msgstr ""
-
 #. translators: plugin header field 'Description'
 #: 2-click-socialmedia-buttons.php:0
 #@ twoclick-socialmedia
 msgid "Adding buttons for Facebook (Like/Recommend), Twitter, Google+, Flattr, Xing, Pinteres, t3n and LinkedIn to your WordPress-Website in respect with the german privacy law."
 msgstr "Fügt die Buttons für Facebook (Gefällt mir/Empfehlen), Twitter, Google+, Flattr, Xing, Pinteres, t3n und LinkedIn dem deutschen Datenschutz entsprechend in euer WordPress ein."
+
+#. translators: plugin header field 'Version'
+#: 2-click-socialmedia-buttons.php:0
+#@ twoclick-socialmedia
+msgid "1.2"
+msgstr ""
 
