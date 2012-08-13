@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.1
+Stable tag: 1.2
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -66,6 +66,15 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.2 =
+* *13. August 2012*
+* **Neu:** Dummybilder zu einem CSS-Sprite zusammengefasst.
+* **Neu:** Tracking für Piwik und Google Analytics hinzugefügt. *(Funktioniert leider nur richtig bei Google+, Twitter und Xing. Die anderen filtern es teilweise oder gar komplett raus)*
+* **Fix:** Einstellungsseite - Dropdown für Facebookbutton zeigt wieder die richtige Auswahl an. (Like/Recommend)
+* CSS für Sprite angepasst
+* Deutsche Spachdatei angepasst
+* Plugin mit jQuery 1.8 getestet. Ist ja am 09. August veröffentlicht worden und ich wette einige werden es wohl nutzen wollen.
 
 = 1.1 =
 * *07. August 2012*
@@ -244,7 +253,7 @@ Nutze dafür einfach dein Dashboard
 = 0.21 =
 * *06. Dezember 2011*
 * **Fix:** Buchstabendreher im HTML und CSS behoben.
-* **Fix:** RSS-Feeds und Trackbacks werden nicht mit den Buttons versorgt. Danke für den Hinweis an [Chris](http://campino2k.de)</a>.
+* **Fix:** RSS-Feeds und Trackbacks werden nicht mit den Buttons versorgt. Danke für den Hinweis an [Chris](http://campino2k.de).
 
 = 0.20 =
 * *27. November 2011*
