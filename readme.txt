@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -67,6 +67,10 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 1.2.1 =
+* *14. August 2012*
+* **Fix:** Dauerhafte Aktivierung funktioniert wieder.
+
 = 1.2 =
 * *13. August 2012*
 * **Neu:** Dummybilder zu einem CSS-Sprite zusammengefasst.
@@ -74,7 +78,7 @@ Nutze dafür einfach dein Dashboard
 * **Fix:** Einstellungsseite - Dropdown für Facebookbutton zeigt wieder die richtige Auswahl an. (Like/Recommend)
 * CSS für Sprite angepasst
 * Deutsche Spachdatei angepasst
-* Plugin mit jQuery 1.8 getestet. Ist ja am 09. August veröffentlicht worden und ich wette einige werden es wohl nutzen wollen.
+* Plugin mit jQuery 1.8 getestet. *Ist ja am 09. August veröffentlicht worden und ich wette einige werden es wohl nutzen wollen.*
 
 = 1.1 =
 * *07. August 2012*
@@ -419,7 +423,7 @@ Nicht nur auf der Startseite. Auf jeder Seite auf der mehrere Artikel angezeigt 
 Pinterest ist kein Social Network in dem Sinne wie es Facebook oder Google+ sind. Es ist eher ein Dienst um Bilder zu teilen, also zielt Pinterest eher auf die Designer und Grafiker unter uns (oder so ähnlich). Das bedeutet für das Plugin, keine Bilder im Artikel, kein Pinterest.
 
 = Und wenn ich noch andere Fragen habe? =
-Falls Du noch eine Frage hast, die hier nicht auftaucht dann stell diese unter [http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/](http://blog.ppfeufer.de/wordpress-plugin-2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
+Falls Du noch eine Frage hast, die hier nicht auftaucht dann stell diese unter [http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/](http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
 
 == Upgrade Notice ==
 

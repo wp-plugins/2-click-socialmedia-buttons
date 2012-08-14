@@ -608,44 +608,49 @@
 				});
 
 				// Dienste automatisch einbinden, wenn entsprechendes Cookie vorhanden ist
-				// Facebook
+				// Facebook Like
 				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
-					$('li.twoclick-facebook div.fb_like img', context).click();
+					$('li.twoclick-facebook div.fb_like span.fb_like_dummy', context).click();
+				}
+
+				// Facebook Recommend
+				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
+					$('li.twoclick-facebook div.fb_recommend span.fb_recommend_dummy', context).click();
 				}
 
 				// Twitter
 				if(twitter_on && twitter_perma && cookies.socialSharePrivacy_twitter === 'perma_on') {
-					$('li.twoclick-twitter div.tweet img', context).click();
+					$('li.twoclick-twitter div.tweet span.twitter_dummy', context).click();
 				}
 
 				// Googleplus
 				if(gplus_on && gplus_perma && cookies.socialSharePrivacy_gplus === 'perma_on') {
-					$('li.twoclick-gplus div.gplusone img', context).click();
+					$('li.twoclick-gplus div.gplusone span.gplus_one_dummy', context).click();
 				}
 
 				// Flattr
 				if(flattr_on && flattr_perma && cookies.socialSharePrivacy_flattr === 'perma_on') {
-					$('li.twoclick-flattr div.flattrbtn img', context).click();
+					$('li.twoclick-flattr div.flattrbtn span.flattr_dummy', context).click();
 				}
 
 				// Xing
 				if(xing_on && xing_perma && cookies.socialSharePrivacy_xing === 'perma_on') {
-					$('li.twoclick-xing div.xingbtn img', context).click();
+					$('li.twoclick-xing div.xingbtn span.xing_dummy', context).click();
 				}
 
 				// Pinterest
 				if(pinterest_on && pinterest_perma && cookies.socialSharePrivacy_pinterest === 'perma_on') {
-					$('li.twoclick-pinterest div.pinterestbtn img', context).click();
+					$('li.twoclick-pinterest div.pinterestbtn span.pinterest_dummy', context).click();
 				}
 
 				// t3n
 				if(t3n_on && t3n_perma && cookies.socialSharePrivacy_t3n === 'perma_on') {
-					$('li.twoclick-t3n div.t3nbtn img', context).click();
+					$('li.twoclick-t3n div.t3nbtn span.t3n_dummy', context).click();
 				}
 
 				// LinkedIn
 				if(linkedin_on && linkedin_perma && cookies.socialSharePrivacy_linkedin === 'perma_on') {
-					$('li.twoclick-linkedin div.linkedinbtn img', context).click();
+					$('li.twoclick-linkedin div.linkedinbtn span.linkedin_dummy', context).click();
 				}
 			}
 		});
