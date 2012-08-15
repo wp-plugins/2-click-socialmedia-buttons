@@ -907,7 +907,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					);
 
 					// Campaign Tracking
-					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
 						$array_ButtonData['services']['twitter']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter'])
@@ -926,7 +926,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					);
 
 					// Campaign Tracking
-					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
 						$array_ButtonData['services']['gplus']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus'])
@@ -963,7 +963,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					);
 
 					// Campaign Tracking
-					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
 						$array_ButtonData['services']['xing']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing'])

@@ -328,6 +328,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 			 */
 			if($this->array_TwoclickButtonsOptions == false) {
 				$this->array_TwoclickButtonsOptions = $this->_get_default_options();
+
 				add_option($this->var_sOptionsName, $this->array_TwoclickButtonsOptions, '', 'yes');
 			} // END if($this->array_TwoclickButtonsOptions == false)
 
@@ -547,7 +548,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				'twoclick_buttons_twitter_tweettext' => 'default',
 				'twoclick_buttons_twitter_tweettext_default_as' => 'posttitle-blogtitle',
 				'twoclick_buttons_twitter_hashtags' => true,
-				'twoclick_buttons_pinterest_description' => 'posttitle'
+				'twoclick_buttons_pinterest_description' => 'posttitle',
+				'twoclick_buttons_url_tracking' => false,
+				'twoclick_buttons_opengraph_disable' => false
 			);
 
 			return $array_TwoclickDefaultOptions;
