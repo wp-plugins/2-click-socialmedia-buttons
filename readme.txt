@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
 
@@ -66,6 +66,11 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.2.2 =
+* *15. August 2012*
+* **Fix:** Sollte kein Permalink verwendet werden, wird nun auch wieder der richtige Kurzlink zum Artikel ermittelt.
+* **Neu:** Option unter *Sonstiges* > Kampagnen Verfolgung. Hiermit kann die Verfolgung eines Artikels als Kampagne in den Analytics-Tool wie Piwik und Google Analytics abgeschalten werden. Diese Option war mit dem Update auf 1.2 per default aktiviert, ist nun jedoch schaltbar.
 
 = 1.2.1 =
 * *14. August 2012*
