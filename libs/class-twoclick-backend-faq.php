@@ -68,6 +68,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Faq')) {
 				return ;
 			}
 
+			// Hinweis auf die Donate-Seite :-)
 			if(is_array($array_Faq)) {
 				$array_Faq[] = array(
 					'question' => 'Kann ich dem Entwickler ein kleines Dankeschön zukommen lassen?',

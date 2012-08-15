@@ -494,6 +494,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 					case 'other-settings':
 						// Validating Other Settings
 						$output['twoclick_buttons_postthumbnail'] = esc_url($input['twoclick_buttons_postthumbnail']);
+						$output['twoclick_buttons_url_tracking'] = ($input['twoclick_buttons_url_tracking'] == 1 ? true : false);
 						$output['twoclick_buttons_opengraph_disable'] = ($input['twoclick_buttons_opengraph_disable'] == 1 ? true : false);
 
 						if(!empty($input['twoclick_buttons_custom_css'])) {
@@ -1141,6 +1142,38 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<?php _e('This image is taken for Facebook, Google+ and Pinterest if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for and the pinterest-button will be disabled for this article.', TWOCLICK_TEXTDOMAIN); ?>
 										</p>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Analytics Tracking -->
+			<div class="metabox-holder clearfix">
+				<div id="post-body">
+					<div id="post-body-content">
+						<div class="postbox clearfix">
+							<h3><span><?php _e('Campaign-Tracking <em>(Piwik / Google Analytics)</em>', TWOCLICK_TEXTDOMAIN); ?></span></h3>
+							<div class="inside">
+								<div>
+									<div style="display:inline-block; width:100px; vertical-align:top;">
+										<?php _e('Enable:', TWOCLICK_TEXTDOMAIN); ?>
+									</div>
+									<div style="display:inline-block;;">
+										<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_url_tracking]" id="twoclick_buttons_settings[twoclick_buttons_url_tracking]" />
+									</div>
+								</div>
+
+								<div style="margin-left:100px;">
+									<p>
+										<?php
+										printf(__('With this option enabled, an url-parameter is set to track your article as a campaign for each button. Supported tracking tools are %1$s and %2$s. The following networks support this tracking: Twitter, Google+, Xing', TWOCLICK_TEXTDOMAIN),
+											'<a href="http://piwik.org/">Piwik Analytics</a>',
+											'<a href="http://www.google.com/analytics/">Google Analytics</a>'
+										);
+										?>
+									</p>
 								</div>
 							</div>
 						</div>

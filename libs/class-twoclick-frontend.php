@@ -741,19 +741,58 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					unset($_GET['utm_term']);			// Google Analytics
 					unset($_GET['utm_content']);		// Google Analytics
 					unset($_GET['utm_medium']);			// Google Analytics
+
 					unset($_GET['fb_action_ids']);		// Facebook
 					unset($_GET['fb_action_types']);	// Facebook
 					unset($_GET['fb_source']);			// Facebook
 					unset($_GET['action_object_map']);	// Facebook
 					unset($_GET['action_type_map']);	// Facebook
 					unset($_GET['action_ref_map']);		// Facebook
+					unset($_GET['action_ref_map']);		// Facebook
 
+					/**
+					 * Entferne die $_GET Variablen von WordPress,
+					 * wenn keine eigene Permalinkstruktur verwendet wird.
+					 *
+					 * @since 1.2.2
+					 * @author ppfeufer
+					 */
+					unset($_GET['p']);					// WordPress
+					unset($_GET['page_id']);			// WordPress
+					unset($_GET['paged']);				// WordPress
+
+					// Custom Post Types
+					$array_Arguments = array(
+						'public' => true,
+						'_builtin' => false
+					);
+
+					$var_sOutput = 'names'; // names or objects, note names is the default
+					$var_sOperator = 'and'; // 'and' or 'or'
+					$array_CustomPostTypes = get_post_types($array_Arguments, $var_sOutput, $var_sOperator);
+
+					if(!empty($array_CustomPostTypes)) {
+						foreach((array) $array_CustomPostTypes as $key => $value) {
+							unset($_GET[$value]);
+						}
+					}
+
+					/**
+					 * Baue Link neu zusammen
+					 */
 					if(count($_GET) != 0) {
+						$array_QueryVars = $_GET;
+
 						$var_sGetVars = '?' . http_build_query($_GET);
 						$var_bGetOptionsInLink = true;
 					} else {
 						$var_sGetVars = '';
-						$var_bGetOptionsInLink = false;
+
+						if(!get_option('permalink_structure')) {
+							$var_bGetOptionsInLink = true;
+						} else {
+							$var_bGetOptionsInLink = false;
+						}
 					} // END if(count($_GET) != 0)
 
 					$var_sGetVars = http_build_query($_GET);
@@ -866,6 +905,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter_perm']) ? 'on' : 'off',
 						'language' => $var_sButtonLanguage
 					);
+
+					// Campaign Tracking
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+						$array_ButtonData['services']['twitter']['referrer_track'] = '';
+					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter'])
 
 				/**
@@ -880,6 +924,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 						'txt_info' => $var_sInfotextGoogleplus,
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus_perm']) ? 'on' : 'off'
 					);
+
+					// Campaign Tracking
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+						$array_ButtonData['services']['gplus']['referrer_track'] = '';
+					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus'])
 
 				/**
@@ -912,6 +961,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing_perm']) ? 'on' : 'off',
 						'language' => $var_sButtonLanguage,
 					);
+
+					// Campaign Tracking
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
+						$array_ButtonData['services']['xing']['referrer_track'] = '';
+					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing'])
 
 				/**
@@ -964,7 +1018,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				$array_ButtonData['uri'] = esc_url($var_sPermalink);
 				$array_ButtonData['post_id'] = $var_sPostID;
 				$array_ButtonData['post_title'] = urlencode(' - (' . get_the_title($var_sPostID) . ')');
-				$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
+				if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === true) {
+					$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
+				}
 
 				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
 

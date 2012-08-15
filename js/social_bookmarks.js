@@ -80,7 +80,7 @@
 					'txt_fb_on'			: 'mit Facebook verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Facebook',
-					'referrer_track'	: 'utm_campaign=2-Click+Facebook+Button',
+					'referrer_track'	: '',
 					'language'			: 'de_DE',
 					'action'			: 'recommend'
 				},
@@ -115,7 +115,7 @@
 					'perma_option'		: 'off',
 					'display_name'		: 'Flattr',
 					'the_title'			: '',
-					'referrer_track'	: 'utm_campaign=2-Click+Flattr+Button',
+					'referrer_track'	: '',
 					'the_excerpt'		: ''
 				},
 				'xing' : {
@@ -146,7 +146,7 @@
 					'txt_t3n_on'		: 'mit t3n verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 't3n',
-					'referrer_track'	: 'utm_campaign=2-Click+t3n+Button'
+					'referrer_track'	: ''
 				},
 				'linkedin' : {
 					'status'			: 'off',
@@ -155,7 +155,7 @@
 					'txt_linkedin_on'	: 'mit LinkedIn verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'LinkedIn',
-					'referrer_track'	: 'utm_campaign=2-Click+LinkedIn+Button'
+					'referrer_track'	: ''
 				}
 			},
 			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
@@ -167,7 +167,7 @@
 			'uri'				: getURI,
 			'post_id'			: '',
 			'post_title'		: '',
-			'concat'			: '?'
+			'concat'			: ''
 		};
 
 		var options = $.extend(true, defaults, options);
@@ -201,7 +201,12 @@
 			// Facebook
 			//
 			if(facebook_on) {
-				var fb_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.facebook.referrer_track + options.post_title);
+				var fb_ref_track = '';
+				if(options.services.facebook.referrer_track != '') {
+					fb_ref_track = options.concat + encodeURIComponent(options.services.facebook.referrer_track + options.post_title);
+				}
+
+				var fb_enc_uri = encodeURIComponent(uri);
 				var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.services.facebook.language + '&amp;href=' + fb_enc_uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.services.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
 				// Commented out
 				// Planned
@@ -230,7 +235,6 @@
 			//
 			if(twitter_on) {
 				var text = options.services.twitter.tweet_text;
-
 				if(typeof text === 'function') {
 					text = text();
 				}
@@ -240,10 +244,15 @@
 
 				var reply = '';
 				if(options.services.twitter.reply_to != '') {
-					var reply = '&amp;via=' + options.services.twitter.reply_to;
+					reply = '&amp;via=' + options.services.twitter.reply_to;
 				}
 
-				var twitter_enc_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.twitter.referrer_track + options.post_title);
+				var twitter_ref_track = '';
+				if(options.services.twitter.referrer_track != '') {
+					twitter_ref_track = options.concat + encodeURIComponent(options.services.twitter.referrer_track + options.post_title);
+				}
+
+				var twitter_enc_uri = encodeURIComponent(uri) + twitter_ref_track;
 				var twitter_count_url = encodeURIComponent(uri);
 				var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:115px; height:25px;"></iframe>';
 				var twitter_dummy_btn = '<span class="twitter_dummy twoclick-network">&nbsp;</span>';
@@ -269,8 +278,13 @@
 			// Google+
 			//
 			if(gplus_on) {
+				var gplus_ref_track = '';
+				if(options.services.gplus.referrer_track != '') {
+					gplus_ref_track = decodeURIComponent(options.concat) + options.services.gplus.referrer_track + options.post_title;
+				}
+
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
-				var gplus_uri = uri + decodeURIComponent(options.concat) + options.services.gplus.referrer_track + options.post_title;
+				var gplus_uri = uri + gplus_ref_track;
 
 				// we use the Google+ "asynchronous" code, standard code is flaky if inserted into dom after load
 				var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
@@ -297,8 +311,13 @@
 			// Flattr
 			//
 			if(flattr_on) {
+				var flattr_ref_track = '';
+				if(options.services.flattr.referrer_track != '') {
+					flattr_ref_track = options.concat + encodeURIComponent(options.services.flattr.referrer_track + options.post_title);
+				}
+
 				var flattr_title = options.services.flattr.the_title;
-				var flattr_uri = encodeURIComponent(uri) + options.concat + encodeURIComponent(options.services.flattr.referrer_track + options.post_title);
+				var flattr_uri = encodeURIComponent(uri);
 				var flattr_excerpt = options.services.flattr.the_excerpt;
 				var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
 				var flattr_dummy_btn = '<span class="flattr_dummy twoclick-network">&nbsp;</span>';
@@ -324,8 +343,13 @@
 			// Xing
 			//
 			if(xing_on) {
+				var xing_ref_track = '';
+				if(options.services.xing.referrer_track != '') {
+					xing_ref_track = decodeURIComponent(options.concat) + options.services.xing.referrer_track + decodeURIComponent(options.post_title);
+				}
+
 				var xing_lingua = options.services.xing.language;
-				var xing_uri = uri + decodeURIComponent(options.concat) + options.services.xing.referrer_track + decodeURIComponent(options.post_title);
+				var xing_uri = uri + xing_ref_track;
 
 				var xing_code = '<script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script><script>;(function(d, s) {var x = d.createElement(s),s = d.getElementsByTagName(s)[0];x.src =\'https://www.xing-share.com/js/external/share.js\';s.parentNode.insertBefore(x, s);})(document, \'script\');</script>';
 				var xing_dummy_btn = '<span class="xing_dummy twoclick-network">&nbsp;</span>';
@@ -351,7 +375,7 @@
 			// Pinterest
 			//
 			if(pinterest_on) {
-				var pinterest_uri = uri + options.services.pinterest.referrer_track;
+				var pinterest_uri = uri;
 				var pinterest_excerpt = encodeURIComponent(options.services.pinterest.the_excerpt);
 				var pinterest_media = options.services.pinterest.media;
 
@@ -379,7 +403,7 @@
 			// t3n
 			//
 			if(t3n_on) {
-				var t3n_uri = uri + decodeURIComponent(options.concat) + options.services.t3n.referrer_track + decodeURIComponent(options.post_title);
+				var t3n_uri = uri;
 
 				var t3n_code = '<div class="t3nAggregator" data-url="' + t3n_uri + '"></div><script type="text/javascript">(function() {var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;po.src = "http://t3n.de/aggregator/ebutton_async";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);})();</script>';
 				var t3n_dummy_btn = '<span class="t3n_dummy twoclick-network">&nbsp;</span>';
@@ -405,7 +429,7 @@
 			// linkedin
 			//
 			if(linkedin_on) {
-				var linkedin_uri = uri + decodeURIComponent(options.concat) + options.services.linkedin.referrer_track + options.post_title;
+				var linkedin_uri = uri;
 
 				var linkedin_code = '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="' + linkedin_uri + '" data-counter="right"></script>';
 				var linkedin_dummy_btn = '<span class="linkedin_dummy twoclick-network">&nbsp;</span>';
@@ -608,14 +632,9 @@
 				});
 
 				// Dienste automatisch einbinden, wenn entsprechendes Cookie vorhanden ist
-				// Facebook Like
+				// Facebook
 				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
-					$('li.twoclick-facebook div.fb_like span.fb_like_dummy', context).click();
-				}
-
-				// Facebook Recommend
-				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
-					$('li.twoclick-facebook div.fb_recommend span.fb_recommend_dummy', context).click();
+					$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_dummy', context).click();
 				}
 
 				// Twitter
