@@ -301,14 +301,14 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			echo '<meta property="og:locale" content="' . get_locale() . '"/>' . "\n";
 			echo '<meta property="og:locale:alternate" content="' . get_locale() . '"/>' . "\n";
 			echo '<meta property="og:type" content="article"/>' . "\n";
-			echo '<meta property="og:title" content="' . strip_tags($var_sTitle) . '"/>' . "\n";
+			echo '<meta property="og:title" content="' . apply_filters('twoclick-opengraph-title', strip_tags($var_sTitle)) . '"/>' . "\n";
 			echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '"/>' . "\n";
 
 			if($var_sPostThumbnail) {
 				echo '<meta property="og:image" content="' . esc_url($var_sPostThumbnail) . '"/>' . "\n";
 			} // END if($var_sPostThumbnail)
 
-			echo '<meta property="og:description" content="' . strip_tags($var_sDescription) . '"/>' . "\n";
+			echo '<meta property="og:description" content="' . apply_filters('twoclick-opengraph-description', strip_tags($var_sDescription)) . '"/>' . "\n";
 			echo '<!-- /OpenGraph Tags -->' . "\n\n";
 		} // END private function _get_opengraph_tags()
 
@@ -729,136 +729,83 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 * Link zusammenbauen, auch wenn Optionen übergeben werden.
 				 *
 				 * @since 0.16
+				 * @since 1.3 (modified)
 				 */
-				if(isset($_GET) && count($_GET) != '0') {
-					/**
-					 * Entferne ungewollte $_GET-Variablen
-					 *
-					 * @since 1.2
-					 */
-					unset($_GET['utm_campaign']);		// Google Analytics
-					unset($_GET['utm_source']);			// Google Analytics
-					unset($_GET['utm_term']);			// Google Analytics
-					unset($_GET['utm_content']);		// Google Analytics
-					unset($_GET['utm_medium']);			// Google Analytics
+				if($this->array_TwoclickButtonsOptions['twoclick_buttons_permalink_with_get'] === true) {
+					if(isset($_GET) && count($_GET) != '0') {
+						/**
+						 * Entferne ungewollte $_GET-Variablen
+						 *
+						 * @since 1.2
+						 */
+						unset($_GET['utm_campaign']);		// Google Analytics
+						unset($_GET['utm_source']);			// Google Analytics
+						unset($_GET['utm_term']);			// Google Analytics
+						unset($_GET['utm_content']);		// Google Analytics
+						unset($_GET['utm_medium']);			// Google Analytics
 
-					unset($_GET['fb_action_ids']);		// Facebook
-					unset($_GET['fb_action_types']);	// Facebook
-					unset($_GET['fb_source']);			// Facebook
-					unset($_GET['action_object_map']);	// Facebook
-					unset($_GET['action_type_map']);	// Facebook
-					unset($_GET['action_ref_map']);		// Facebook
-					unset($_GET['action_ref_map']);		// Facebook
+						unset($_GET['fb_action_ids']);		// Facebook
+						unset($_GET['fb_action_types']);	// Facebook
+						unset($_GET['fb_source']);			// Facebook
+						unset($_GET['action_object_map']);	// Facebook
+						unset($_GET['action_type_map']);	// Facebook
+						unset($_GET['action_ref_map']);		// Facebook
+						unset($_GET['action_ref_map']);		// Facebook
 
-					/**
-					 * Entferne die $_GET Variablen von WordPress,
-					 * wenn keine eigene Permalinkstruktur verwendet wird.
-					 *
-					 * @since 1.2.2
-					 * @author ppfeufer
-					 */
-					unset($_GET['p']);					// WordPress
-					unset($_GET['page_id']);			// WordPress
-					unset($_GET['paged']);				// WordPress
+						/**
+						 * Entferne die $_GET Variablen von WordPress,
+						 * wenn keine eigene Permalinkstruktur verwendet wird.
+						 *
+						 * @since 1.2.2
+						 * @author ppfeufer
+						 */
+						unset($_GET['p']);					// WordPress
+						unset($_GET['page_id']);			// WordPress
+						unset($_GET['paged']);				// WordPress
 
-					// Custom Post Types
-					$array_Arguments = array(
-						'public' => true,
-						'_builtin' => false
-					);
+						// Custom Post Types
+						$array_Arguments = array(
+							'public' => true,
+							'_builtin' => false
+						);
 
-					$var_sOutput = 'names'; // names or objects, note names is the default
-					$var_sOperator = 'and'; // 'and' or 'or'
-					$array_CustomPostTypes = get_post_types($array_Arguments, $var_sOutput, $var_sOperator);
+						$var_sOutput = 'names'; // names or objects, note names is the default
+						$var_sOperator = 'and'; // 'and' or 'or'
+						$array_CustomPostTypes = get_post_types($array_Arguments, $var_sOutput, $var_sOperator);
 
-					if(!empty($array_CustomPostTypes)) {
-						foreach((array) $array_CustomPostTypes as $key => $value) {
-							unset($_GET[$value]);
+						if(!empty($array_CustomPostTypes)) {
+							foreach((array) $array_CustomPostTypes as $key => $value) {
+								unset($_GET[$value]);
+							}
 						}
-					}
 
-					/**
-					 * Baue Link neu zusammen
-					 */
-					if(count($_GET) != 0) {
-						$array_QueryVars = $_GET;
+						/**
+						 * Baue Link neu zusammen
+						 */
+						if(count($_GET) != 0) {
+							$array_QueryVars = $_GET;
 
-						$var_sGetVars = '?' . http_build_query($_GET);
-						$var_bGetOptionsInLink = true;
-					} else {
-						$var_sGetVars = '';
-
-						if(!get_option('permalink_structure')) {
+							$var_sGetVars = '?' . http_build_query($_GET);
 							$var_bGetOptionsInLink = true;
 						} else {
-							$var_bGetOptionsInLink = false;
-						}
-					} // END if(count($_GET) != 0)
+							$var_sGetVars = '';
 
-					$var_sGetVars = http_build_query($_GET);
-					$var_sPermalink = get_permalink($var_sPostID) . $var_sGetVars;
+							if(!get_option('permalink_structure')) {
+								$var_bGetOptionsInLink = true;
+							} else {
+								$var_bGetOptionsInLink = false;
+							}
+						} // END if(count($_GET) != 0)
+
+						$var_sGetVars = http_build_query($_GET);
+						$var_sPermalink = get_permalink($var_sPostID) . $var_sGetVars;
+					} else {
+						$var_sPermalink = get_permalink($var_sPostID);
+						$var_bGetOptionsInLink = false;
+					} // END if(isset($_GET) && count($_GET) != '0')
 				} else {
 					$var_sPermalink = get_permalink($var_sPostID);
-					$var_bGetOptionsInLink = false;
-				} // END if(isset($_GET) && count($_GET) != '0')
-
-				/**
-				 * Infotexte erstellen
-				 */
-				$var_sInfotextFacebook = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_facebook'])) {
-					$var_sInfotextFacebook = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_facebook'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_facebook']))
-
-				$var_sInfotextTwitter = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_twitter'])) {
-					$var_sInfotextTwitter = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_twitter'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_twitter']))
-
-				$var_sInfotextGoogleplus = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_googleplus'])) {
-					$var_sInfotextGoogleplus = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_googleplus'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_googleplus']))
-
-				$var_sInfotextFlattr = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_flattr'])) {
-					$var_sInfotextFlattr = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_flattr'];
-				} // END f(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_flattr']))
-
-				$var_sInfotextXing = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_xing'])) {
-					$var_sInfotextXing = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_xing'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_xing']))
-
-				$var_sInfotextPinterest = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest'])) {
-					$var_sInfotextPinterest = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest']))
-
-				$var_sInfotextT3n = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an t3n senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_t3n'])) {
-					$var_sInfotextT3n = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_t3n'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest']))
-
-				$var_sInfotextLinkedin = '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an LinkedIn senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_linkedin'])) {
-					$var_sInfotextLinkedin = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_linkedin'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest']))
-
-				$var_sInfotextInfobutton = 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr oder Google ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_infobutton'])) {
-					$var_sInfotextInfobutton = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_infobutton'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_infobutton']))
-
-				$var_sInfotextPermaoption = 'Dauerhaft aktivieren und Datenüber-tragung zustimmen:';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_permaoption'])) {
-					$var_sInfotextPermaoption = $this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_permaoption'];
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_permaoption']))
-
-				$var_sInfolink = 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html';
-				if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infolink'])) {
-					$var_sInfolink = trim($this->array_TwoclickButtonsOptions['twoclick_buttons_infolink']);
-				} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_infolink']))
+				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_permalink_with_get'] === true)
 
 				// Dummybilder holen.
 				$array_DummyImages = $this->_get_dummy_images(get_locale());
@@ -883,7 +830,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_facebook']) {
 					$array_ButtonData['services']['facebook'] = array(
 						'status' => 'on',
-						'txt_info' => $var_sInfotextFacebook,
+						'txt_info' => apply_filters('twoclick-facebook-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_facebook']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_facebook_perm']) ? 'on' : 'off',
 						'action' => $this->array_TwoclickButtonsOptions['twoclick_buttons_facebook_action'],
 						'language' => get_locale()
@@ -899,15 +846,15 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter']) {
 					$array_ButtonData['services']['twitter'] = array(
 						'reply_to' => $this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_reply'],
-						'tweet_text' => rawurlencode($this->_get_tweettext()),
+						'tweet_text' => apply_filters('twoclick-twitter-tweettext', rawurlencode($this->_get_tweettext())),
 						'status' => 'on',
-						'txt_info' => $var_sInfotextTwitter,
+						'txt_info' => apply_filters('twoclick-twitter-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_twitter']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter_perm']) ? 'on' : 'off',
 						'language' => $var_sButtonLanguage
 					);
 
 					// Campaign Tracking
-					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
 						$array_ButtonData['services']['twitter']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_twitter'])
@@ -921,12 +868,12 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus']) {
 					$array_ButtonData['services']['gplus'] = array(
 						'status' => 'on',
-						'txt_info' => $var_sInfotextGoogleplus,
+						'txt_info' => apply_filters('twoclick-googleplus-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_googleplus']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus_perm']) ? 'on' : 'off'
 					);
 
 					// Campaign Tracking
-					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
 						$array_ButtonData['services']['gplus']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_googleplus'])
@@ -941,9 +888,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 					$array_ButtonData['services']['flattr'] = array(
 						'uid' => $this->array_TwoclickButtonsOptions['twoclick_buttons_flattr_uid'],
 						'status' => 'on',
-						'the_title' => $var_sTitle,
-						'the_excerpt' => htmlspecialchars($this->var_sPostExcerpt),
-						'txt_info' => $var_sInfotextFlattr,
+						'the_title' => apply_filters('twoclick-flattr-title', $var_sTitle),
+						'the_excerpt' => apply_filters('twoclick-flattr-description', htmlspecialchars($this->var_sPostExcerpt)),
+						'txt_info' => apply_filters('twoclick-flattr-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_flattr']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_flattr_perm']) ? 'on' : 'off'
 					);
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_flattr'])
@@ -957,13 +904,13 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing']) {
 					$array_ButtonData['services']['xing'] = array(
 						'status' => 'on',
-						'txt_info' => $var_sInfotextXing,
+						'txt_info' => apply_filters('twoclick-xing-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_xing']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing_perm']) ? 'on' : 'off',
 						'language' => $var_sButtonLanguage,
 					);
 
 					// Campaign Tracking
-					if((!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'])) || ($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false)) {
+					if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === false) {
 						$array_ButtonData['services']['xing']['referrer_track'] = '';
 					}
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_xing'])
@@ -977,8 +924,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_pinterest'] && $var_sArticleImage) {
 					$array_ButtonData['services']['pinterest'] = array(
 						'status' => 'on',
-						'the_excerpt' => $this->_get_pinterest_description(),
-						'txt_info' => $var_sInfotextPinterest,
+						'the_excerpt' => apply_filters('twoclick-pinterest-description', $this->_get_pinterest_description()),
+						'txt_info' => apply_filters('twoclick-pinterest-infotest', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_pinterest']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_pinterest_perm']) ? 'on' : 'off',
 						'media' => $var_sArticleImage
 					);
@@ -993,7 +940,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_t3n']) {
 					$array_ButtonData['services']['t3n'] = array(
 						'status' => 'on',
-						'txt_info' => $var_sInfotextT3n,
+						'txt_info' => apply_filters('twoclick-t3n-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_t3n']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_t3n_perm']) ? 'on' : 'off'
 					);
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_t3n'])
@@ -1007,14 +954,14 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_linkedin']) {
 					$array_ButtonData['services']['linkedin'] = array(
 						'status' => 'on',
-						'txt_info' => $var_sInfotextLinkedin,
+						'txt_info' => apply_filters('twoclick-linkedin-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_linkedin']))),
 						'perma_option' => ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_linkedin_perm']) ? 'on' : 'off'
 					);
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_linkedin'])
 
-				$array_ButtonData['txt_help'] = $var_sInfotextInfobutton;
-				$array_ButtonData['settings_perma'] = $var_sInfotextPermaoption;
-				$array_ButtonData['info_link'] = $var_sInfolink;
+				$array_ButtonData['txt_help'] = apply_filters('twoclick-infobutton-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_infobutton'])));
+				$array_ButtonData['settings_perma'] = apply_filters('twoclick-permaoption-infotext', stripslashes(wp_filter_kses($this->array_TwoclickButtonsOptions['twoclick_buttons_infotext_permaoption'])));
+				$array_ButtonData['info_link'] = apply_filters('twoclick-infolink', esc_url($this->array_TwoclickButtonsOptions['twoclick_buttons_infolink']));
 				$array_ButtonData['uri'] = esc_url($var_sPermalink);
 				$array_ButtonData['post_id'] = $var_sPostID;
 				$array_ButtonData['post_title'] = urlencode(' - (' . get_the_title($var_sPostID) . ')');

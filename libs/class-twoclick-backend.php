@@ -322,7 +322,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 			);
 
 			/**
-			 * Setting default options on first install
+			 * Setting default options on first install or update existing options
 			 *
 			 * @since 1.0
 			 */
@@ -330,6 +330,16 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				$this->array_TwoclickButtonsOptions = $this->_get_default_options();
 
 				add_option($this->var_sOptionsName, $this->array_TwoclickButtonsOptions, '', 'yes');
+			} else {
+				$array_DefaultOptions = $this->_get_default_options();
+
+				foreach((array) $array_DefaultOptions as $key => $value) {
+					if(!isset($this->array_TwoclickButtonsOptions[$key])) {
+						$this->array_TwoclickButtonsOptions[$key] = $value;
+					}
+				}
+
+				update_option($this->var_sOptionsName, $this->array_TwoclickButtonsOptions);
 			} // END if($this->array_TwoclickButtonsOptions == false)
 
 			/**
@@ -414,16 +424,6 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						break;
 
 					case 'infotext-settings':
-						// Validating Infotext
-// 						$output['twoclick_buttons_infotext_facebook'] = wp_filter_kses($input['twoclick_buttons_infotext_facebook']);
-// 						$output['twoclick_buttons_infotext_twitter'] = wp_filter_kses($input['twoclick_buttons_infotext_twitter']);
-// 						$output['twoclick_buttons_infotext_googleplus'] = wp_filter_kses($input['twoclick_buttons_infotext_googleplus']);
-// 						$output['twoclick_buttons_infotext_flattr'] = wp_filter_kses($input['twoclick_buttons_infotext_flattr']);
-// 						$output['twoclick_buttons_infotext_xing'] = wp_filter_kses($input['twoclick_buttons_infotext_xing']);
-// 						$output['twoclick_buttons_infotext_pinterest'] = wp_filter_kses($input['twoclick_buttons_infotext_pinterest']);
-// 						$output['twoclick_buttons_infotext_t3n'] = wp_filter_kses($input['twoclick_buttons_infotext_t3n']);
-// 						$output['twoclick_buttons_infotext_linkedin'] = wp_filter_kses($input['twoclick_buttons_infotext_linkedin']);
-
 						// Facebook
 						if(!empty($input['twoclick_buttons_infotext_facebook'])) {
 							$output['twoclick_buttons_infotext_facebook'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_facebook']));
@@ -480,15 +480,32 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 							unset($output['twoclick_buttons_infotext_linkedin']);
 						} // END if(!empty($input['twoclick_buttons_infotext_linkedin']))
 
-						$output['twoclick_buttons_infotext_infobutton'] = wp_filter_kses($input['twoclick_buttons_infotext_infobutton']);
-						$output['twoclick_buttons_infotext_permaoption'] = wp_filter_kses($input['twoclick_buttons_infotext_permaoption']);
+						// Infobutton
+						if(!empty($input['twoclick_buttons_infotext_infobutton'])) {
+							$output['twoclick_buttons_infotext_infobutton'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_infobutton']));
+						} else {
+							unset($output['twoclick_buttons_infotext_infobutton']);
+						} // END if(!empty($input['twoclick_buttons_infotext_infobutton']))
 
-						$output['twoclick_buttons_infolink'] = esc_url($input['twoclick_buttons_infolink']);
+						// Permaoption
+						if(!empty($input['twoclick_buttons_infotext_permaoption'])) {
+							$output['twoclick_buttons_infotext_permaoption'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_infotext_permaoption']));
+						} else {
+							unset($output['twoclick_buttons_infotext_permaoption']);
+						} // END if(!empty($input['twoclick_buttons_infotext_permaoption']))
 
+						// Infolink
+						if(!empty($input['twoclick_buttons_infolink'])) {
+							$output['twoclick_buttons_infolink'] = esc_url($input['twoclick_buttons_infolink']);
+						} else {
+							unset($output['twoclick_buttons_infolink']);
+						} // END if(!empty($input['twoclick_buttons_infolink']))
+
+						// Introtext
 						if(!empty($input['twoclick_buttons_introtext'])) {
 							$output['twoclick_buttons_introtext'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_introtext']));
 						} else {
-							unset($output['twoclick_buttons_introtext']);
+							$output['twoclick_buttons_introtext'] = '';
 						} // END if(!empty($input['twoclick_buttons_introtext']))
 						break;
 
@@ -497,6 +514,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						$output['twoclick_buttons_postthumbnail'] = esc_url($input['twoclick_buttons_postthumbnail']);
 						$output['twoclick_buttons_url_tracking'] = ($input['twoclick_buttons_url_tracking'] == 1 ? true : false);
 						$output['twoclick_buttons_opengraph_disable'] = ($input['twoclick_buttons_opengraph_disable'] == 1 ? true : false);
+						$output['twoclick_buttons_permalink_with_get'] = ($input['twoclick_buttons_permalink_with_get'] == 1 ? true : false);
 
 						if(!empty($input['twoclick_buttons_custom_css'])) {
 							$output['twoclick_buttons_custom_css'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_custom_css']));
@@ -543,14 +561,59 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 		 */
 		private function _get_default_options() {
 			$array_TwoclickDefaultOptions = array(
+				'twoclick_buttons_display_facebook' => false,
+				'twoclick_buttons_display_facebook_perm' => false,
+				'twoclick_buttons_display_twitter' => false,
+				'twoclick_buttons_display_twitter_perm' => false,
+				'twoclick_buttons_display_googleplus' => false,
+				'twoclick_buttons_display_googleplus_perm' => false,
+				'twoclick_buttons_display_flattr' => false,
+				'twoclick_buttons_display_flattr_perm' => false,
+				'twoclick_buttons_display_xing' => false,
+				'twoclick_buttons_display_xing_perm' => false,
+				'twoclick_buttons_display_pinterest' => false,
+				'twoclick_buttons_display_pinterest_perm' => false,
+				'twoclick_buttons_display_page' => false,
+				'twoclick_buttons_display_index' => false,
+				'twoclick_buttons_display_year' => false,
+				'twoclick_buttons_display_month' => false,
+				'twoclick_buttons_display_day' => false,
+				'twoclick_buttons_display_search' => false,
+				'twoclick_buttons_display_category' => false,
+				'twoclick_buttons_display_tag' => false,
 				'twoclick_buttons_where' => 'before',
 				'twoclick_buttons_facebook_action' => 'recommend',
+				'twoclick_buttons_twitter_reply' => '',
 				'twoclick_buttons_twitter_tweettext' => 'default',
 				'twoclick_buttons_twitter_tweettext_default_as' => 'posttitle-blogtitle',
+				'twoclick_buttons_twitter_tweettext_owntext' => '',
 				'twoclick_buttons_twitter_hashtags' => true,
+				'twoclick_buttons_flattr_uid' => '',
 				'twoclick_buttons_pinterest_description' => 'posttitle',
+				'twoclick_buttons_infotext_facebook' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_twitter' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_googleplus' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_flattr' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_xing' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_pinterest' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_infobutton' => 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr, Xing, t3n, LinkedIn, Pinterest oder Google eventuell ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.',
+				'twoclick_buttons_infotext_permaoption' => 'Dauerhaft aktivieren und Datenüber-tragung zustimmen:',
+				'twoclick_buttons_infolink' => 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
+				'twoclick_buttons_postthumbnail' => '',
+				'twoclick_buttons_display_t3n' => false,
+				'twoclick_buttons_display_t3n_perm' => false,
+				'twoclick_buttons_display_linkedin' => false,
+				'twoclick_buttons_display_linkedin_perm' => false,
+				'twoclick_buttons_display_sidebar_widget' => false,
+				'twoclick_buttons_opengraph_disable' => false,
+				'twoclick_buttons_display_private' => false,
+				'twoclick_buttons_display_password' => false,
+				'twoclick_buttons_introtext' => '',
+				'twoclick_buttons_infotext_t3n' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an t3n senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
+				'twoclick_buttons_infotext_linkedin' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an LinkedIn senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 				'twoclick_buttons_url_tracking' => false,
-				'twoclick_buttons_opengraph_disable' => false
+				'twoclick_buttons_custom_css' => '',
+				'twoclick_buttons_permalink_with_get' => false
 			);
 
 			return $array_TwoclickDefaultOptions;
@@ -1145,6 +1208,33 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<?php _e('This image is taken for Facebook, Google+ and Pinterest if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for and the pinterest-button will be disabled for this article.', TWOCLICK_TEXTDOMAIN); ?>
 										</p>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Permalinks with $_GET -->
+			<div class="metabox-holder clearfix">
+				<div id="post-body">
+					<div id="post-body-content">
+						<div class="postbox clearfix">
+							<h3><span><?php _e('Linkoptions <em>($_GET Handling > http://yourdomain.com/permalink/<strong>?foo=bar</strong>)</em>', TWOCLICK_TEXTDOMAIN); ?></span></h3>
+							<div class="inside">
+								<div>
+									<div style="display:inline-block; width:100px; vertical-align:top;">
+										<?php _e('Enable:', TWOCLICK_TEXTDOMAIN); ?>
+									</div>
+									<div style="display:inline-block;;">
+										<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_permalink_with_get'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_permalink_with_get]" id="twoclick_buttons_settings[twoclick_buttons_permalink_with_get]" />
+									</div>
+								</div>
+
+								<div style="margin-left:100px;">
+									<p>
+										<?php _e('If you have permalinks with options <em>(?foo=bar for example)</em>, enable this. Note, this can be lead to misbehaviour.', TWOCLICK_TEXTDOMAIN); ?>
+									</p>
 								</div>
 							</div>
 						</div>
