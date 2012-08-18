@@ -515,6 +515,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						$output['twoclick_buttons_url_tracking'] = ($input['twoclick_buttons_url_tracking'] == 1 ? true : false);
 						$output['twoclick_buttons_opengraph_disable'] = ($input['twoclick_buttons_opengraph_disable'] == 1 ? true : false);
 						$output['twoclick_buttons_permalink_with_get'] = ($input['twoclick_buttons_permalink_with_get'] == 1 ? true : false);
+						$output['twoclick_buttons_display_infobox'] = ($input['twoclick_buttons_display_infobox'] == 1 ? true : false);
 
 						if(!empty($input['twoclick_buttons_custom_css'])) {
 							$output['twoclick_buttons_custom_css'] = stripslashes(wp_filter_post_kses($input['twoclick_buttons_custom_css']));
@@ -613,7 +614,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 				'twoclick_buttons_infotext_linkedin' => '2 Klicks für mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie können Ihre Empfehlung an LinkedIn senden. Schon beim Aktivieren werden Daten an Dritte übertragen - siehe <em>i</em>.',
 				'twoclick_buttons_url_tracking' => false,
 				'twoclick_buttons_custom_css' => '',
-				'twoclick_buttons_permalink_with_get' => false
+				'twoclick_buttons_permalink_with_get' => false,
+				'twoclick_buttons_display_infobox' => true
 			);
 
 			return $array_TwoclickDefaultOptions;
@@ -1208,6 +1210,33 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 											<?php _e('This image is taken for Facebook, Google+ and Pinterest if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for and the pinterest-button will be disabled for this article.', TWOCLICK_TEXTDOMAIN); ?>
 										</p>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Infoschaltflaeche -->
+			<div class="metabox-holder clearfix">
+				<div id="post-body">
+					<div id="post-body-content">
+						<div class="postbox clearfix">
+							<h3><span><?php _e('Infobox', TWOCLICK_TEXTDOMAIN); ?></span></h3>
+							<div class="inside">
+								<div>
+									<div style="display:inline-block; width:100px; vertical-align:top;">
+										<?php _e('Enable:', TWOCLICK_TEXTDOMAIN); ?>
+									</div>
+									<div style="display:inline-block;;">
+										<input type="checkbox" value="1" <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_infobox'] == '1') echo 'checked="checked"'; ?> name="twoclick_buttons_settings[twoclick_buttons_display_infobox]" id="twoclick_buttons_settings[twoclick_buttons_display_infobox]" />
+									</div>
+								</div>
+
+								<div style="margin-left:100px;">
+									<p>
+										<?php _e('If you have permalinks with options <em>(?foo=bar for example)</em>, enable this. Note, this can be lead to misbehaviour.', TWOCLICK_TEXTDOMAIN); ?>
+									</p>
 								</div>
 							</div>
 						</div>

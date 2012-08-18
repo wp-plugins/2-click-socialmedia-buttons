@@ -86,6 +86,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Debug')) {
 				echo $this->_get_description();
 				echo $this->_get_wordpress_data();
 				echo $this->_get_active_theme();
+				echo $this->_get_plugin_options();
 				echo $this->_get_installed_plugins();
 // 				echo $this->_get_userdata();
 // 				echo $this->_get_serverdata();
@@ -158,6 +159,41 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Debug')) {
 
 			return $var_sReturn;
 		} // END private function _get_wordpress_data()
+
+		/**
+		 * Pluginoptionen ausgeben.
+		 *
+		 * @since 1.4
+		 * @author ppfeufer
+		 *
+		 * @return string
+		 */
+		private function _get_plugin_options() {
+			ob_start();
+			?>
+			<div class="metabox-holder clearfix">
+				<div id="post-body">
+					<div id="post-body-content">
+						<div class="postbox clearfix">
+							<h3><span><strong><?php _e('Pluginoptions', TWOCLICK_TEXTDOMAIN)?></strong></span></h3>
+							<div class="inside">
+								<?php
+								echo '<pre>';
+								print_r($this->array_htmlspecialchars(get_option('twoclick_buttons_settings')));
+								echo '</pre>';
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+			$var_sReturn = ob_get_contents();
+
+			ob_end_clean();
+
+			return $var_sReturn;
+		} // END private function _get_plugin_options()
 
 		/**
 		 * Informationen über die instalierten Themes sammeln.
@@ -339,6 +375,34 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Debug')) {
 
 			return $var_bReturn;
 		} // END private function _is_active_plugin($var_sPlugin)
+
+		/**
+		 * <[ Helper ]>
+		 * htmlspecialchars() auch für Arrays
+		 *
+		 * @since 1.4
+		 * @author ppfeufer
+		 *
+		 * @param array $array_Input
+		 * @param string $var_sQuoteStyle
+		 * @param string $var_sCharset
+		 * @return array
+		 */
+		private function array_htmlspecialchars($array_Input, $var_sQuoteStyle = ENT_QUOTES, $var_sCharset = 'UTF-8') {
+			if(is_array($array_Input)) {
+				foreach ($array_Input as $key => $value) {
+					if(is_array($value)) {
+						$this->array_htmlspecialchars($array_Input[$key]);
+					} else {
+						$array_Output[$key] = htmlspecialchars($value, $var_sQuoteStyle, $var_sCharset);
+					} // END if(is_array($value))
+				} // END foreach ($array_Input as $key => $value)
+
+				return $array_Output;
+			} // END if(is_array($array_Input))
+
+			return false;
+		} // END private function array_htmlspecialchars($array_Input, $var_sQuoteStyle = ENT_QUOTES, $var_sCharset = 'UTF-8')
 	} // END class Twoclick_Social_Media_Buttons_Backend_Debug
 
 	// Debugklasse starten
