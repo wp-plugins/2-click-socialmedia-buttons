@@ -93,7 +93,7 @@
 					'display_name'		: 'Twitter',
 					'reply_to'			: '',
 					'tweet_text'		: '',
-					'referrer_track'	: 'utm_source=2-click-twitter-button&utm_campaign=',
+					'referrer_track'	: 'utm_medium=twitter&utm_source=2-click-twitter-button&utm_campaign=',
 					'language'			: 'de'
 				},
 				'gplus' : {
@@ -103,7 +103,7 @@
 					'txt_plus_on'		: 'mit Google+ verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Google+',
-					'referrer_track'	: 'utm_source=2-click-googleplus-button&utm_campaign=',
+					'referrer_track'	: 'utm_medium=googleplus&utm_source=2-click-googleplus-button&utm_campaign=',
 					'plusone_lib'		: ''
 				},
 				'flattr' : {
@@ -125,7 +125,7 @@
 					'txt_xing_on'		: 'mit Xing verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Xing',
-					'referrer_track'	: 'utm_source=2-click-xing-button&utm_campaign=',
+					'referrer_track'	: 'utm_medium=xing&utm_source=2-click-xing-button&utm_campaign=',
 					'language'			: 'de'
 				},
 				'pinterest' : {
