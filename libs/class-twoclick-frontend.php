@@ -964,7 +964,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				$array_ButtonData['info_link'] = apply_filters('twoclick-infolink', esc_url($this->array_TwoclickButtonsOptions['twoclick_buttons_infolink']));
 				$array_ButtonData['uri'] = esc_url($var_sPermalink);
 				$array_ButtonData['post_id'] = $var_sPostID;
-				$array_ButtonData['post_title'] = urlencode(' - (' . get_the_title($var_sPostID) . ')');
+				$array_ButtonData['post_title_referrer_track'] = urlencode(get_the_title($var_sPostID));
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === true) {
 					$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
 				}
