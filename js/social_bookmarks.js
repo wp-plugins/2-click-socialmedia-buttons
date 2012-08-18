@@ -167,7 +167,8 @@
 			'uri'						: getURI,
 			'post_id'					: '',
 			'post_title_referrer_track'	: '',
-			'concat'					: ''
+			'concat'					: '',
+			'display_infobox'			: 'on'
 		};
 
 		var options = $.extend(true, defaults, options);
@@ -454,7 +455,16 @@
 			//
 			// Der Info/Settings-Bereich wird eingebunden
 			//
-			context.append('<li class="settings_info"><div class="settings_info_menu off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
+			var settings_class = '';
+			if(options.display_infobox == 'on') {
+				settings_class = 'settings_info_menu';
+			context.append('<li class="settings_info"><div class="' + settings_class + ' off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
+			} else {
+				settings_class = 'settings_menu';
+				context.append('<li class="settings_info"><div class="' + settings_class + ' off perma_option_off"></div></li>');
+			}
+//			context.append('<li class="settings_info"><div class="settings_info_menu off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
+//			context.append(settings_html);
 
 			// Info-Overlays mit leichter Verzoegerung einblenden
 			$('.help_info:not(.info_off)', context).live('mouseenter', function () {
@@ -513,11 +523,12 @@
 				var $container_settings_info = $('li.settings_info', context);
 
 				// Klasse entfernen, die das i-Icon alleine formatiert, da Perma-Optionen eingeblendet werden
-				$container_settings_info.find('.settings_info_menu').removeClass('perma_option_off');
+//				$container_settings_info.find('.settings_info_menu').removeClass('perma_option_off');
+				$container_settings_info.find('.' + settings_class).removeClass('perma_option_off');
 
 				// Perma-Optionen-Icon (.settings) und Formular (noch versteckt) einbinden
-				$container_settings_info.find('.settings_info_menu').append('<span class="settings">Einstellungen</span><form><fieldset><legend>' + options.settings_perma + '</legend></fieldset></form>');
-
+//				$container_settings_info.find('.settings_info_menu').append('<span class="settings">Einstellungen</span><form><fieldset><legend>' + options.settings_perma + '</legend></fieldset></form>');
+				$container_settings_info.find('.' + settings_class).append('<span class="settings">Einstellungen</span><form><fieldset><legend>' + options.settings_perma + '</legend></fieldset></form>');
 
 				// Die Dienste mit <input> und <label>, sowie checked-Status laut Cookie, schreiben
 				var checked = ' checked="checked"';
@@ -607,13 +618,15 @@
 
 				// Einstellungs-Menue bei mouseover ein-/ausblenden
 				$($container_settings_info.find('span.settings'), context).live('mouseenter', function () {
-					var timeout_id = window.setTimeout(function () { $container_settings_info.find('.settings_info_menu').removeClass('off').addClass('on'); }, 500);
+//					var timeout_id = window.setTimeout(function () { $container_settings_info.find('.settings_info_menu').removeClass('off').addClass('on'); }, 500);
+					var timeout_id = window.setTimeout(function () { $container_settings_info.find('.' + settings_class).removeClass('off').addClass('on'); }, 500);
 					$(this).data('timeout_id', timeout_id);
 				});
 				$($container_settings_info, context).live('mouseleave', function () {
 					var timeout_id = $(this).data('timeout_id');
 					window.clearTimeout(timeout_id);
-					$container_settings_info.find('.settings_info_menu').removeClass('on').addClass('off');
+//					$container_settings_info.find('.settings_info_menu').removeClass('on').addClass('off');
+					$container_settings_info.find('.' + settings_class).removeClass('on').addClass('off');
 				});
 
 				// Klick-Interaktion auf <input> um Dienste dauerhaft ein- oder auszuschalten (Cookie wird gesetzt oder geloescht)
