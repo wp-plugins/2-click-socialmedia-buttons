@@ -1515,7 +1515,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 								} // END if($ul)
 
 								$version = trim($line, " =");
-								echo '<p style="margin: 5px 0;"><h4>' . $version . '</h4></p>';
+								if(version_compare($version, preg_replace('/-beta-(.*)/', '', $array_2CSMB_Data['Version']), '>=')) {
+									echo '<p style="margin: 5px 0;"><h4>' . $version . '</h4></p>';
+								} // END if(version_compare($version, preg_replace('/-beta-(.*)/', '', $array_2CSMB_Data['Version']), '>'))
 							} // END if(preg_match('~^\s*\*\s*~', $line))
 						} // END if(version_compare($version, $array_2CSMB_Data['Version'],">"))
 					} // END foreach($changelog as $index => $line)

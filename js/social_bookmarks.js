@@ -93,7 +93,7 @@
 					'display_name'		: 'Twitter',
 					'reply_to'			: '',
 					'tweet_text'		: '',
-					'referrer_track'	: 'utm_campaign=2-Click+Twitter+Button',
+					'referrer_track'	: 'utm_source=2-click-twitter-button&utm_campaign=',
 					'language'			: 'de'
 				},
 				'gplus' : {
@@ -103,7 +103,7 @@
 					'txt_plus_on'		: 'mit Google+ verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Google+',
-					'referrer_track'	: 'utm_campaign=2-Click+Googleplus+Button',
+					'referrer_track'	: 'utm_source=2-click-googleplus-button&utm_campaign=',
 					'plusone_lib'		: ''
 				},
 				'flattr' : {
@@ -125,7 +125,7 @@
 					'txt_xing_on'		: 'mit Xing verbunden',
 					'perma_option'		: 'off',
 					'display_name'		: 'Xing',
-					'referrer_track'	: 'utm_campaign=2-Click+Xing+Button',
+					'referrer_track'	: 'utm_source=2-click-xing-button&utm_campaign=',
 					'language'			: 'de'
 				},
 				'pinterest' : {
@@ -158,16 +158,16 @@
 					'referrer_track'	: ''
 				}
 			},
-			'info_link'			: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
-			'txt_help'  		: 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr oder Google ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.',
-			'settings_perma'	: 'Dauerhaft aktivieren und Datenüber-tragung zustimmen:',
-			'cookie_path'		: '/',
-			'cookie_domain'		: document.location.host,
-			'cookie_expires'	: '365',
-			'uri'				: getURI,
-			'post_id'			: '',
-			'post_title'		: '',
-			'concat'			: ''
+			'info_link'					: 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html',
+			'txt_help'  				: 'Wenn Sie diese Felder durch einen Klick aktivieren, werden Informationen an Facebook, Twitter, Flattr oder Google ins Ausland übertragen und unter Umständen auch dort gespeichert. Näheres erfahren Sie durch einen Klick auf das <em>i</em>.',
+			'settings_perma'			: 'Dauerhaft aktivieren und Datenüber-tragung zustimmen:',
+			'cookie_path'				: '/',
+			'cookie_domain'				: document.location.host,
+			'cookie_expires'			: '365',
+			'uri'						: getURI,
+			'post_id'					: '',
+			'post_title_referrer_track'	: '',
+			'concat'					: ''
 		};
 
 		var options = $.extend(true, defaults, options);
@@ -203,7 +203,7 @@
 			if(facebook_on) {
 				var fb_ref_track = '';
 				if(options.services.facebook.referrer_track != '') {
-					fb_ref_track = options.concat + encodeURIComponent(options.services.facebook.referrer_track + options.post_title);
+					fb_ref_track = options.concat + encodeURIComponent(options.services.facebook.referrer_track + options.post_title_referrer_track);
 				}
 
 				var fb_enc_uri = encodeURIComponent(uri);
@@ -249,7 +249,7 @@
 
 				var twitter_ref_track = '';
 				if(options.services.twitter.referrer_track != '') {
-					twitter_ref_track = options.concat + encodeURIComponent(options.services.twitter.referrer_track + options.post_title);
+					twitter_ref_track = options.concat + encodeURIComponent(options.services.twitter.referrer_track + options.post_title_referrer_track);
 				}
 
 				var twitter_enc_uri = encodeURIComponent(uri) + twitter_ref_track;
@@ -280,7 +280,7 @@
 			if(gplus_on) {
 				var gplus_ref_track = '';
 				if(options.services.gplus.referrer_track != '') {
-					gplus_ref_track = decodeURIComponent(options.concat) + options.services.gplus.referrer_track + options.post_title;
+					gplus_ref_track = decodeURIComponent(options.concat) + options.services.gplus.referrer_track + options.post_title_referrer_track;
 				}
 
 				// fuer G+ wird die URL nicht encoded, da das zu einem Fehler fuehrt
@@ -313,7 +313,7 @@
 			if(flattr_on) {
 				var flattr_ref_track = '';
 				if(options.services.flattr.referrer_track != '') {
-					flattr_ref_track = options.concat + encodeURIComponent(options.services.flattr.referrer_track + options.post_title);
+					flattr_ref_track = options.concat + encodeURIComponent(options.services.flattr.referrer_track + options.post_title_referrer_track);
 				}
 
 				var flattr_title = options.services.flattr.the_title;
@@ -345,7 +345,7 @@
 			if(xing_on) {
 				var xing_ref_track = '';
 				if(options.services.xing.referrer_track != '') {
-					xing_ref_track = decodeURIComponent(options.concat) + options.services.xing.referrer_track + decodeURIComponent(options.post_title);
+					xing_ref_track = decodeURIComponent(options.concat) + options.services.xing.referrer_track + decodeURIComponent(options.post_title_referrer_track);
 				}
 
 				var xing_lingua = options.services.xing.language;
