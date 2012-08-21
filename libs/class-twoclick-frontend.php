@@ -486,7 +486,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			$length_new_tweettext = $array_TweettextData['length_tweettext_maximal'] - $array_TweettextData['length_twitter_name'] - $array_TweettextData['length_tweetlink'] - $array_TweettextData['length_more'];
 
 			if($array_TweettextData['length_tweettext'] > $length_new_tweettext) {
-				$var_sTweettext = substr($var_sTweettext, 0, $length_new_tweettext) . ' [...]';
+				$var_sTweettext = substr($var_sTweettext, 0, $length_new_tweettext);
 			} // END if($array_TweettextData['length_tweettext'] > $length_new_tweettext)
 
 			return $var_sTweettext;
