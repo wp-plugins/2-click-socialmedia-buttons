@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.0.1
 Tested up to: 3.5
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv3
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
@@ -68,10 +68,16 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 1.4 =
+* *21. August 2012*
+* **Neu:** Infobutton per Option schaltbar *(Standard: aktiviert // Zu finden unter "Sonstiges")*
+* utm_source, utm_medium und utm_term zur Kampagnenverfolgung hinzugefügt für bessere Reichweitenanalysen.
+* ** *Bitte nach dem Update die Einstellungen durchgehen und speichern* **
+
 = 1.3 =
 * *16. August 2012*
 * **Fix:** Optionen bereinigt. *(Dies bereinigt hoffentlich auch einige Probleme mit der Kampagnenverfolgung.)*
-* **Neu:** Übernahme von $_GET-Optionen *(http://deineseite.de/permalink/**?foo=bar**)* in den Permalinks wählbar. *(Standart: deaktiviert // Zu finden unter "Sonstiges")*
+* **Neu:** Übernahme von $_GET-Optionen *(http://deineseite.de/permalink/**?foo=bar**)* in den Permalinks wählbar. *(Standard: deaktiviert // Zu finden unter "Sonstiges")*
 
 = 1.2.2 =
 * *15. August 2012*
@@ -432,6 +438,15 @@ Nicht nur auf der Startseite. Auf jeder Seite auf der mehrere Artikel angezeigt 
 
 = Wieso wird der Pinterest-Button auf einigen Seiten angezeigt und auf anderen wieder nicht? =
 Pinterest ist kein Social Network in dem Sinne wie es Facebook oder Google+ sind. Es ist eher ein Dienst um Bilder zu teilen, also zielt Pinterest eher auf die Designer und Grafiker unter uns (oder so ähnlich). Das bedeutet für das Plugin, keine Bilder im Artikel, kein Pinterest.
+
+= Wieso sind die Textfelder für die Infotexte vorbelegt? =
+Dies sind die Standardtexte und können nicht gelöscht werden. Sollen andere Infotexte angezeigt werden, einfach den Standardtext überschreiben. HTML kann hier genutzt werden.
+
+= Meine Buttons werden nicht richtig angezeigt, bzw. der Facebook-Button ist nur abgeschnitten zu sehen. Was kann ich tun? =
+Gehe in die Einstellungen und speichere diese einfach erneut ab. Mit der Version 1.3 wurden die einzelnen Dummybuttons durch ein CSS-Sprite ersetzt. Dafür wurden Änderungen im HTML notwendig, was eventuell zu solchen Anzeigefehlern führen kann. Es kann auch helfen den Cache zu entleeren, sowohl den eines eventuell verwendeten Cacheplugins, als auch den Browsercache.
+
+= Bei mir werden übergaupt keine Dummybuttons angezeigt, woran kann das liegen? =
+Die Dummybuttons sind ein sogenanntes CSS-Sprite. Das heißt, diese werden über das CSS des Plugins eingebunden. Wenn Du zusätzlich ein Plugin nutzt, welches die CSS-Dateien Deiner Seite zusammenfasst *(combine)* zu einer Einzigen, stimmen natürlich die Pfade zu den Grafiken nicht mehr und somit können diese nicht mehr angezeigt werden. Hier hilft es, die CSS-Datei des Plugins von der Zusammenfassung auszunehmen. Auch das Komprimieren * (minify) * der CSS-Dateien kann Probleme versursachen.
 
 = Und wenn ich noch andere Fragen habe? =
 Falls Du noch eine Frage hast, die hier nicht auftaucht dann stell diese unter [http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/](http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.

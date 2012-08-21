@@ -162,7 +162,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend_Faq')) {
 						array_pop($array_Temp);
 
 						$var_sQuestion = trim($array_Temp['0']);
-						$var_sAnswer = trim(preg_replace('/\\((.*?)\\)/', '\\1', $array_Temp['1']));
+// 						$var_sAnswer = trim(preg_replace('/\\((.*?)\\)/', '\\1', $array_Temp['1']));
+						$var_sAnswer = trim($array_Temp['1']);
 
 						unset($array_Temp['0']);
 						unset($array_Temp['1']);
