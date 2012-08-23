@@ -1235,7 +1235,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 
 								<div style="margin-left:100px;">
 									<p>
-										<?php _e('If you have permalinks with options <em>(?foo=bar for example)</em>, enable this. Note, this can be lead to misbehaviour.', TWOCLICK_TEXTDOMAIN); ?>
+										<?php _e('Activate or deactivate the infobutton.', TWOCLICK_TEXTDOMAIN); ?>
 									</p>
 								</div>
 							</div>

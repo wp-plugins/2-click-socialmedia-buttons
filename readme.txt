@@ -68,6 +68,10 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 1.4.1 =
+* *23. August 2012*
+* **Fix:** Beschreibung zum Deaktivieren des Infobuttons angepasst. Da stand noch die Falsche Beschreibung :-)
+
 = 1.4 =
 * *21. August 2012*
 * **Neu:** Infobutton per Option schaltbar *(Standard: aktiviert // Zu finden unter "Sonstiges")*
