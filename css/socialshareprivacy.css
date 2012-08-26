@@ -7,16 +7,12 @@
 .social_share_privacy li .dummy_btn span.twoclick-network {max-width:none; cursor:pointer;}
 .social_share_privacy li .dummy_btn iframe {max-width:none; border:none;}
 
-/* Sprite global
------------------------------------------------ */
-.social_share_privacy li .dummy_btn {background:url(../images/sprite.png) no-repeat top left; height:20px;}
-.social_share_privacy.de_DE li .dummy_btn {background:url(../images/sprite-de_DE.png) no-repeat top left; height:20px;}
 .social_share_privacy li.info_off .dummy_btn {background:none;}
 .social_share_privacy li .dummy_btn span.twoclick-network {display:block;}
-/* .social_share_privacy li.info_off .dummy_btn span.twoclick-network {width;100%} */
 
-/* Sprite Fallback
+/* Sprite Fallback (english)
 ----------------------------------------------- */
+.social_share_privacy li .dummy_btn {background:url(../images/sprite.png) no-repeat top left; height:20px;}
 .social_share_privacy li .fb_like {background-position:0 0;}
 .social_share_privacy li .fb_recommend {background-position:0 -25px;}
 .social_share_privacy li .tweet {background-position:0 -175px;}
@@ -29,15 +25,16 @@
 
 /* Sprite de_DE
 ----------------------------------------------- */
-.social_share_privacy.de_DE li .fb_like {background-position:0 0;}
-.social_share_privacy.de_DE li .fb_recommend {background-position:0 -25px;}
-.social_share_privacy.de_DE li .tweet {background-position:0 -175px;}
-.social_share_privacy.de_DE li .gplusone {background-position:0 -75px;}
-.social_share_privacy.de_DE li .flattrbtn {background-position:0 -50px;}
-.social_share_privacy.de_DE li .xingbtn {background-position:0 -200px;}
-.social_share_privacy.de_DE li .pinterestbtn {background-position:0 -125px;}
-.social_share_privacy.de_DE li .t3nbtn {background-position:0 -150px;}
-.social_share_privacy.de_DE li .linkedinbtn {background-position:0 -100px;}
+.social_share_privacy.sprite-de_DE li .dummy_btn {background:url(../images/sprite-de_DE.png) no-repeat top left; height:20px;}
+.social_share_privacy.sprite-de_DE li .fb_like {background-position:0 0;}
+.social_share_privacy.sprite-de_DE li .fb_recommend {background-position:0 -25px;}
+.social_share_privacy.sprite-de_DE li .tweet {background-position:0 -175px;}
+.social_share_privacy.sprite-de_DE li .gplusone {background-position:0 -75px;}
+.social_share_privacy.sprite-de_DE li .flattrbtn {background-position:0 -50px;}
+.social_share_privacy.sprite-de_DE li .xingbtn {background-position:0 -200px;}
+.social_share_privacy.sprite-de_DE li .pinterestbtn {background-position:0 -125px;}
+.social_share_privacy.sprite-de_DE li .t3nbtn {background-position:0 -150px;}
+.social_share_privacy.sprite-de_DE li .linkedinbtn {background-position:0 -100px;}
 
 /* Facebook
 ----------------------------------------------- */
