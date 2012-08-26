@@ -124,7 +124,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				add_filter('the_content', array(
 					$this,
 					'_get_buttons'
-				), 8);
+				), 12);
 			} // END if(!is_admin())
 		} // END function __construct()
 
@@ -573,6 +573,47 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 
 		/**
 		 * <[ Helper ]>
+		 * Sprache der Facebook-Buttons.
+		 *
+		 * Facebook braucht diese Angleichungen,
+		 * da dort nicht alle Locales untestützt werden.
+		 *
+		 * @since 1.5
+		 * @author ppfeufer
+		 */
+		private function _get_locale() {
+			if(isset($this->array_TwoclickButtonsOptions['twoclick_buttons_language'])) {
+				$var_sLocale = $this->array_TwoclickButtonsOptions['twoclick_buttons_language'];
+			} else {
+				$var_sLocale = get_locale();
+			}
+
+			switch($var_sLocale) {
+				case 'de_DE':		// Deutschland
+				case 'de_AT':		// Österreich
+				case 'de_CH':		// Schweiz
+					$var_sLocaleReturn = 'de_DE';
+					break;
+
+				case 'en_US':		// USA
+				case 'en_CA':		// Kanada
+					$var_sLocaleReturn = 'en_US';
+					break;
+
+				case 'en_GB':		// England
+				case 'en_AU':		// Australien
+				case 'en_IE':		// Irland
+				case 'en_ZA':		// Südarfika
+				case 'en_EN':		// England (Failover für falsche locale)
+					$var_sLocaleReturn = 'en_GB';
+					break;
+			} // END switch(get_locale())
+
+			return $var_sLocaleReturn;
+		} // END private function _get_locale()
+
+		/**
+		 * <[ Helper ]>
 		 * Artikelbild aus dem Artikel extrahieren,
 		 * sofern überhaupt ein Bild vorhanden ist.
 		 *
@@ -758,6 +799,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_permalink_with_get'] === true)
 
 				/**
+				 * <[ Failover ]>
 				 * Sprache der Facebook-Buttons.
 				 *
 				 * Facebook braucht diese Angleichungen,
@@ -765,27 +807,9 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 *
 				 * @since 1.5
 				 * @author ppfeufer
+				 * @uses _get_locale
 				 */
-				switch(get_locale()) {
-					case 'de_DE':		// Deutschland
-					case 'de_AT':		// Österreich
-					case 'de_CH':		// Schweiz
-						$var_sLocale = 'de_DE';
-						break;
-
-					case 'en_US':		// USA
-					case 'en_CA':		// Kanada
-						$var_sLocale = 'en_US';
-						break;
-
-					case 'en_GB':		// England
-					case 'en_AU':		// Australien
-					case 'en_IE':		// Irland
-					case 'en_ZA':		// Südarfika
-					case 'en_EN':		// England (Failover für falsche locale)
-						$var_sLocale = 'en_GB';
-						break;
-				}
+				$var_sLocale = $this->_get_locale();
 
 				/**
 				 * Sprache für Xing und Twitter
