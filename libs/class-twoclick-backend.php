@@ -421,6 +421,12 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						$output['twoclick_buttons_twitter_hashtags'] = ($input['twoclick_buttons_twitter_hashtags'] == 1 ? true : false);
 						$output['twoclick_buttons_flattr_uid'] = wp_filter_nohtml_kses($input['twoclick_buttons_flattr_uid']);
 						$output['twoclick_buttons_pinterest_description'] = wp_filter_nohtml_kses($input['twoclick_buttons_pinterest_description']);
+
+						if(!empty($input['twoclick_buttons_language'])) {
+							$output['twoclick_buttons_language'] = wp_filter_nohtml_kses($input['twoclick_buttons_language']);
+						} else {
+							unset($output['twoclick_buttons_language']);
+						}
 						break;
 
 					case 'infotext-settings':
@@ -966,6 +972,44 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 		 */
 		private function render_button_settings() {
 			?>
+			<!-- Language -->
+			<div class="metabox-holder clearfix">
+				<div id="post-body">
+					<div id="post-body-content">
+						<div class="postbox clearfix">
+							<h3><span><?php _e('Language Settings <em>(Failover)</em>', TWOCLICK_TEXTDOMAIN); ?></span></h3>
+							<div class="inside">
+								<div style="clear:both;">
+									<div>
+										<label for="twoclick_buttons_settings[twoclick_buttons_language]" style="display:inline-block; width:100px;"><?php _e('Lanuage:', TWOCLICK_TEXTDOMAIN); ?></label>
+										<select name="twoclick_buttons_settings[twoclick_buttons_language]">
+											<option <?php if(!isset($this->array_TwoclickButtonsOptions['twoclick_buttons_language'])) echo 'selected="selected"'; ?> value="">&nbsp;</option>
+											<optgroup label="<?php _e('German', TWOCLICK_TEXTDOMAIN); ?>">
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_language'] == 'de_DE') echo 'selected="selected"'; ?> value="de_DE"><?php _e('Germany (de_DE)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_language'] == 'de_AT') echo 'selected="selected"'; ?> value="de_AT"><?php _e('Austria (de_AT)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_language'] == 'de_CH') echo 'selected="selected"'; ?> value="de_CH"><?php _e('Switzerland (de_CH)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option value="">&nbsp;</option>
+											</optgroup>
+											<optgroup label="<?php _e('English', TWOCLICK_TEXTDOMAIN); ?>">
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_language'] == 'en_GB') echo 'selected="selected"'; ?> value="en_GB"><?php _e('United Kingdom (en_GB)', TWOCLICK_TEXTDOMAIN); ?></option>
+												<option <?php if($this->array_TwoclickButtonsOptions['twoclick_buttons_language'] == 'en_US') echo 'selected="selected"'; ?> value="en_US"><?php _e('United States (en_US)', TWOCLICK_TEXTDOMAIN); ?></option>
+											</optgroup>
+										</select>
+									</div>
+									<div style="margin-left:104px;">
+										<p>
+											<?php _e('If you have problems with the active buttons - facebook doens\'t load - try to set the language manually. If anythung works fine, ignore this setting.', TWOCLICK_TEXTDOMAIN); ?>
+										</p>
+										<p>
+											<?php printf(__('Your current language <em>(set in your wp_config.php)</em>: %1$s', TWOCLICK_TEXTDOMAIN), get_locale()); ?>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- Facebook -->
 			<div class="metabox-holder clearfix">
 				<div id="post-body">
