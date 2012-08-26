@@ -1195,21 +1195,19 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 										<span class="description"><?php _e('Links starting with http://', TWOCLICK_TEXTDOMAIN); ?></span>
 									</div>
 								</div>
-								<div>
+								<div style="margin-left:100px;">
 									<?php
 									if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail'])) {
 										?>
-										<div>
-											<p><img src="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail']; ?>" /></p>
-										</div>
+										<p>
+											<img src="<?php echo $this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail']; ?>" />
+										</p>
 										<?php
 									} // END if(!empty($this->array_TwoclickButtonsOptions['twoclick_buttons_postthumbnail'))
 									?>
-									<div>
-										<p>
-											<?php _e('This image is taken for Facebook, Google+ and Pinterest if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for and the pinterest-button will be disabled for this article.', TWOCLICK_TEXTDOMAIN); ?>
-										</p>
-									</div>
+									<p>
+										<?php _e('This image is taken for Facebook, Google+ and Pinterest if there is no postthumbnail or other image inside the article or page. If empty, no image will be used for and the pinterest-button will be disabled for this article.', TWOCLICK_TEXTDOMAIN); ?>
+									</p>
 								</div>
 							</div>
 						</div>
