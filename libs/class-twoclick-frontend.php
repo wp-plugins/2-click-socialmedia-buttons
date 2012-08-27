@@ -205,6 +205,11 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 		 */
 // 		function _enqueue_footer() {
 // 			echo '<div id="fb-root"></div>';
+// 			global $wp_scripts;
+// 			echo $wp_scripts->registered['jquery']->ver;
+// 			echo '<pre>';
+// 			print_r($wp_scripts);
+// 			echo '</pre>';
 // 		}
 
 		/**
@@ -971,7 +976,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === true)
 				$array_ButtonData['display_infobox'] = ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_infobox'] === true) ? on : off;
 
-				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}});' . "\n" . '/* ]]> */';
+				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){var jQueryVersion = $().jquery;if(jQueryVersion < \'' . TWOCLICK_JQUERY_REQUIERED . '\') {return false; } else {if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}}});' . "\n" . '/* ]]> */';
 
 				return $this->_get_intro() . '<div class="twoclick_social_bookmarks_post_' . $var_sPostID . ' social_share_privacy clearfix ' . $this->_get_plugin_version() . ' locale-' . get_locale() . ' sprite-' . $var_sLocale . '"></div><div class="twoclick-js"><script type="text/javascript">' . $var_sJavaScript . '</script></div>';
 			} // END if(!is_admin())
