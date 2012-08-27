@@ -692,6 +692,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 		 * @author ppfeufer
 		 */
 		function options_page() {
+			global $wp_scripts;
+
 			if($this->_is_twoclick_settings_page()) {
 				require_once(plugin_dir_path(__FILE__) . 'class-twoclick-pages-walker.php');
 			} // END if($this->_is_twoclick_settings_page())
@@ -709,10 +711,24 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 			);
 			?>
 			<div class="wrap">
-				<div class="icon32" id="icon-options-general"><br /></div>
+				<div class="icon32" id="icon-options-general">&nbsp;</div>
 				<h2><?php _e('Settings for 2-Click Social Media Buttons', TWOCLICK_TEXTDOMAIN); ?></h2>
 				<?php
-
+				if(version_compare($wp_scripts->registered['jquery']->ver, TWOCLICK_JQUERY_REQUIERED, '<')) {
+					?>
+					<div class='error fade'>
+						<p>
+							<?php
+							printf(__('Your WordPress is running with jQuery Version %1$s. %2$s requires at least %3$s. With your version the plugin doesn\'t work.<br />Please Update.', TWOCLICK_TEXTDOMAIN),
+								$wp_scripts->registered['jquery']->ver,
+								__('2-Click Social Media Buttons', TWOCLICK_TEXTDOMAIN),
+								TWOCLICK_JQUERY_REQUIERED
+							);
+							?>
+						</p>
+					</div>
+					<?php
+				}
 				/**
 				 * Setting the active tab
 				 */

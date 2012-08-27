@@ -7,7 +7,7 @@
 .social_share_privacy li .dummy_btn span.twoclick-network {max-width:none; cursor:pointer;}
 .social_share_privacy li .dummy_btn iframe {max-width:none; border:none;}
 
-.social_share_privacy li.info_off .dummy_btn {background:none;}
+.social_share_privacy li.info_off .dummy_btn {background:none !important;}
 .social_share_privacy li .dummy_btn span.twoclick-network {display:block;}
 
 /* Sprite Fallback (english)
