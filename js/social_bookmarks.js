@@ -471,7 +471,7 @@
 				var settings_class = '';
 				if(options.display_infobox == 'on') {
 					settings_class = 'settings_info_menu';
-				context.append('<li class="settings_info"><div class="' + settings_class + ' off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
+					context.append('<li class="settings_info"><div class="' + settings_class + ' off perma_option_off"><a href="' + options.info_link + '"><span class="help_info icon"><span class="info">' + options.txt_help + '</span></span></a></div></li>');
 				} else {
 					settings_class = 'settings_menu';
 					context.append('<li class="settings_info"><div class="' + settings_class + ' off perma_option_off"></div></li>');
@@ -483,13 +483,14 @@
 //				$('.help_info:not(.info_off)', context).live('mouseenter', function () {
 				$(document).on('mouseenter', '.help_info:not(.info_off)', function () {
 					var $info_wrapper = $(this);
-					var timeout_id = window.setTimeout(function () { $($info_wrapper).addClass('display'); }, 500);
-					$(this).data('timeout_id', timeout_id);
+//					var timeout_id = window.setTimeout(function () { $($info_wrapper).addClass('display'); }, 0);
+					$($info_wrapper).addClass('display');
+//					$(this).data('timeout_id', timeout_id);
 				});
 //				$('.help_info', context).live('mouseleave', function () {
 				$(document).on('mouseleave', '.help_info', function () {
-					var timeout_id = $(this).data('timeout_id');
-					window.clearTimeout(timeout_id);
+//					var timeout_id = $(this).data('timeout_id');
+//					window.clearTimeout(timeout_id);
 
 					if($(this).hasClass('display')) {
 						$(this).removeClass('display');
