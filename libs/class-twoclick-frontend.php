@@ -974,7 +974,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === true) {
 					$array_ButtonData['concat'] = ($var_bGetOptionsInLink === true) ? '%26' : '%3F';
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_url_tracking'] === true)
-				$array_ButtonData['display_infobox'] = ($this->array_TwoclickButtonsOptions['twoclick_buttons_display_infobox'] === true) ? on : off;
+				$array_ButtonData['display_infobox'] = (isset($this->array_TwoclickButtonsOptions['twoclick_buttons_display_infobox']) && $this->array_TwoclickButtonsOptions['twoclick_buttons_display_infobox'] === true) ? 'on' : 'off';
 
 				$var_sJavaScript = '/* <![CDATA[ */' . "\n" . 'jQuery(document).ready(function($){var jQueryVersion = $().jquery;if(jQueryVersion < \'' . TWOCLICK_JQUERY_REQUIERED . '\') {return false; } else {if($(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\')){$(\'.twoclick_social_bookmarks_post_' . $var_sPostID . '\').socialSharePrivacy(' . json_encode($array_ButtonData) . ');}}});' . "\n" . '/* ]]> */';
 
@@ -996,63 +996,63 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 			/**
 			 * Manual Option
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'template') {
+			if(isset($this->array_TwoclickButtonsOptions['twoclick_buttons_where']) && $this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'template') {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_where'] == 'template')
 
 			/**
 			 * Sind wir auf einer CMS-Seite?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_page'] == null && is_page()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_page'] == false && is_page()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_page'] == null && is_page())
 
 			/**
 			 * Sind wir auf der Startseite?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_index'] == null && is_home()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_index'] == false && is_home()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_index'] == null && is_home())
 
 			/**
 			 * Sind wir im Jahresarchiv?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_year'] == null && is_year()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_year'] == false && is_year()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_year'] == null && is_year())
 
 			/**
 			 * Sind wir im Monatsarchiv?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_month'] == null && is_month()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_month'] == false && is_month()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_month'] == null && is_month())
 
 			/**
 			 * Sind wir im Tagesarchiv?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_day'] == null && is_day()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_day'] == false && is_day()) {
 				return $content;
 			}
 
 			/**
 			 * Sind wir auf der Suchseite?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_search'] == null && is_search()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_search'] == false && is_search()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_search'] == null && is_search())
 
 			/**
 			 * Sind wir auf der Tagseite?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_tag'] == null && is_tag()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_tag'] == false && is_tag()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_tag'] == null && is_tag())
 
 			/**
 			 * Sind wir auf der Kategorieseite?
 			 */
-			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_category'] == null && is_category()) {
+			if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_category'] == false && is_category()) {
 				return $content;
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_display_category'] == null && is_category())
 
@@ -1088,7 +1088,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 *
 				 * @since 1.0
 				 */
-				if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && (array_key_exists($post->ID, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'][$post->ID] == true)) {
+				if((isset($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page']) && is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && (array_key_exists($post->ID, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'][$post->ID] == true)) {
 					return $content;
 				} // END if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && (array_key_exists($post->ID, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_page'][$post->ID] == true))
 
@@ -1097,7 +1097,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				 *
 				 * @since 1.1
 				 */
-				if((is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && (array_key_exists($post->post_type, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'][$post->post_type] == true)) {
+				if((isset($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt']) && is_array($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && (array_key_exists($post->post_type, $this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'])) && ($this->array_TwoclickButtonsOptions['twoclick_buttons_exclude_cpt'][$post->post_type] == true)) {
 					return $content;
 				}
 

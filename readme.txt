@@ -75,7 +75,7 @@ Nutze dafür einfach dein Dashboard
 = 1.4 =
 * *21. August 2012*
 * **Neu:** Infobutton per Option schaltbar *(Standard: aktiviert // Zu finden unter "Sonstiges")*
-* utm_source, utm_medium und utm_term zur Kampagnenverfolgung hinzugefügt für bessere Reichweitenanalysen.
+* **Neu:** utm_source, utm_medium und utm_term zur Kampagnenverfolgung hinzugefügt für bessere Reichweitenanalysen.
 * ** *Bitte nach dem Update die Einstellungen durchgehen und speichern* **
 
 = 1.3 =
