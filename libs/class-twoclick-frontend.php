@@ -466,7 +466,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext_default_as'] == 'posttitle-blogtitle')
 			} // END if($this->array_TwoclickButtonsOptions['twoclick_buttons_twitter_tweettext'] == 'own')
 
-			return $this->_shorten_tweettext(html_entity_decode($var_sTweettext, ENT_QUOTES, get_bloginfo('charset')));
+			return $this->_shorten_tweettext(html_entity_decode(strip_tags($var_sTweettext), ENT_QUOTES, get_bloginfo('charset')));
 		} // END private function _get_tweettext()
 
 		/**
@@ -693,7 +693,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Frontend')) {
 				} // END if(!empty($var_sPostID))
 
 				// Some needed variables
-				$var_sTitle = rawurlencode(get_the_title($var_sPostID));
+				$var_sTitle = rawurlencode(strip_tags(get_the_title($var_sPostID)));
 				$var_sTweettext = rawurlencode($this->_get_tweettext());
 				$var_sArticleImage = $this->_get_article_image();
 				$array_ButtonData = array();
