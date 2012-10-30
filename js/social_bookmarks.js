@@ -219,9 +219,10 @@
 //					var fb_code = '<div class="fb-like" data-href="' + fb_enc_uri + '" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-action="' + options.services.facebook.action + '"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/' + options.services.facebook.language + '/all.js";fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>';
 					var fb_dummy_btn = '<span class="fb_' + options.services.facebook.action + '_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-facebook help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_' + options.services.facebook.action + ' dummy_btn">' + fb_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-facebook"><div class="twoclick-button-container help_info"><span class="info">' + options.services.facebook.txt_info + '</span><span class="switch off">' + options.services.facebook.txt_fb_off + '</span><div class="fb_' + options.services.facebook.action + ' dummy_btn">' + fb_dummy_btn + '</div></div></li>');
 
-					var $container_fb = $('li.twoclick-facebook', context);
+					var $container_fb = $('li.twoclick-facebook .twoclick-button-container', context);
+//					var $container_fb = $('.twoclick-button-container', context);
 
 //					$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' span.fb_' + options.services.facebook.action + '_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-facebook span.switch', function () {
@@ -264,9 +265,9 @@
 					var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + twitter_enc_uri + '&amp;counturl=' + twitter_count_url + '&amp;text=' + text + reply + '&amp;count=horizontal&amp;lang=' + options.services.twitter.language + '" style="width:115px; height:25px;"></iframe>';
 					var twitter_dummy_btn = '<span class="twitter_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-twitter help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-twitter"><div class="twoclick-button-container help_info"><span class="info">' + options.services.twitter.txt_info + '</span><span class="switch off">' + options.services.twitter.txt_twitter_off + '</span><div class="tweet dummy_btn">' + twitter_dummy_btn + '</div></div></li>');
 
-					var $container_tw = $('li.twoclick-twitter', context);
+					var $container_tw = $('li.twoclick-twitter .twoclick-button-container', context);
 
 //					$('li.twoclick-twitter div.tweet span.twitter_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-twitter span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-twitter span.twitter_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-twitter span.switch', function () {
@@ -298,9 +299,9 @@
 					var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + gplus_uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.services.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
 					var gplus_dummy_btn = '<span class="gplus_one_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-gplus help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-gplus"><div class="twoclick-button-container help_info"><span class="info">' + options.services.gplus.txt_info + '</span><span class="switch off">' + options.services.gplus.txt_gplus_off + '</span><div class="gplusone dummy_btn">' + gplus_dummy_btn + '</div></div></li>');
 
-					var $container_gplus = $('li.twoclick-gplus', context);
+					var $container_gplus = $('li.twoclick-gplus .twoclick-button-container', context);
 
 //					$('li.twoclick-gplus div.gplusone span.gplus_one_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-gplus span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-gplus span.gplus_one_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-gplus span.switch', function () {
@@ -331,9 +332,9 @@
 					var flattr_code = '<iframe src="http://api.flattr.com/button/view/?uid=' + options.services.flattr.uid + '&amp;url=' + flattr_uri + '&amp;title=' + flattr_title + '&amp;description=' + flattr_excerpt + '&amp;category=text&amp;language=de_DE&amp;button=compact" style="width:110px; height:22px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>';
 					var flattr_dummy_btn = '<span class="flattr_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-flattr help_info"><span class="info">' + options.services.flattr.txt_info + '</span><span class="switch off">' + options.services.flattr.txt_flattr_off + '</span><div class="flattrbtn dummy_btn">' + flattr_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-flattr"><div class="twoclick-button-container help_info"><span class="info">' + options.services.flattr.txt_info + '</span><span class="switch off">' + options.services.flattr.txt_flattr_off + '</span><div class="flattrbtn dummy_btn">' + flattr_dummy_btn + '</div></div></li>');
 
-					var $container_flattr = $('li.twoclick-flattr', context);
+					var $container_flattr = $('li.twoclick-flattr .twoclick-button-container', context);
 
 //					$('li.twoclick-flattr div.flattrbtn span.flattr_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-flattr span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-flattr span.flattr_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-flattr span.switch', function () {
@@ -364,9 +365,9 @@
 					var xing_code = '<script type="XING/Share" data-counter="right" data-lang="' + xing_lingua + '" data-url="' + xing_uri + '"></script><script>;(function(d, s) {var x = d.createElement(s),s = d.getElementsByTagName(s)[0];x.src =\'https://www.xing-share.com/js/external/share.js\';s.parentNode.insertBefore(x, s);})(document, \'script\');</script>';
 					var xing_dummy_btn = '<span class="xing_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-xing help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_xing_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-xing"><div class="twoclick-button-container help_info"><span class="info">' + options.services.xing.txt_info + '</span><span class="switch off">' + options.services.xing.txt_xing_off + '</span><div class="xingbtn dummy_btn">' + xing_dummy_btn + '</div></div></li>');
 
-					var $container_xing = $('li.twoclick-xing', context);
+					var $container_xing = $('li.twoclick-xing .twoclick-button-container', context);
 
 //					$('li.twoclick-xing div.xingbtn span.xing_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-xing span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-xing div.xingbtn span.xing_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-xing span.switch', function () {
@@ -393,9 +394,9 @@
 					var pinterest_code = '<a href="http://pinterest.com/pin/create/button/?url=' + pinterest_uri + '&media=' + pinterest_media + '&description=' + pinterest_excerpt + '" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
 					var pinterest_dummy_btn = '<span class="pinterest_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-pinterest help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterestbtn dummy_btn">' + pinterest_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-pinterest"><div class="twoclick-button-container help_info"><span class="info">' + options.services.pinterest.txt_info + '</span><span class="switch off">' + options.services.pinterest.txt_pinterest_off + '</span><div class="pinterestbtn dummy_btn">' + pinterest_dummy_btn + '</div></div></li>');
 
-					var $container_pinterest = $('li.twoclick-pinterest', context);
+					var $container_pinterest = $('li.twoclick-pinterest .twoclick-button-container', context);
 
 //					$('li.twoclick-pinterest div.pinterestbtn span.pinterest_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-pinterest span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-pinterest span.pinterest_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-pinterest span.switch', function () {
@@ -420,9 +421,9 @@
 					var t3n_code = '<div class="t3nAggregator" data-url="' + t3n_uri + '"></div><script type="text/javascript">(function() {var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;po.src = "http://t3n.de/aggregator/ebutton_async";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);})();</script>';
 					var t3n_dummy_btn = '<span class="t3n_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-t3n help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-t3n"><div class="twoclick-button-container help_info"><span class="info">' + options.services.t3n.txt_info + '</span><span class="switch off">' + options.services.t3n.txt_t3n_off + '</span><div class="t3nbtn dummy_btn">' + t3n_dummy_btn + '</div></div></li>');
 
-					var $container_t3n = $('li.twoclick-t3n', context);
+					var $container_t3n = $('li.twoclick-t3n .twoclick-button-container', context);
 
 //					$('li.twoclick-t3n div.t3nbtn span.t3n_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-t3n span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-t3n span.t3n_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-t3n span.switch', function () {
@@ -447,9 +448,9 @@
 					var linkedin_code = '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="' + linkedin_uri + '" data-counter="right"></script>';
 					var linkedin_dummy_btn = '<span class="linkedin_dummy twoclick-network">&nbsp;</span>';
 
-					context.append('<li class="twoclick-linkedin help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></li>');
+					context.append('<li class="twoclick-linkedin"><div class="twoclick-button-container help_info"><span class="info">' + options.services.linkedin.txt_info + '</span><span class="switch off">' + options.services.linkedin.txt_linkedin_off + '</span><div class="linkedinbtn dummy_btn">' + linkedin_dummy_btn + '</div></div></li>');
 
-					var $container_linkedin = $('li.twoclick-linkedin', context);
+					var $container_linkedin = $('li.twoclick-linkedin .twoclick-button-container', context);
 
 //					$('li.twoclick-linkedin div.linkedinbtn span.linkedin_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-linkedin span.switch', context).live('click', function () {
 					$(document).on('click', '.social_share_privacy_area_' + options.post_id + ' li.twoclick-linkedin span.linkedin_dummy, .social_share_privacy_area_' + options.post_id + ' li.twoclick-linkedin span.switch', function () {
