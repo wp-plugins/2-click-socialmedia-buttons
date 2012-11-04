@@ -449,8 +449,8 @@ Dies sind die Standardtexte und können nicht gelöscht werden. Sollen andere In
 = Meine Buttons werden nicht richtig angezeigt, bzw. der Facebook-Button ist nur abgeschnitten zu sehen. Was kann ich tun? =
 Gehe in die Einstellungen und speichere diese einfach erneut ab. Mit der Version 1.3 wurden die einzelnen Dummybuttons durch ein CSS-Sprite ersetzt. Dafür wurden Änderungen im HTML notwendig, was eventuell zu solchen Anzeigefehlern führen kann. Es kann auch helfen den Cache zu entleeren, sowohl den eines eventuell verwendeten Cacheplugins, als auch den Browsercache.
 
-= Bei mir werden übergaupt keine Dummybuttons angezeigt, woran kann das liegen? =
-Die Dummybuttons sind ein sogenanntes CSS-Sprite. Das heißt, diese werden über das CSS des Plugins eingebunden. Wenn Du zusätzlich ein Plugin nutzt, welches die CSS-Dateien Deiner Seite zusammenfasst *(combine)* zu einer Einzigen, stimmen natürlich die Pfade zu den Grafiken nicht mehr und somit können diese nicht mehr angezeigt werden. Hier hilft es, die CSS-Datei des Plugins von der Zusammenfassung auszunehmen. Auch das Komprimieren * (minify) * der CSS-Dateien kann Probleme versursachen.
+= Bei mir werden überhaupt keine Dummybuttons angezeigt, woran kann das liegen? =
+Die Dummybuttons sind ein sogenanntes CSS-Sprite. Das heißt, diese werden über das CSS des Plugins eingebunden. Wenn Du zusätzlich ein Plugin nutzt, welches die CSS-Dateien Deiner Seite zusammenfasst *(combine)* zu einer Einzigen, stimmen natürlich die Pfade zu den Grafiken nicht mehr und somit können diese nicht mehr angezeigt werden. Hier hilft es, die CSS-Datei des Plugins von der Zusammenfassung auszunehmen. Auch das Komprimieren * (minify) * der CSS-Dateien kann Probleme verursachen.
 
 = Und wenn ich noch andere Fragen habe? =
 Falls Du noch eine Frage hast, die hier nicht auftaucht dann stell diese unter [http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/](http://ppfeufer.de/wordpress-plugin/2-click-social-media-buttons/) in den Kommentaren. Aber bitte schau vorher einmal grob durch die Kommentare, ob es dieses Anliegen schon gab.
