@@ -127,15 +127,14 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 		 * @param string $parameter
 		 * @return array
 		 */
-		private function _get_option($parameter = '') {
+		function _get_option($parameter = '') {
 			/**
-			 * Prüfen ob das Formular abgesendet wurde.
-			 * Wenn nicht, übernehme $this->array_TwoclickButtonsOptions,
-			 * ansonsten lade sie neu.
+			 * Prüfen ob das Formular abgesendet wurde oder das Optionsarray leer ist.
+			 * Wenn ja, lade Optionen neu, ansonsten übernehme das Array.
 			 */
-			if(isset($_REQUEST['settings-updated']) && ($_REQUEST['settings-updated'] == true)) {
+			if((isset($_REQUEST['settings-updated']) && ($_REQUEST['settings-updated'] == true)) || (empty($this->array_TwoclickButtonsOptions))) {
 				$this->array_TwoclickButtonsOptions = get_option($this->var_sOptionsName);
-			} // END if(isset($_REQUEST['settings-updated']) && ($_REQUEST['settings-updated'] == true))
+			} // END if((isset($_REQUEST['settings-updated']) && ($_REQUEST['settings-updated'] == true)) || (empty($this->array_TwoclickButtonsOptions)))
 
 			if($parameter == '') {
 				return $this->array_TwoclickButtonsOptions;
@@ -207,7 +206,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 		 *
 		 * @return boolean
 		 */
-		private function _is_twoclick_settings_page() {
+		function _is_twoclick_settings_page() {
 			if($this->_get_screen()->id == $this->var_SettingsPageScreenID) {
 				return true;
 			} else {
@@ -761,7 +760,8 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 						<form method="post" action="options.php">
 							<?php
 							settings_fields($this->var_sOptionsGroup);
-							$options = get_option('twoclick_buttons_settings');
+// 							$options = get_option('twoclick_buttons_settings');
+							$options = $this->_get_option();
 							?>
 							<input type="hidden" value="<?php echo $this->var_sActiveTab; ?>" name="twoclick_buttons_settings[twoclick_buttons_settings_section]" id="twoclick_buttons_settings[twoclick_buttons_settings_section]" />
 							<div id="twoclick-options-tabs" class="clearfix">
@@ -808,8 +808,22 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									'id' => 'twoclick_buttons_settings[twoclick_buttons_settings_submit]'
 								));
 
+								/**
+								 * CSS des Reset-Buttons
+								 *
+								 * Mit WordPress 3.5 wird die secondary-Class im CSS nicht mehr richtig erkannt,
+								 * also muss hier ein Workaround her.
+								 *
+								 * @since 1.5
+								 * @author ppfeufer
+								 */
+								$var_sResetCssClasses = 'delete';
+								if(version_compare($GLOBALS['wp_version'], '3.5-alpha', '>=')) {
+									$var_sResetCssClasses = 'secondary delete twoclick-reset-options';
+								}
+
 								// Zurücksetzen
-								submit_button(__('Reset Options', TWOCLICK_TEXTDOMAIN), 'delete', 'twoclick_buttons_settings[twoclick_buttons_settings_reset]', false, array(
+								submit_button(__('Reset Options', TWOCLICK_TEXTDOMAIN), $var_sResetCssClasses, 'twoclick_buttons_settings[twoclick_buttons_settings_reset]', false, array(
 									'id' => 'twoclick_buttons_settings[twoclick_buttons_settings_reset]',
 									'onclick' => 'return confirm(' . __('&quot;Do you really want to reset your configuration?&quot;', TWOCLICK_TEXTDOMAIN) . ');'
 	 							));
@@ -1021,7 +1035,7 @@ if(!class_exists('Twoclick_Social_Media_Buttons_Backend')) {
 									</div>
 									<div style="margin-left:104px;">
 										<p>
-											<?php _e('If you have problems with the active buttons - facebook doens\'t load - try to set the language manually. If anythung works fine, ignore this setting.', TWOCLICK_TEXTDOMAIN); ?>
+											<?php _e('If you have problems with the active buttons - facebook doens\'t load - try to set the language manually. If anything works fine, ignore this setting.', TWOCLICK_TEXTDOMAIN); ?>
 										</p>
 										<p>
 											<?php printf(__('Your current language <em>(set in your wp_config.php)</em>: %1$s', TWOCLICK_TEXTDOMAIN), get_locale()); ?>
