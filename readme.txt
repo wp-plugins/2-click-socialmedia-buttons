@@ -2,9 +2,9 @@
 Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
-Requires at least: 3.0.1
+Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 1.4.1
+Stable tag: 1.5
 License: GPLv3
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
@@ -67,6 +67,20 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.5 =
+* *02. Januar 2013*
+* **Fix:** Failover für falsche Linguacodes *(Beispiel: en_EN => en_GB)*
+* **Fix:** CSS - Hintergrundbilder werden nun bei aktivierten buttons nicht mehr angezeigt.
+* **Fix:** CSS - Workaround für die Buttons im Backend eingefügt. (WordPress > 3.5)
+* **Fix:** CSS - Infoboxen werden nur noch angezeigt, wenn man wirklich über dem Dummybutton oder dem Schalter ist.
+* **Fix:** Meldungen zu "undefined index" im aktivierten Debugmodus im Backend behoben.
+* **Fix:** Sämtliches HTML aus den Überschriften herausgefiltert. Es scheint einige zu geben die meinen da muss unbedingt HTML mit rein, was zu Problemem führen kann.
+* **Neu:** Falls der Failover nicht greit, kann die Sprache der Buttons auch in den Einstellungen nun geändert werden. (Zu finden unter "Buttons")
+* **Neu:** HTTPS für externe JavaScripte und Dienste.
+* **Change:** Priorität des Filters `the_content` auf 12 geändert, so dass dieser später abgefeuert wird und sich nicht mit den Standardprios (10) streitet.
+* **Change:** Mindestvoraussetzung auf **WordPress 3.4** geändert. Bei der Überarbeitung des JavaScriptes habe ich einige veraltete Methoden entfernt und durch ihre aktuellen Pendants ersetzt.
+* ** *Bitte nur updaten, wenn ihr mindestens WordPress 3.4 und jQuery 1.7 nutzt!* **
 
 = 1.4.1 =
 * *23. August 2012*
