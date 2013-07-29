@@ -3,7 +3,7 @@ Contributors: ppfeufer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DC2AEJD2J66RE
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.4
-Tested up to: 3.5
+Tested up to: 3.6
 Stable tag: 1.5
 License: GPLv3
 
@@ -67,6 +67,12 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.6-alpha =
+* *coming soon*
+* CSS Fix: Klassen der Buttons angepasst, so dass es weniger zu Verwirrungen mit anderen Plugins kommen sollte.
+* jQuery fix für jQuery 1.10 (Kommt mit WordPress 3.6).
+* Testlauf für WordPress 3.6.
 
 = 1.5 =
 * *02. Januar 2013*
