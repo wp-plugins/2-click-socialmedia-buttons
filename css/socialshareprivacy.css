@@ -13,28 +13,28 @@
 /* Sprite Fallback (english)
 ----------------------------------------------- */
 .social_share_privacy li .dummy_btn {background:url(../images/sprite.png) no-repeat top left; height:20px;}
-.social_share_privacy li .fb_like {background-position:0 0;}
-.social_share_privacy li .fb_recommend {background-position:0 -25px;}
-.social_share_privacy li .tweet {background-position:0 -175px;}
-.social_share_privacy li .gplusone {background-position:0 -75px;}
-.social_share_privacy li .flattrbtn {background-position:0 -50px;}
-.social_share_privacy li .xingbtn {background-position:0 -200px;}
-.social_share_privacy li .pinterestbtn {background-position:0 -125px;}
-.social_share_privacy li .t3nbtn {background-position:0 -150px;}
-.social_share_privacy li .linkedinbtn {background-position:0 -100px;}
+.social_share_privacy li .fb_like_btn {background-position:0 0;}
+.social_share_privacy li .fb_recommend_btn {background-position:0 -25px;}
+.social_share_privacy li .twitter_btn {background-position:0 -175px;}
+.social_share_privacy li .gplusone_btn {background-position:0 -75px;}
+.social_share_privacy li .flattr_btn {background-position:0 -50px;}
+.social_share_privacy li .xing_btn {background-position:0 -200px;}
+.social_share_privacy li .pinterest_btn {background-position:0 -125px;}
+.social_share_privacy li .t3n_btn {background-position:0 -150px;}
+.social_share_privacy li .linkedin_btn {background-position:0 -100px;}
 
 /* Sprite de_DE
 ----------------------------------------------- */
 .social_share_privacy.sprite-de_DE li .dummy_btn {background:url(../images/sprite-de_DE.png) no-repeat top left; height:20px;}
-.social_share_privacy.sprite-de_DE li .fb_like {background-position:0 0;}
-.social_share_privacy.sprite-de_DE li .fb_recommend {background-position:0 -25px;}
-.social_share_privacy.sprite-de_DE li .tweet {background-position:0 -175px;}
-.social_share_privacy.sprite-de_DE li .gplusone {background-position:0 -75px;}
-.social_share_privacy.sprite-de_DE li .flattrbtn {background-position:0 -50px;}
-.social_share_privacy.sprite-de_DE li .xingbtn {background-position:0 -200px;}
-.social_share_privacy.sprite-de_DE li .pinterestbtn {background-position:0 -125px;}
-.social_share_privacy.sprite-de_DE li .t3nbtn {background-position:0 -150px;}
-.social_share_privacy.sprite-de_DE li .linkedinbtn {background-position:0 -100px;}
+.social_share_privacy.sprite-de_DE li .fb_like_btn {background-position:0 0;}
+.social_share_privacy.sprite-de_DE li .fb_recommend_btn {background-position:0 -25px;}
+.social_share_privacy.sprite-de_DE li .twitter_btn {background-position:0 -175px;}
+.social_share_privacy.sprite-de_DE li .gplusone_btn {background-position:0 -75px;}
+.social_share_privacy.sprite-de_DE li .flattr_btn {background-position:0 -50px;}
+.social_share_privacy.sprite-de_DE li .xing_btn {background-position:0 -200px;}
+.social_share_privacy.sprite-de_DE li .pinterest_btn {background-position:0 -125px;}
+.social_share_privacy.sprite-de_DE li .t3n_btn {background-position:0 -150px;}
+.social_share_privacy.sprite-de_DE li .linkedin_btn {background-position:0 -100px;}
 
 /* Facebook
 ----------------------------------------------- */
@@ -127,14 +127,6 @@
 /* Dummybuttons
 ----------------------------------------------- */
 .dummy_btn img {margin:0 !important; padding:0 !important; border:none !important;}
-
-/* entferne overflow:hidden
-	Falls die Infotexte in irgendeiner Art und Weise
-	unschön abgeschnitten werden, hier die
-	verschiedenen Elemente mit overflow:hidden
-	angeben, damit dieses aufgehoben werden kann.
------------------------------------------------ */
-#element {overflow:visible !important;}
 
 /* Introtext
 ----------------------------------------------- */
