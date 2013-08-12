@@ -662,7 +662,7 @@
 				// Dienste automatisch einbinden, wenn entsprechendes Cookie vorhanden ist
 				// Facebook
 				if(facebook_on && facebook_perma && cookies.socialSharePrivacy_facebook === 'perma_on') {
-					$('li.twoclick-facebook div.fb_' + options.services.facebook.action + ' span.fb_' + options.services.facebook.action + '_dummy', context).click();
+					$('li.twoclick-facebook div.fb_' + options.services.facebook.action + '_btn span.fb_' + options.services.facebook.action + '_dummy', context).click();
 				}
 
 				// Twitter
