@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.4
 Tested up to: 3.6
-Stable tag: 1.6
+Stable tag: 1.6.1
 License: GPLv3
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
@@ -68,9 +68,13 @@ Nutze dafür einfach dein Dashboard
 
 == Changelog ==
 
+= 1.6.1 =
+* *12. August 2013*
+* **Fix:** Permanente Aktivierung des Facebookbuttons geht wieder. [http://wordpress.org/support/topic/facebook-button-perm_on-broken-fix-included](http://wordpress.org/support/topic/facebook-button-perm_on-broken-fix-included)
+
 = 1.6 =
 * *03. August 2013*
-* CSS Fix: Klassen der Buttons angepasst, so dass es weniger zu Verwirrungen mit anderen Plugins kommen sollte.
+* **CSS Fix:** Klassen der Buttons angepasst, so dass es weniger zu Verwirrungen mit anderen Plugins kommen sollte.
 * jQuery fix für jQuery 1.10 (Kommt mit WordPress 3.6).
 * Testlauf für WordPress 3.6.
 
