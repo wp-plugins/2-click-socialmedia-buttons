@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: twitter, facebook, googleplus, button, flattr, social, privacy, xing, pinterest, t3n, linkedin, twoclick
 Requires at least: 3.4
 Tested up to: 3.8-alpha
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv3
 
 Facebook-Like/Empfehlen, Twitter, Flattr, Xing, Pinterest, t3n, LinkedIn und Googleplus dem deutschen Datenschutz entsprechend in WordPress.
@@ -67,6 +67,10 @@ Nutze dafür einfach dein Dashboard
 3. Einstellungsmenü der Buttons.
 
 == Changelog ==
+
+= 1.6.3 =
+* *21. Januar 2014*
+* Altlasten aus PhP4 Zeiten entsorgt.
 
 = 1.6.2 =
 * *02. November 2013*
